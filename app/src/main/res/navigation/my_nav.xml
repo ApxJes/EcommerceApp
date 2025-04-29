@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/onBoardingFragment">
+
+    <fragment
+        android:id="@+id/onBoardingFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.OnBoardingFragment"
+        android:label="fragment_onboarding"
+        tools:layout="@layout/fragment_onboarding" >
+        <action
+            android:id="@+id/action_onBoardingFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_loginWithEmailFragment"
+            app:destination="@id/loginWithEmailFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_SIgnupFragment"
+            app:destination="@id/SIgnupFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginWithEmailFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.LoginWithEmailFragment"
+        android:label="fragment_login_with_email"
+        tools:layout="@layout/fragment_login_with_email" >
+        <action
+            android:id="@+id/action_loginWithEmailFragment_to_forgetPasswordFragment"
+            app:destination="@id/forgetPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/SIgnupFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.SIgnupFragment"
+        android:label="fragment_signup"
+        tools:layout="@layout/fragment_signup" >
+        <action
+            android:id="@+id/action_SIgnupFragment_to_signupWithEmailFragment"
+            app:destination="@id/signupWithEmailFragment" />
+        <action
+            android:id="@+id/action_SIgnupFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupWithEmailFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.SignupWithEmailFragment"
+        android:label="fragment_signup_with_email"
+        tools:layout="@layout/fragment_signup_with_email" >
+        <action
+            android:id="@+id/action_signupWithEmailFragment_to_loginWithEmailFragment"
+            app:destination="@id/loginWithEmailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgetPasswordFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.ForgetPasswordFragment"
+        android:label="fragment_forget_password"
+        tools:layout="@layout/fragment_forget_password" >
+        <action
+            android:id="@+id/action_forgetPasswordFragment_to_loginWithEmailFragment"
+            app:destination="@id/loginWithEmailFragment" />
+    </fragment>
+</navigation>

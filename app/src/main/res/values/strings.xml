@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">EcommerceApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="welcome_message">
+        Your one-stop domination for\nbasic free online shopping
+    </string>
+
+    <string name="forget_password_message">
+
+        Enter your email id for the verification process\n
+        we will send a link for resetting password.
+
+    </string>
+</resources>
