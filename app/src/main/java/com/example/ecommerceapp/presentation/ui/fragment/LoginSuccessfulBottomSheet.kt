@@ -5,16 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import com.example.ecommerceapp.R
-import com.example.ecommerceapp.databinding.FragmentSignupBinding
-import com.google.firebase.auth.FirebaseAuth
+import com.example.ecommerceapp.databinding.FragmentLoginSuccessfulBottomDialogSheetBinding
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
-class SIgnupFragment : Fragment() {
+class LoginSuccessfulBottomSheet: BottomSheetDialogFragment() {
 
-    private var _binding: FragmentSignupBinding? = null
+    private var _binding: FragmentLoginSuccessfulBottomDialogSheetBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -22,16 +20,20 @@ class SIgnupFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentSignupBinding.inflate(inflater, container, false)
+        _binding = FragmentLoginSuccessfulBottomDialogSheetBinding.inflate(
+            inflater,
+            container,
+            false
+        )
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnLoginWithEmail.setOnClickListener {
-            val action = SIgnupFragmentDirections.actionSIgnupFragmentToSignupWithEmailFragment()
-            findNavController().navigate(action)
+        binding.txvLoginSuccessfulMessage.text = "Login Successful"
+        binding.btnDone.setOnClickListener {
+            dismiss()
         }
     }
 

@@ -39,6 +39,11 @@ class SignupWithEmailFragment : Fragment() {
         binding.btnSignUp.setOnClickListener {
             registerUser()
         }
+
+        binding.txvLogin.setOnClickListener {
+            val action = SignupWithEmailFragmentDirections.actionSignupWithEmailFragmentToLoginWithEmailFragment()
+            findNavController().navigate(action)
+        }
     }
 
     private fun registerUser() {
@@ -79,16 +84,7 @@ class SignupWithEmailFragment : Fragment() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 auth.createUserWithEmailAndPassword(email, password).await()
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(
-                        requireContext(),
-                        "Account has been created",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    val action = SignupWithEmailFragmentDirections
-                        .actionSignupWithEmailFragmentToLoginWithEmailFragment()
-                    findNavController().navigate(action)
-                }
+                showSignupSuccessfulBottomDialog()
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(
@@ -99,6 +95,17 @@ class SignupWithEmailFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun showSignupSuccessfulBottomDialog(){
+        val bottomSheet = SignupSuccessfulBottomSheet {
+            val action = SignupWithEmailFragmentDirections.
+            actionSignupWithEmailFragmentToLoginWithEmailFragment()
+
+            findNavController().navigate(action)
+        }
+
+        bottomSheet.show(parentFragmentManager, bottomSheet.tag)
     }
 
 

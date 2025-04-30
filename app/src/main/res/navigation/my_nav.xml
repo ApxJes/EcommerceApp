@@ -23,8 +23,8 @@
             android:id="@+id/action_loginFragment_to_loginWithEmailFragment"
             app:destination="@id/loginWithEmailFragment" />
         <action
-            android:id="@+id/action_loginFragment_to_SIgnupFragment"
-            app:destination="@id/SIgnupFragment" />
+            android:id="@+id/action_loginFragment_to_signupWithEmailFragment"
+            app:destination="@id/signupWithEmailFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginWithEmailFragment"
@@ -34,18 +34,6 @@
         <action
             android:id="@+id/action_loginWithEmailFragment_to_forgetPasswordFragment"
             app:destination="@id/forgetPasswordFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/SIgnupFragment"
-        android:name="com.example.ecommerceapp.presentation.ui.fragment.SIgnupFragment"
-        android:label="fragment_signup"
-        tools:layout="@layout/fragment_signup" >
-        <action
-            android:id="@+id/action_SIgnupFragment_to_signupWithEmailFragment"
-            app:destination="@id/signupWithEmailFragment" />
-        <action
-            android:id="@+id/action_SIgnupFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/signupWithEmailFragment"

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:padding="24dp">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/check_mark"
+        android:layout_gravity="center"
+        android:layout_marginBottom="25dp"/>
+
+    <TextView
+        android:id="@+id/txvLoginSuccessfulMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Login Successful"
+        android:fontFamily="@font/switzer_bold"
+        android:textSize="25sp"
+        android:textColor="#000000"
+        android:gravity="center"
+        android:paddingBottom="16dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnDone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:background="@drawable/button_bg"
+        android:text="Done" />
+</LinearLayout>

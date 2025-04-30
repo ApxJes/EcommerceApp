@@ -102,12 +102,13 @@ class LoginWithEmailFragment : Fragment() {
                 Toast.LENGTH_SHORT
             ).show()
         } else {
-            Toast.makeText(
-                requireContext(),
-                "Successfully LoggedIn",
-                Toast.LENGTH_SHORT
-            ).show()
+            showLoginSuccessfulDialog()
         }
+    }
+
+    private fun showLoginSuccessfulDialog() {
+        val bottomSheet = LoginSuccessfulBottomSheet()
+        bottomSheet.show(parentFragmentManager, bottomSheet.tag)
     }
 
     override fun onDestroyView() {

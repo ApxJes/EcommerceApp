@@ -11,6 +11,9 @@
 
         Enter your email id for the verification process\n
         we will send a link for resetting password.
+    </string>
 
+    <string name="web_clientId">
+        114904318549-n3hn426f045phsmuqu2llvplrr02park.apps.googleusercontent.com
     </string>
 </resources>
