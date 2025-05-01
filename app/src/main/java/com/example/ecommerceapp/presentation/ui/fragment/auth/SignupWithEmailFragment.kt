@@ -1,15 +1,13 @@
-package com.example.ecommerceapp.presentation.ui.fragment
+package com.example.ecommerceapp.presentation.ui.fragment.auth
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.ecommerceapp.R
-import com.example.ecommerceapp.databinding.FragmentLoginWithEmailBinding
-import com.google.android.material.snackbar.Snackbar
+import com.example.ecommerceapp.databinding.FragmentSignupWithEmailBinding
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -19,9 +17,9 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
-class LoginWithEmailFragment : Fragment() {
+class SignupWithEmailFragment : Fragment() {
 
-    private var _binding: FragmentLoginWithEmailBinding? = null
+    private var _binding: FragmentSignupWithEmailBinding? = null
     private val binding get() = _binding!!
     private lateinit var auth: FirebaseAuth
 
@@ -30,11 +28,7 @@ class LoginWithEmailFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentLoginWithEmailBinding.inflate(
-            inflater,
-            container,
-            false
-        )
+        _binding = FragmentSignupWithEmailBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -42,20 +36,20 @@ class LoginWithEmailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         auth = FirebaseAuth.getInstance()
 
-        binding.btnLogin.setOnClickListener {
-            userLogin()
+        binding.btnSignUp.setOnClickListener {
+            registerUser()
         }
 
-        binding.txvForgetPassword.setOnClickListener {
-            val action = LoginWithEmailFragmentDirections.actionLoginWithEmailFragmentToForgetPasswordFragment()
+        binding.txvLogin.setOnClickListener {
+            val action = SignupWithEmailFragmentDirections.actionSignupWithEmailFragmentToLoginWithEmailFragment()
             findNavController().navigate(action)
         }
-
     }
 
-    private fun userLogin() {
+    private fun registerUser() {
         val email = binding.edtEmail.text.toString().trim()
         val password = binding.edtPassword.text.toString().trim()
+        val confirmPassword = binding.edtConfirmPasswrd.text.toString().trim()
 
         if (email.isEmpty()) {
             binding.edtEmail.error = "Email is required!"
@@ -75,12 +69,22 @@ class LoginWithEmailFragment : Fragment() {
             return
         }
 
+        if (confirmPassword.isEmpty()) {
+            binding.edtConfirmPasswrd.error = "Confirm password can't be empty!"
+            binding.edtConfirmPasswrd.requestFocus()
+            return
+        }
+
+        if (password != confirmPassword) {
+            binding.edtConfirmPasswrd.error = "Passwords do not match!"
+            binding.edtConfirmPasswrd.requestFocus()
+            return
+        }
+
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                auth.signInWithEmailAndPassword(email, password).await()
-                withContext(Dispatchers.Main) {
-                    checkLoggedInState()
-                }
+                auth.createUserWithEmailAndPassword(email, password).await()
+                showSignupSuccessfulBottomDialog()
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(
@@ -93,23 +97,17 @@ class LoginWithEmailFragment : Fragment() {
         }
     }
 
+    private fun showSignupSuccessfulBottomDialog(){
+        val bottomSheet = SignupSuccessfulBottomSheet {
+            val action =
+                SignupWithEmailFragmentDirections.actionSignupWithEmailFragmentToLoginWithEmailFragment()
 
-    private fun checkLoggedInState() {
-        if(auth.currentUser == null) {
-            Toast.makeText(
-                requireContext(),
-                "Don't have an account, please SignUp first",
-                Toast.LENGTH_SHORT
-            ).show()
-        } else {
-            showLoginSuccessfulDialog()
+            findNavController().navigate(action)
         }
-    }
 
-    private fun showLoginSuccessfulDialog() {
-        val bottomSheet = LoginSuccessfulBottomSheet()
         bottomSheet.show(parentFragmentManager, bottomSheet.tag)
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

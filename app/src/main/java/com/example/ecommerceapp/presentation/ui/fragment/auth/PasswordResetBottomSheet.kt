@@ -1,18 +1,17 @@
-package com.example.ecommerceapp.presentation.ui.fragment
+package com.example.ecommerceapp.presentation.ui.fragment.auth
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.ecommerceapp.R
-import com.example.ecommerceapp.databinding.FragmentLoginSuccessfulBottomDialogSheetBinding
+import com.example.ecommerceapp.databinding.FragmentPasswordResetBottomSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import dagger.hilt.android.AndroidEntryPoint
 
-class LoginSuccessfulBottomSheet: BottomSheetDialogFragment() {
+class PasswordResetBottomSheet(
+    private val onOkClick: () -> Unit
+) : BottomSheetDialogFragment() {
 
-    private var _binding: FragmentLoginSuccessfulBottomDialogSheetBinding? = null
+    private var _binding: FragmentPasswordResetBottomSheetBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -20,7 +19,7 @@ class LoginSuccessfulBottomSheet: BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentLoginSuccessfulBottomDialogSheetBinding.inflate(
+        _binding = FragmentPasswordResetBottomSheetBinding.inflate(
             inflater,
             container,
             false
@@ -31,9 +30,11 @@ class LoginSuccessfulBottomSheet: BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.txvLoginSuccessfulMessage.text = "Login Successful"
-        binding.btnDone.setOnClickListener {
+        binding.tvMessage.text = "We will send a link to your email for resetting password"
+
+        binding.btnOk.setOnClickListener {
             dismiss()
+            onOkClick()
         }
     }
 

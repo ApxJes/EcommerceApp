@@ -1,19 +1,17 @@
-package com.example.ecommerceapp.presentation.ui.fragment
+package com.example.ecommerceapp.presentation.ui.fragment.auth
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.ecommerceapp.R
-import com.example.ecommerceapp.databinding.FragmentPasswordResetBottomSheetBinding
+import com.example.ecommerceapp.databinding.FragmentSignupSuccessfulBottomSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class PasswordResetBottomSheet(
-    private val onOkClick: () -> Unit
+class SignupSuccessfulBottomSheet(
+    private val onDoneClick: () -> Unit
 ) : BottomSheetDialogFragment() {
 
-    private var _binding: FragmentPasswordResetBottomSheetBinding? = null
+    private var _binding: FragmentSignupSuccessfulBottomSheetBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -21,7 +19,7 @@ class PasswordResetBottomSheet(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentPasswordResetBottomSheetBinding.inflate(
+        _binding = FragmentSignupSuccessfulBottomSheetBinding.inflate(
             inflater,
             container,
             false
@@ -31,12 +29,10 @@ class PasswordResetBottomSheet(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.tvMessage.text = "We will send a link to your email for resetting password"
-
-        binding.btnOk.setOnClickListener {
+        binding.txvSignUpSuccessfulMessage.text = "Signup Successful"
+        binding.btnDone.setOnClickListener {
             dismiss()
-            onOkClick()
+            onDoneClick()
         }
     }
 

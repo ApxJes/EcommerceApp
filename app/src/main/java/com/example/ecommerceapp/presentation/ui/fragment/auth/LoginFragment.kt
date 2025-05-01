@@ -1,4 +1,4 @@
-package com.example.ecommerceapp.presentation.ui.fragment
+package com.example.ecommerceapp.presentation.ui.fragment.auth
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.ecommerceapp.R
-import com.example.ecommerceapp.core.Constants.SIGN_IN_REQUEST_CODE
+import com.example.ecommerceapp.core.Constants
 import com.example.ecommerceapp.databinding.FragmentLoginBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -73,14 +73,14 @@ class LoginFragment : Fragment() {
 
         val signInClient = GoogleSignIn.getClient(requireContext(), option)
         signInClient.signInIntent.also {
-            startActivityForResult(it, SIGN_IN_REQUEST_CODE)
+            startActivityForResult(it, Constants.SIGN_IN_REQUEST_CODE)
         }
     }
 
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == SIGN_IN_REQUEST_CODE) {
+        if (requestCode == Constants.SIGN_IN_REQUEST_CODE) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
 
@@ -102,6 +102,7 @@ class LoginFragment : Fragment() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 auth.signInWithCredential(credentials).await()
+                showLoginSuccessfulBottomSheet()
             } catch (e: Exception) {
                 Toast.makeText(
                     requireContext(),
@@ -110,6 +111,15 @@ class LoginFragment : Fragment() {
                 ).show()
             }
         }
+    }
+
+    private fun showLoginSuccessfulBottomSheet() {
+        val bottomSheet = LoginSuccessfulBottomSheet{
+            val action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
+            findNavController().navigate(action)
+        }
+
+        bottomSheet.show(parentFragmentManager, bottomSheet.tag)
     }
 
     override fun onDestroyView() {

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".presentation.ui.fragment.OnBoardingFragment">
+    tools:context=".presentation.ui.fragment.auth.OnBoardingFragment">
 
     <ImageView
         android:id="@+id/imvGetStart"

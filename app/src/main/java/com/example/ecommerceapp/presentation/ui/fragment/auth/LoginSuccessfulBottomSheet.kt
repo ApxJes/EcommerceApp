@@ -1,19 +1,17 @@
-package com.example.ecommerceapp.presentation.ui.fragment
+package com.example.ecommerceapp.presentation.ui.fragment.auth
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.ecommerceapp.R
-import com.example.ecommerceapp.databinding.FragmentSignupSuccessfulBottomSheetBinding
+import com.example.ecommerceapp.databinding.FragmentLoginSuccessfulBottomDialogSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class SignupSuccessfulBottomSheet(
-    private val onDoneClick: () -> Unit
-) : BottomSheetDialogFragment() {
+class LoginSuccessfulBottomSheet(
+    private val onClick: () -> Unit
+): BottomSheetDialogFragment() {
 
-    private var _binding: FragmentSignupSuccessfulBottomSheetBinding? = null
+    private var _binding: FragmentLoginSuccessfulBottomDialogSheetBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -21,7 +19,7 @@ class SignupSuccessfulBottomSheet(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentSignupSuccessfulBottomSheetBinding.inflate(
+        _binding = FragmentLoginSuccessfulBottomDialogSheetBinding.inflate(
             inflater,
             container,
             false
@@ -31,10 +29,11 @@ class SignupSuccessfulBottomSheet(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.txvSignUpSuccessfulMessage.text = "Signup Successful"
+
+        binding.txvLoginSuccessfulMessage.text = "Login Successful"
         binding.btnDone.setOnClickListener {
             dismiss()
-            onDoneClick()
+            onClick()
         }
     }
 

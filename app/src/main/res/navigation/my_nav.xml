@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/onBoardingFragment"
-        android:name="com.example.ecommerceapp.presentation.ui.fragment.OnBoardingFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.auth.OnBoardingFragment"
         android:label="fragment_onboarding"
         tools:layout="@layout/fragment_onboarding" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.ecommerceapp.presentation.ui.fragment.LoginFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.auth.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -25,19 +25,25 @@
         <action
             android:id="@+id/action_loginFragment_to_signupWithEmailFragment"
             app:destination="@id/signupWithEmailFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginWithEmailFragment"
-        android:name="com.example.ecommerceapp.presentation.ui.fragment.LoginWithEmailFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.auth.LoginWithEmailFragment"
         android:label="fragment_login_with_email"
         tools:layout="@layout/fragment_login_with_email" >
         <action
             android:id="@+id/action_loginWithEmailFragment_to_forgetPasswordFragment"
             app:destination="@id/forgetPasswordFragment" />
+        <action
+            android:id="@+id/action_loginWithEmailFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/signupWithEmailFragment"
-        android:name="com.example.ecommerceapp.presentation.ui.fragment.SignupWithEmailFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.auth.SignupWithEmailFragment"
         android:label="fragment_signup_with_email"
         tools:layout="@layout/fragment_signup_with_email" >
         <action
@@ -46,11 +52,31 @@
     </fragment>
     <fragment
         android:id="@+id/forgetPasswordFragment"
-        android:name="com.example.ecommerceapp.presentation.ui.fragment.ForgetPasswordFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.auth.ForgetPasswordFragment"
         android:label="fragment_forget_password"
         tools:layout="@layout/fragment_forget_password" >
         <action
             android:id="@+id/action_forgetPasswordFragment_to_loginWithEmailFragment"
             app:destination="@id/loginWithEmailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/saveFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.SaveFragment"
+        android:label="fragment_save"
+        tools:layout="@layout/fragment_save" />
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.CartFragment"
+        android:label="fragment_cart"
+        tools:layout="@layout/fragment_cart" />
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.AccountFragment"
+        android:label="fragment_account"
+        tools:layout="@layout/fragment_account" />
 </navigation>
