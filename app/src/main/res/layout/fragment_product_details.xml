@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".presentation.ui.fragment.ProductDetailsFragment">
+
+    <ImageView
+        android:id="@+id/imvBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/back_arrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="85dp"
+        android:fontFamily="@font/switzer_bold"
+        android:text="Product Details"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/imvBack"
+        app:layout_constraintStart_toEndOf="@id/imvBack"
+        app:layout_constraintTop_toTopOf="@id/imvBack" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/imvCardView"
+        android:layout_width="340dp"
+        android:layout_height="230dp"
+        android:layout_marginTop="40dp"
+        app:cardBackgroundColor="@color/whiteBlue2"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imvBack">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imvProductImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/fan" />
+
+            <ImageView
+                android:id="@+id/imvFavorite"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="end|top"
+                android:layout_margin="8dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Save product"
+                android:padding="4dp"
+                android:src="@drawable/favorite" />
+        </FrameLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/txvProductBrand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/supreme_regular"
+        android:maxLines="2"
+        android:text="Brand: Remax"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imvCardView" />
+
+    <TextView
+        android:id="@+id/txvProductName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="2dp"
+        android:fontFamily="@font/supreme_regular"
+        android:text="Remax Air Fan 101"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txvProductBrand" />
+
+    <TextView
+        android:id="@+id/txvProductPrice"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="7dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/switzer_bold"
+        android:maxLines="3"
+        android:text="$20"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txvProductName" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/txvProductPrice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/txvProductPrice"
+        app:layout_constraintTop_toTopOf="@id/txvProductPrice">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="25dp"
+            android:src="@drawable/rating" />
+
+        <TextView
+            android:id="@+id/txvProductRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="7dp"
+            android:fontFamily="@font/worksans_regular"
+            android:text="4"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/txvReview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:fontFamily="@font/switzer_bold"
+            android:text="Review"
+            android:textColor="@color/whiteBlue2" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txvDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/switzer_bold"
+        android:text="Produce Description"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout" />
+
+    <TextView
+        android:id="@+id/txvProduceDescription"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/supreme_regular"
+        android:maxLines="10"
+        android:textColor="@color/black"
+        android:text="Description"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txvDescription" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnAddToCart"
+        android:textAllCaps="false"
+        android:text="Add to Cart"
+        android:textColor="@color/white"
+        android:background="@drawable/button_bg"
+        android:layout_margin="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txvProduceDescription"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

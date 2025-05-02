@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ecommerceapp.databinding.FragmentHomeBinding
 import com.example.ecommerceapp.presentation.adapter.GetProductsAdapter
@@ -44,6 +45,11 @@ class HomeFragment : Fragment() {
         productAdpater = GetProductsAdapter()
         getProducts()
         setUpRecyclerViewForProducts()
+
+        productAdpater.setOnClickListener { product ->
+            val action = HomeFragmentDirections.actionHomeFragmentToProductDetailsFragment(product)
+            findNavController().navigate(action)
+        }
     }
 
     private fun getProducts() {

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/txvReviewerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reviewer Name"
+        android:fontFamily="@font/worksans_regular"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/txvReviewerEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/worksans_regular"
+        android:textColor="@color/black"
+        android:text="(email@example.com)" />
+
+    <TextView
+        android:id="@+id/txvReviewerComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/worksans_regular"
+        android:text="Comment text here"
+        android:textColor="@color/black"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/txvReviewDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="02.05.2025"
+        android:textColor="@color/black"
+        android:fontFamily="@font/switzer_bold"
+        android:layout_gravity="end" />
+</LinearLayout>

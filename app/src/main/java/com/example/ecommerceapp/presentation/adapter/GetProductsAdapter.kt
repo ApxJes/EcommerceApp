@@ -1,5 +1,6 @@
 package com.example.ecommerceapp.presentation.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,6 +43,7 @@ class GetProductsAdapter : RecyclerView.Adapter<GetProductsAdapter.ProductsViewH
         return ProductsViewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n", "DefaultLocale")
     override fun onBindViewHolder(
         holder: ProductsViewHolder,
         position: Int
@@ -54,12 +56,14 @@ class GetProductsAdapter : RecyclerView.Adapter<GetProductsAdapter.ProductsViewH
 
             productName.text = product.title
             productBrand.text = product.brand
-            productPrice.text = product.price.toString()
-            productRating.text =
-                product.reviews?.firstOrNull { it?.rating != null }?.rating?.toString() ?: "0.0"
+            productPrice.text = "$"+ product.price.toString()
+            productRating.text = String.format("%.1f", product.rating)
+
+            itemView.setOnClickListener {
+                onClick?.invoke(product)
+            }
 
         }
-
     }
 
     override fun getItemCount(): Int {
@@ -72,5 +76,11 @@ class GetProductsAdapter : RecyclerView.Adapter<GetProductsAdapter.ProductsViewH
         val productPrice: TextView = itemView.findViewById(R.id.txvProductPrize)
         val productRating: TextView = itemView.findViewById(R.id.txvProductRating)
         val productBrand: TextView = itemView.findViewById(R.id.txvProductBrand)
+    }
+
+    private var onClick: ((Product) -> Unit)? = null
+
+    fun setOnClickListener(listener: (Product) -> Unit) {
+        onClick = listener
     }
 }

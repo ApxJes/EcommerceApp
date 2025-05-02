@@ -67,6 +67,8 @@ data class ProductDto(
             tags = tags,
             thumbnail = thumbnail,
             title = title,
+            warrantyInformation = warrantyInformation,
+            shippingInformation = shippingInformation
         )
     }
 }

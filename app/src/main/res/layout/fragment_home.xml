@@ -299,14 +299,16 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="20dp"
                     android:orientation="horizontal">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="340dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
                         android:elevation="12dp"
-                        android:padding="4dp"
                         app:cardCornerRadius="30dp">
 
                         <ImageView
@@ -336,9 +338,11 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
-                        android:layout_width="340dp"
+                        android:layout_width="370dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
                         android:elevation="12dp"
                         android:padding="4dp"
                         app:cardCornerRadius="30dp">
@@ -363,16 +367,17 @@
                 android:textColor="@color/black"
                 android:fontFamily="@font/switzer_bold"
                 android:textSize="16sp"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"/>
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvHotDeals"
                 android:layout_width="match_parent"
                 android:layout_height="500dp"
-                android:id="@+id/rcvHotDeals"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:layout_marginTop="8dp" />
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp" />
 
         </LinearLayout>
     </ScrollView>
@@ -381,12 +386,12 @@
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
         android:layout_height="90dp"
-        android:background="@drawable/bg_searchbox"
-        app:itemIconTint="@color/purple"
-        app:itemTextColor="@color/purple"
+        app:itemRippleColor="@color/whiteBlue"
+        app:itemIconTint="@color/bottom_nav_icon_color"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/bg_searchbox"
         app:menu="@menu/bottom_menu" />
 
     <ProgressBar

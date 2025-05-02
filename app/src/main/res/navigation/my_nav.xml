@@ -63,7 +63,11 @@
         android:id="@+id/homeFragment"
         android:name="com.example.ecommerceapp.presentation.ui.fragment.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/saveFragment"
         android:name="com.example.ecommerceapp.presentation.ui.fragment.SaveFragment"
@@ -79,4 +83,13 @@
         android:name="com.example.ecommerceapp.presentation.ui.fragment.AccountFragment"
         android:label="fragment_account"
         tools:layout="@layout/fragment_account" />
+    <fragment
+        android:id="@+id/productDetailsFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.ProductDetailsFragment"
+        android:label="fragment_product_details"
+        tools:layout="@layout/fragment_product_details" >
+        <argument
+            android:name="product"
+            app:argType="com.example.ecommerceapp.domain.model.Product" />
+    </fragment>
 </navigation>
