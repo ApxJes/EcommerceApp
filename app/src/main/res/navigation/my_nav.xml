@@ -67,6 +67,9 @@
         <action
             android:id="@+id/action_homeFragment_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_fashionFragment"
+            app:destination="@id/fashionFragment" />
     </fragment>
     <fragment
         android:id="@+id/saveFragment"
@@ -91,5 +94,11 @@
         <argument
             android:name="product"
             app:argType="com.example.ecommerceapp.domain.model.Product" />
+    </fragment>
+    <fragment
+        android:id="@+id/fashionFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.FashionFragment"
+        android:label="fragment_fashion"
+        tools:layout="@layout/fragment_fashion" >
     </fragment>
 </navigation>

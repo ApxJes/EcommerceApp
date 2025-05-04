@@ -100,4 +100,5 @@ dependencies {
     kapt ("com.github.bumptech.glide:compiler:4.16.0")
 
     implementation ("com.google.android.gms:play-services-auth:20.7.0")
+    implementation ("com.github.denzcoskun:ImageSlideshow:0.1.0")
 }

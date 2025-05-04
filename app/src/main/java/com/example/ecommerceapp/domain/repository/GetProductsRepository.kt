@@ -4,4 +4,6 @@ import com.example.ecommerceapp.data.dto.ItemsDto
 
 interface GetProductsRepository {
     suspend fun getProducts(): ItemsDto
+
+    suspend fun getProductsByCategory(category: String): ItemsDto
 }
