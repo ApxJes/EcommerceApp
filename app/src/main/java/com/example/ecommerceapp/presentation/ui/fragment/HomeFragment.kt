@@ -52,7 +52,8 @@ class HomeFragment : Fragment() {
 
         getProducts()
         discountProducts()
-        categories()
+
+        getProductsByCategory()
 
         productAdpater.setOnClickListener { product ->
             val action = HomeFragmentDirections.actionHomeFragmentToProductDetailsFragment(product)
@@ -61,6 +62,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun getProducts() {
+        viewModel.getProducts()
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.state.collectLatest { products ->
@@ -111,15 +113,29 @@ class HomeFragment : Fragment() {
         imageSlider.setImageList(imageList, ScaleTypes.FIT)
     }
 
-    private fun categories() {
-        fashionCategory()
-    }
-
-    private fun fashionCategory() {
+    private fun getProductsByCategory() {
         binding.btnFashion.setOnClickListener {
-            val action = HomeFragmentDirections
-                .actionHomeFragmentToFashionFragment()
+            val action = HomeFragmentDirections.actionHomeFragmentToFashionFragment()
+            findNavController().navigate(action)
+        }
 
+        binding.btnBeauty.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToBeautyFragment()
+            findNavController().navigate(action)
+        }
+
+        binding.btnFurniture.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToFurnitureFragment()
+            findNavController().navigate(action)
+        }
+
+        binding.btnFragrances.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToFragrancesFragment()
+            findNavController().navigate(action)
+        }
+
+        binding.btnGroceries.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToGroceriesFragment()
             findNavController().navigate(action)
         }
     }

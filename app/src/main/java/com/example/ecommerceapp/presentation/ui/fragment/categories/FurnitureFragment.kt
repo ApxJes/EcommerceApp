@@ -1,4 +1,4 @@
-package com.example.ecommerceapp.presentation.ui.fragment
+package com.example.ecommerceapp.presentation.ui.fragment.categories
 
 import android.os.Bundle
 import android.util.Log
@@ -11,21 +11,21 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ecommerceapp.R
 import com.example.ecommerceapp.databinding.FragmentFashionBinding
-import com.example.ecommerceapp.domain.model.Product
+import com.example.ecommerceapp.databinding.FragmentFurnitureBinding
 import com.example.ecommerceapp.presentation.adapter.GetProductsAdapter
 import com.example.ecommerceapp.presentation.viewMdoel.GetProductsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlin.getValue
 
 @AndroidEntryPoint
-class FashionFragment : Fragment() {
+class FurnitureFragment : Fragment() {
 
-    private var _binding: FragmentFashionBinding? = null
+    private var _binding: FragmentFurnitureBinding? = null
     private val binding get() = _binding!!
     private val viewModel: GetProductsViewModel by viewModels()
     private lateinit var fashionAdapter: GetProductsAdapter
@@ -35,7 +35,7 @@ class FashionFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentFashionBinding.inflate(
+        _binding = FragmentFurnitureBinding.inflate(
             inflater,
             container,
             false
@@ -47,11 +47,15 @@ class FashionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         fashionAdapter = GetProductsAdapter()
         setUpRecyclerViewForFashion()
-        observeFashionProducts()
-        viewModel.getProductsByCategory(category = "Fashion")
+        observeFurnitureProducts()
+        viewModel.getProductsByCategory(category = "furniture")
+
+        binding.imvBack.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
     }
 
-    private fun observeFashionProducts() {
+    private fun observeFurnitureProducts() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.state.collectLatest { productState ->
@@ -60,6 +64,9 @@ class FashionFragment : Fragment() {
 
                     fashionAdapter.differ.submitList(productState.products)
                     Log.d("FashionFragment", "Categories: ${productState.products.map { it.category }}")
+
+                    binding.txvEmptyState.visibility =
+                        if(productState.products.isEmpty()) View.VISIBLE else View.GONE
                 }
             }
         }
@@ -80,7 +87,7 @@ class FashionFragment : Fragment() {
     }
 
     private fun setUpRecyclerViewForFashion() {
-        binding.rcvFashion.apply {
+        binding.rcvFurniture.apply {
             adapter = fashionAdapter
             layoutManager = GridLayoutManager(requireActivity(), 2)
         }

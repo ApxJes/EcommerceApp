@@ -18,8 +18,11 @@ class GetProductsByCategoryUseCase @Inject constructor(
         Log.d("GetProductsByCategory", "Fetching products for category: $category")
         try {
             emit(Resource.Loading())
-            val productByCategory = repository.getProductsByCategory(category).products!!.map { it!!.toProduct() }
-            emit(Resource.Success(productByCategory))
+            val productByCategory = repository.getProducts().products!!.map { it!!.toProduct() }
+            val filterProducts = productByCategory.filter {
+                it.category.equals(category, ignoreCase = true)
+            }
+            emit(Resource.Success(filterProducts))
 
         } catch (e: HttpException) {
             emit(Resource.Error(e.localizedMessage ?: "Unexpected error occur!"))
