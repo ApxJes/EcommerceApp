@@ -11,9 +11,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.ecommerceapp.R
-import com.example.ecommerceapp.databinding.FragmentFashionBinding
 import com.example.ecommerceapp.databinding.FragmentGroceriesBinding
 import com.example.ecommerceapp.presentation.adapter.GetProductsAdapter
 import com.example.ecommerceapp.presentation.viewMdoel.GetProductsViewModel
@@ -28,7 +27,7 @@ class GroceriesFragment : Fragment() {
     private var _binding: FragmentGroceriesBinding? = null
     private val binding get() = _binding!!
     private val viewModel: GetProductsViewModel by viewModels()
-    private lateinit var fashionAdapter: GetProductsAdapter
+    private lateinit var groceriesAdapter: GetProductsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,13 +44,19 @@ class GroceriesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fashionAdapter = GetProductsAdapter()
+        groceriesAdapter = GetProductsAdapter()
         setUpRecyclerViewForFashion()
         observeGroceriesProducts()
         viewModel.getProductsByCategory(category = "groceries")
 
         binding.imvBack.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
+        }
+
+        groceriesAdapter.setOnClickListener {
+            val action = GroceriesFragmentDirections
+                .actionGroceriesFragmentToProductDetailsFragment(it)
+            findNavController().navigate(action)
         }
     }
 
@@ -62,7 +67,7 @@ class GroceriesFragment : Fragment() {
                     binding.loadingPrg.visibility =
                         if (productState.isLoading) View.VISIBLE else View.GONE
 
-                    fashionAdapter.differ.submitList(productState.products)
+                    groceriesAdapter.differ.submitList(productState.products)
                     Log.d("FashionFragment", "Categories: ${productState.products.map { it.category }}")
 
                     binding.txvEmptyState.visibility =
@@ -88,7 +93,7 @@ class GroceriesFragment : Fragment() {
 
     private fun setUpRecyclerViewForFashion() {
         binding.rcvGroceries.apply {
-            adapter = fashionAdapter
+            adapter = groceriesAdapter
             layoutManager = GridLayoutManager(requireActivity(), 2)
         }
     }

@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ecommerceapp.databinding.FragmentFashionBinding
 import com.example.ecommerceapp.presentation.adapter.GetProductsAdapter
@@ -49,6 +50,12 @@ class FashionFragment : Fragment() {
 
         binding.imvBack.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
+        }
+
+        fashionAdapter.setOnClickListener {
+            val action = FashionFragmentDirections
+                .actionFashionFragmentToProductDetailsFragment(it)
+            findNavController().navigate(action)
         }
     }
 

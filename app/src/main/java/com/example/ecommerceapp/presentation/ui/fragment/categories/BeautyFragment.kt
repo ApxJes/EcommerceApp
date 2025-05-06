@@ -11,10 +11,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.ecommerceapp.R
 import com.example.ecommerceapp.databinding.FragmentBeautyBinding
-import com.example.ecommerceapp.databinding.FragmentFashionBinding
 import com.example.ecommerceapp.presentation.adapter.GetProductsAdapter
 import com.example.ecommerceapp.presentation.viewMdoel.GetProductsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,7 +26,7 @@ class BeautyFragment : Fragment() {
     private var _binding: FragmentBeautyBinding? = null
     private val binding get() = _binding!!
     private val viewModel: GetProductsViewModel by viewModels()
-    private lateinit var fashionAdapter: GetProductsAdapter
+    private lateinit var beautyAdapter: GetProductsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,13 +43,19 @@ class BeautyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fashionAdapter = GetProductsAdapter()
+        beautyAdapter = GetProductsAdapter()
         setUpRecyclerViewForFashion()
         observeBeautyProducts()
         viewModel.getProductsByCategory(category = "beauty")
 
         binding.imvBack.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
+        }
+
+        beautyAdapter.setOnClickListener {
+            val action = BeautyFragmentDirections
+                .actionBeautyFragmentToProductDetailsFragment(it)
+            findNavController().navigate(action)
         }
     }
 
@@ -61,7 +66,7 @@ class BeautyFragment : Fragment() {
                     binding.loadingPrg.visibility =
                         if (productState.isLoading) View.VISIBLE else View.GONE
 
-                    fashionAdapter.differ.submitList(productState.products)
+                    beautyAdapter.differ.submitList(productState.products)
                     Log.d("FashionFragment", "Categories: ${productState.products.map { it.category }}")
 
                     binding.txvEmptyState.visibility =
@@ -87,7 +92,7 @@ class BeautyFragment : Fragment() {
 
     private fun setUpRecyclerViewForFashion() {
         binding.rcvBeauty.apply {
-            adapter = fashionAdapter
+            adapter = beautyAdapter
             layoutManager = GridLayoutManager(requireActivity(), 2)
         }
     }

@@ -101,7 +101,7 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/bottomNav"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="8dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -335,7 +335,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hot Products"
+                android:text="Products"
                 android:textColor="@color/black"
                 android:fontFamily="@font/worksans_regular"
                 android:textSize="16sp"
@@ -353,17 +353,6 @@
 
         </LinearLayout>
     </ScrollView>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNav"
-        android:layout_width="match_parent"
-        android:layout_height="75dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:labelVisibilityMode="unlabeled"
-        android:background="@color/white"
-        app:menu="@menu/bottom_menu" />
 
     <ProgressBar
         android:layout_width="wrap_content"

@@ -1,10 +1,13 @@
 package com.example.ecommerceapp
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.example.ecommerceapp.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,6 +27,29 @@ class MainActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        binding.bottomNav.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            val hideBottomNav = setOf(
+                R.id.onBoardingFragment,
+                R.id.loginFragment,
+                R.id.signupWithEmailFragment,
+                R.id.loginWithEmailFragment,
+                R.id.forgetPasswordFragment,
+                R.id.productDetailsFragment,
+                R.id.fashionFragment,
+                R.id.fragrancesFragment,
+                R.id.beautyFragment,
+                R.id.groceriesFragment,
+                R.id.furnitureFragment
+            )
+
+            binding.bottomNav.visibility =
+                if(destination.id in hideBottomNav) View.GONE else View.VISIBLE
         }
     }
 

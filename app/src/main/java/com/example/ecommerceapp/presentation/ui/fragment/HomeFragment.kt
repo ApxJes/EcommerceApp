@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -31,6 +32,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var productAdpater: GetProductsAdapter
     private val viewModel: GetProductsViewModel by viewModels()
+    private var fullProductList: List<Product> = emptyList()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,8 +54,8 @@ class HomeFragment : Fragment() {
 
         getProducts()
         discountProducts()
-
         getProductsByCategory()
+        searchProducts()
 
         productAdpater.setOnClickListener { product ->
             val action = HomeFragmentDirections.actionHomeFragmentToProductDetailsFragment(product)
@@ -70,6 +72,7 @@ class HomeFragment : Fragment() {
                         if (products.isLoading) View.VISIBLE else View.GONE
 
                     if(products.products.isNotEmpty()) {
+                        fullProductList = products.products
                          productAdpater.differ.submitList(products.products)
                     }
 
@@ -137,6 +140,17 @@ class HomeFragment : Fragment() {
         binding.btnGroceries.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToGroceriesFragment()
             findNavController().navigate(action)
+        }
+    }
+
+    private fun searchProducts() {
+        binding.edtSearchItem.addTextChangedListener { editable ->
+            val searchText = editable.toString().trim().lowercase()
+            val filterList = fullProductList.filter { product ->
+                product.title!!.lowercase().contains(searchText) ||
+                        product.description!!.lowercase().contains(searchText)
+            }
+            productAdpater.differ.submitList(filterList)
         }
     }
 

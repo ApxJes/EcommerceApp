@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ecommerceapp.databinding.FragmentFragrancesBinding
 import com.example.ecommerceapp.presentation.adapter.GetProductsAdapter
@@ -26,7 +27,7 @@ class FragrancesFragment : Fragment() {
     private var _binding: FragmentFragrancesBinding? = null
     private val binding get() = _binding!!
     private val viewModel: GetProductsViewModel by viewModels()
-    private lateinit var fashionAdapter: GetProductsAdapter
+    private lateinit var fragrancesAdapter: GetProductsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,13 +44,19 @@ class FragrancesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fashionAdapter = GetProductsAdapter()
+        fragrancesAdapter = GetProductsAdapter()
         setUpRecyclerViewForFashion()
         observeFragrancesProducts()
         viewModel.getProductsByCategory(category = "fragrances")
 
         binding.imvBack.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
+        }
+
+        fragrancesAdapter.setOnClickListener {
+            val action = FragrancesFragmentDirections
+                .actionFragrancesFragmentToProductDetailsFragment(it)
+            findNavController().navigate(action)
         }
     }
 
@@ -60,7 +67,7 @@ class FragrancesFragment : Fragment() {
                     binding.loadingPrg.visibility =
                         if (productState.isLoading) View.VISIBLE else View.GONE
 
-                    fashionAdapter.differ.submitList(productState.products)
+                    fragrancesAdapter.differ.submitList(productState.products)
                     Log.d("FashionFragment", "Categories: ${productState.products.map { it.category }}")
 
                     binding.txvEmptyState.visibility =
@@ -86,7 +93,7 @@ class FragrancesFragment : Fragment() {
 
     private fun setUpRecyclerViewForFashion() {
         binding.rcvFragrances.apply {
-            adapter = fashionAdapter
+            adapter = fragrancesAdapter
             layoutManager = GridLayoutManager(requireActivity(), 2)
         }
     }
