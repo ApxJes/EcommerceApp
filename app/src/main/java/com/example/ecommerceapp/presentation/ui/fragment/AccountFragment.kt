@@ -1,60 +1,88 @@
 package com.example.ecommerceapp.presentation.ui.fragment
 
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.ecommerceapp.R
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
+import com.example.ecommerceapp.databinding.FragmentAccountBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
+import dagger.hilt.android.AndroidEntryPoint
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [AccountFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+@AndroidEntryPoint
 class AccountFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private var _binding: FragmentAccountBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var auth: FirebaseAuth
+    private var selectImageUri: Uri? = null
+
+    private val resultContract = registerForActivityResult(
+        ActivityResultContracts.GetContent()
+    ) { uri ->
+        uri.let {
+            selectImageUri = it
+            binding.imvProfile.setImageURI(selectImageUri)
         }
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_account, container, false)
+        _binding = FragmentAccountBinding.inflate(
+            inflater,
+            container,
+            false
+        )
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AccountFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AccountFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        auth = FirebaseAuth.getInstance()
+
+        binding.imvProfile.setOnClickListener {
+            resultContract.launch("image/*")
+        }
+        
+        binding.imvSave.setOnClickListener {
+            val userName = binding.edtName.text.toString()
+            val profileUpdate = UserProfileChangeRequest.Builder()
+                .setDisplayName(userName)
+                .setPhotoUri(selectImageUri)
+                .build()
+
+            auth.currentUser?.updateProfile(profileUpdate)
+                ?.addOnCompleteListener { task ->
+                    if(task.isSuccessful) {
+                        Toast.makeText(requireContext(), "Profile updated", Toast.LENGTH_SHORT).show()
+                        binding.txvName.text = userName
+                        binding.txvEmail.text = auth.currentUser?.email
+                    } else {
+                        Toast.makeText(requireContext(), "Failed to update profile", Toast.LENGTH_SHORT).show()
+                    }
                 }
+        }
+
+        auth.currentUser?.let { user ->
+            binding.txvName.text = user.displayName
+            binding.txvEmail.text = user.email
+            user.photoUrl?.let {
+                binding.imvProfile.setImageURI(it)
             }
+
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
