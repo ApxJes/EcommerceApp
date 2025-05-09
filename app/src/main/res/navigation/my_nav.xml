@@ -61,7 +61,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.ecommerceapp.presentation.ui.fragment.HomeFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.mainScreen.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -85,17 +85,21 @@
     </fragment>
     <fragment
         android:id="@+id/saveFragment"
-        android:name="com.example.ecommerceapp.presentation.ui.fragment.SaveFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.mainScreen.SaveFragment"
         android:label="fragment_save"
-        tools:layout="@layout/fragment_save" />
+        tools:layout="@layout/fragment_save" >
+        <action
+            android:id="@+id/action_saveFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/cartFragment"
-        android:name="com.example.ecommerceapp.presentation.ui.fragment.CartFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.mainScreen.CartFragment"
         android:label="fragment_cart"
         tools:layout="@layout/fragment_cart" />
     <fragment
         android:id="@+id/accountFragment"
-        android:name="com.example.ecommerceapp.presentation.ui.fragment.AccountFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.mainScreen.AccountFragment"
         android:label="fragment_account"
         tools:layout="@layout/fragment_account" >
         <action
@@ -104,7 +108,7 @@
     </fragment>
     <fragment
         android:id="@+id/productDetailsFragment"
-        android:name="com.example.ecommerceapp.presentation.ui.fragment.ProductDetailsFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.mainScreen.ProductDetailsFragment"
         android:label="fragment_product_details"
         tools:layout="@layout/fragment_product_details" >
         <argument

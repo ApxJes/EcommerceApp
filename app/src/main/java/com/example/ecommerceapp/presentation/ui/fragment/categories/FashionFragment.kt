@@ -15,7 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ecommerceapp.databinding.FragmentFashionBinding
 import com.example.ecommerceapp.presentation.adapter.GetProductsAdapter
-import com.example.ecommerceapp.presentation.viewMdoel.GetProductsViewModel
+import com.example.ecommerceapp.presentation.viewMdoel.GetAllProductsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -25,7 +25,7 @@ class FashionFragment : Fragment() {
 
     private var _binding: FragmentFashionBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: GetProductsViewModel by viewModels()
+    private val viewModel: GetAllProductsViewModel by viewModels()
     private lateinit var fashionAdapter: GetProductsAdapter
 
     override fun onCreateView(
@@ -78,7 +78,7 @@ class FashionFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.event.collect { event ->
                 when (event) {
-                    is GetProductsViewModel.UiEvent.ToastMessage -> {
+                    is GetAllProductsViewModel.UiEvent.ToastMessage -> {
                         Toast.makeText(
                             requireContext(),
                             event.message,

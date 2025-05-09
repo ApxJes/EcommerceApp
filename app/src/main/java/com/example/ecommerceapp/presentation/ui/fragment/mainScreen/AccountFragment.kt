@@ -1,4 +1,4 @@
-package com.example.ecommerceapp.presentation.ui.fragment
+package com.example.ecommerceapp.presentation.ui.fragment.mainScreen
 
 import android.content.Intent
 import android.net.Uri
@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -86,12 +85,14 @@ class AccountFragment : Fragment() {
     private fun updateProfile() {
         auth.currentUser?.let { user ->
             val userName = binding.edtName.text.toString()
-            val profileUpdate = UserProfileChangeRequest.Builder()
+            val builder = UserProfileChangeRequest.Builder()
                 .setDisplayName(userName)
-                .apply {
-                    selectImageUri.let { photoUri = it }
-                }
-                .build()
+
+            selectImageUri.let {
+                builder.setPhotoUri(it)
+            }
+
+            val profileUpdate = builder.build()
 
             CoroutineScope(Dispatchers.IO).launch {
                 try {

@@ -1,4 +1,4 @@
-package com.example.ecommerceapp.presentation.ui.fragment
+package com.example.ecommerceapp.presentation.ui.fragment.mainScreen
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,7 +20,8 @@ import com.example.ecommerceapp.R
 import com.example.ecommerceapp.databinding.FragmentHomeBinding
 import com.example.ecommerceapp.domain.model.Product
 import com.example.ecommerceapp.presentation.adapter.GetProductsAdapter
-import com.example.ecommerceapp.presentation.viewMdoel.GetProductsViewModel
+import com.example.ecommerceapp.presentation.viewMdoel.GetAllProductsViewModel
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -31,8 +32,9 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var productAdpater: GetProductsAdapter
-    private val viewModel: GetProductsViewModel by viewModels()
+    private val viewModel: GetAllProductsViewModel by viewModels()
     private var fullProductList: List<Product> = emptyList()
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,6 +51,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        auth = FirebaseAuth.getInstance()
         productAdpater = GetProductsAdapter()
         setUpRecyclerViewForProducts()
 
@@ -56,6 +59,7 @@ class HomeFragment : Fragment() {
         discountProducts()
         getProductsByCategory()
         searchProducts()
+        setUserProfilePictureAndName()
 
         productAdpater.setOnClickListener { product ->
             val action = HomeFragmentDirections.actionHomeFragmentToProductDetailsFragment(product)
@@ -84,7 +88,7 @@ class HomeFragment : Fragment() {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.event.collect { event ->
                     when(event) {
-                        is GetProductsViewModel.UiEvent.ToastMessage -> {
+                        is GetAllProductsViewModel.UiEvent.ToastMessage -> {
                             Toast.makeText(
                                 requireContext(),
                                 event.message,
@@ -151,6 +155,24 @@ class HomeFragment : Fragment() {
                         product.description!!.lowercase().contains(searchText)
             }
             productAdpater.differ.submitList(filterList)
+        }
+    }
+
+    private fun setUserProfilePictureAndName() {
+        val user = auth.currentUser
+        user?.let {
+            binding.txvUserName.text = it.displayName ?: "Guest"
+
+            if(it.photoUrl != null) {
+                try {
+
+                    binding.imvProfile.setImageURI(it.photoUrl)
+                }  catch (e: SecurityException) {
+                    binding.imvProfile.setImageResource(R.drawable.pp)
+                }
+            } else {
+                binding.imvProfile.setImageResource(R.drawable.pp)
+            }
         }
     }
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".presentation.ui.fragment.ProductDetailsFragment">
+    tools:context=".presentation.ui.fragment.mainScreen.ProductDetailsFragment">
 
     <ImageView
         android:id="@+id/imvBack"
@@ -54,14 +54,14 @@
 
             <ImageView
                 android:id="@+id/imvFavorite"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_gravity="end|top"
                 android:layout_margin="8dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Save product"
                 android:padding="4dp"
-                android:src="@drawable/favorite" />
+                android:src="@drawable/favorite1" />
         </FrameLayout>
     </com.google.android.material.card.MaterialCardView>
 

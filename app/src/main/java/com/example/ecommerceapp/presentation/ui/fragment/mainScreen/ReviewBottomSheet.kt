@@ -1,20 +1,14 @@
-package com.example.ecommerceapp.presentation.ui.fragment
+package com.example.ecommerceapp.presentation.ui.fragment.mainScreen
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.ecommerceapp.R
 import com.example.ecommerceapp.databinding.FragmentReviewBottomSheetBinding
 import com.example.ecommerceapp.domain.model.Review
 import com.example.ecommerceapp.presentation.adapter.ReviewAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import dagger.hilt.android.AndroidEntryPoint
 
 class ReviewBottomSheet : BottomSheetDialogFragment() {
 
@@ -64,4 +58,3 @@ class ReviewBottomSheet : BottomSheetDialogFragment() {
         _binding = null
     }
 }
-

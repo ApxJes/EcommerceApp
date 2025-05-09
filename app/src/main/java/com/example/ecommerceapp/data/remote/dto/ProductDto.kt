@@ -1,4 +1,4 @@
-package com.example.ecommerceapp.data.dto
+package com.example.ecommerceapp.data.remote.dto
 
 
 import com.example.ecommerceapp.domain.model.Product
@@ -58,13 +58,11 @@ data class ProductDto(
             description = description,
             discountPercentage = discountPercentage,
             id = id,
-            images = images,
             minimumOrderQuantity = minimumOrderQuantity,
             rating = rating,
             price = price,
             reviews = reviews!!.map { it!!.toReview() },
             stock = stock,
-            tags = tags,
             thumbnail = thumbnail,
             title = title,
             warrantyInformation = warrantyInformation,

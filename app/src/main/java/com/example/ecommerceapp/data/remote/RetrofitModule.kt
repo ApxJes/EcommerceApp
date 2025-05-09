@@ -1,6 +1,6 @@
-package com.example.ecommerceapp.data
+package com.example.ecommerceapp.data.remote
 
-import com.example.ecommerceapp.core.Constants.BASE_URL
+import com.example.ecommerceapp.core.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,7 +26,7 @@ object RetrofitModule {
             .build()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(Constants.BASE_URL)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

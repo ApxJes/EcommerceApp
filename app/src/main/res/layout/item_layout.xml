@@ -17,10 +17,6 @@
         app:layout_constraintTop_toTopOf="parent"
         android:backgroundTint="@color/whiteBlue2">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
             <ImageView
                 android:id="@+id/imvProductImage"
                 android:layout_width="match_parent"
@@ -28,18 +24,6 @@
                 android:layout_margin="4dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/fan" />
-
-            <ImageView
-                android:id="@+id/imvSave"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="end|top"
-                android:layout_margin="8dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Save product"
-                android:padding="4dp"
-                android:src="@drawable/favorite" />
-        </FrameLayout>
 
     </androidx.cardview.widget.CardView>
 

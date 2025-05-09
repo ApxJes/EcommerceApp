@@ -1,6 +1,6 @@
-package com.example.ecommerceapp.data
+package com.example.ecommerceapp.data.remote
 
-import com.example.ecommerceapp.data.dto.ItemsDto
+import com.example.ecommerceapp.data.remote.dto.ItemsDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 

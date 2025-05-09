@@ -1,4 +1,4 @@
-package com.example.ecommerceapp.data.dto
+package com.example.ecommerceapp.data.remote.dto
 
 
 import com.example.ecommerceapp.domain.model.Item
