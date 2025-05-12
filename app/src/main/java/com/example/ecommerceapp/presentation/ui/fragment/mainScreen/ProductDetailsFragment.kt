@@ -7,15 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.navOptions
 import com.bumptech.glide.Glide
 import com.example.ecommerceapp.R
 import com.example.ecommerceapp.databinding.FragmentProductDetailsBinding
 import com.example.ecommerceapp.domain.model.Review
+import com.example.ecommerceapp.presentation.viewMdoel.CartViewModel
 import com.example.ecommerceapp.presentation.viewMdoel.GetProductsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -28,6 +33,7 @@ class ProductDetailsFragment : Fragment() {
 
     private val args: ProductDetailsFragmentArgs by navArgs()
     private val viewModel: GetProductsViewModel by viewModels()
+    private val cartViewModel: CartViewModel by activityViewModels()
 
     private var productWasSaved = false
 
@@ -49,9 +55,14 @@ class ProductDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         getProductDetails()
         observeSavedProduct()
+        addToCart()
 
         binding.imvBack.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
+            findNavController().navigate(
+                R.id.homeFragment, null, NavOptions.Builder()
+                    .setPopUpTo(R.id.onBoardingFragment, true)
+                    .build()
+            )
         }
 
         binding.imvFavorite.setOnClickListener {
@@ -114,6 +125,13 @@ class ProductDetailsFragment : Fragment() {
         val isSaved = viewModel.isProductSaved(args.product)
         val icon = if(isSaved) R.drawable.favorite2 else R.drawable.favorite1
         binding.imvFavorite.setImageResource(icon)
+    }
+
+    private fun addToCart() {
+        binding.btnAddToCart.setOnClickListener {
+            cartViewModel.addToCart(args.product)
+            Toast.makeText(requireContext(), "Added To Cart", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onDestroyView() {

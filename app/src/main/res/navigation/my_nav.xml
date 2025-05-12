@@ -96,7 +96,11 @@
         android:id="@+id/cartFragment"
         android:name="com.example.ecommerceapp.presentation.ui.fragment.mainScreen.CartFragment"
         android:label="fragment_cart"
-        tools:layout="@layout/fragment_cart" />
+        tools:layout="@layout/fragment_cart" >
+        <argument
+            android:name="product"
+            app:argType="com.example.ecommerceapp.domain.model.Product" />
+    </fragment>
     <fragment
         android:id="@+id/accountFragment"
         android:name="com.example.ecommerceapp.presentation.ui.fragment.mainScreen.AccountFragment"
@@ -114,6 +118,9 @@
         <argument
             android:name="product"
             app:argType="com.example.ecommerceapp.domain.model.Product" />
+        <action
+            android:id="@+id/action_productDetailsFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
     </fragment>
     <fragment
         android:id="@+id/fashionFragment"
