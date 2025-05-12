@@ -12,9 +12,11 @@
 
         <ImageView
             android:id="@+id/txvBack"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/back_arrow" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back_arrow"
+            android:background="@drawable/back_bg"
+            android:padding="8dp"/>
 
         <TextView
             android:layout_width="wrap_content"

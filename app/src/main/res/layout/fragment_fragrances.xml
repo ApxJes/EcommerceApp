@@ -14,6 +14,8 @@
         android:layout_marginTop="12dp"
         app:layout_constraintStart_toStartOf="parent"
         android:id="@+id/imvBack"
+        android:background="@drawable/back_bg"
+        android:padding="8dp"
         android:layout_marginStart="12dp"/>
 
     <TextView
@@ -25,7 +27,7 @@
         android:text="Fragrances Products"
         android:textSize="22sp"
         android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@id/imvBack"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

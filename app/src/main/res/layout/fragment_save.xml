@@ -13,8 +13,22 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="12dp"
         android:src="@drawable/back_arrow"
+        android:background="@drawable/back_bg"
+        android:padding="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/switzer_bold"
+        android:text="Save Products"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:layout_marginTop="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

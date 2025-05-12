@@ -54,8 +54,8 @@ class FurnitureFragment : Fragment() {
         }
 
         furnitureAdapter.setOnClickListener {
-            val action = FragrancesFragmentDirections
-                .actionFragrancesFragmentToProductDetailsFragment(it)
+            val action = FurnitureFragmentDirections
+                .actionFurnitureFragmentToProductDetailsFragment(it)
             findNavController().navigate(action)
         }
     }

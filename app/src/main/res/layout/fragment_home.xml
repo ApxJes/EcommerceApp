@@ -327,8 +327,8 @@
                     android:layout_height="match_parent"
                     app:iss_auto_cycle="true"
                     app:iss_corner_radius="20"
-                    app:iss_delay="1000"
-                    app:iss_period="1000" />
+                    app:iss_delay="5000"
+                    app:iss_period="4000" />
 
             </androidx.cardview.widget.CardView>
 

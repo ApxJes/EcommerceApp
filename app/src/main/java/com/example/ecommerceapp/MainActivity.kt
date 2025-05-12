@@ -45,7 +45,11 @@ class MainActivity : AppCompatActivity() {
                 R.id.fragrancesFragment,
                 R.id.beautyFragment,
                 R.id.groceriesFragment,
-                R.id.furnitureFragment
+                R.id.furnitureFragment,
+                R.id.cartFragment,
+                R.id.accountFragment,
+                R.id.saveFragment
+
             )
 
             binding.bottomNav.visibility =

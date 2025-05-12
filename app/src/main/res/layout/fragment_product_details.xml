@@ -14,6 +14,8 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="25dp"
         android:src="@drawable/back_arrow"
+        android:background="@drawable/back_bg"
+        android:padding="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -142,7 +144,7 @@
             android:layout_marginStart="25dp"
             android:fontFamily="@font/switzer_bold"
             android:text="Review"
-            android:textColor="@color/whiteBlue2" />
+            android:textColor="@color/primaryColor" />
 
     </LinearLayout>
 
