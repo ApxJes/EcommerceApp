@@ -1,16 +1,16 @@
 package com.example.ecommerceapp.presentation.ui.fragment.mainScreen
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ecommerceapp.R
 import com.example.ecommerceapp.databinding.FragmentCartBinding
@@ -42,15 +42,32 @@ class CartFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n", "DefaultLocale")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        cartAdapter = CartAdapter()
+        cartAdapter = CartAdapter {
+            val subTotal = cartAdapter.getTotalPrice()
+            val deliveryFee = 10.0
+            val total = subTotal + deliveryFee
+
+            binding.txvPrice.text = "$${subTotal}"
+            binding.txvDeliveryFee.text = "$${deliveryFee}"
+            binding.txvTotalPrice.text = "$"+ String.format("%.2f", total)
+        }
 
         binding.rcvCart.layoutManager = LinearLayoutManager(requireContext())
         binding.rcvCart.adapter = cartAdapter
 
         cartViewModel.cartItem.onEach {
             cartAdapter.setItem(it)
+            val subTotal = cartAdapter.getTotalPrice()
+            val deliveryFees = 10.0
+            val totalPrice = subTotal + deliveryFees
+
+            binding.txvPrice.text = "$${subTotal}"
+            binding.txvDeliveryFee.text = "$${deliveryFees}"
+            binding.txvTotalPrice.text = "$"+ String.format("%.2f", totalPrice)
+
         }.launchIn(viewLifecycleOwner.lifecycleScope)
 
         binding.imvBack.setOnClickListener {
@@ -60,6 +77,14 @@ class CartFragment : Fragment() {
                     .setPopUpTo(R.id.onBoardingFragment, true)
                     .build()
             )
+        }
+
+        binding.btnCheckOut.setOnClickListener {
+            Toast.makeText(
+                requireContext(),
+                "Thanks for ordering",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 

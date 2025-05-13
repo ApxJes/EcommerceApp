@@ -11,7 +11,9 @@ import com.bumptech.glide.Glide
 import com.example.ecommerceapp.R
 import com.example.ecommerceapp.domain.model.Product
 
-class CartAdapter : RecyclerView.Adapter<CartAdapter.CartItemViewHolder>() {
+class CartAdapter(
+    private val onQuantityChanged: () -> Unit
+) : RecyclerView.Adapter<CartAdapter.CartItemViewHolder>() {
 
     private val products = mutableListOf<Product>()
     private val quantities = mutableMapOf<Product, Int>()
@@ -37,17 +39,21 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.CartItemViewHolder>() {
             plus.setOnClickListener {
                 quantities[product] = quantity + 1
                 notifyItemChanged(position)
+                onQuantityChanged()
             }
 
             minus.setOnClickListener {
                 if (quantity > 1) {
                     quantities[product] = quantity - 1
                     notifyItemChanged(position)
+                    onQuantityChanged()
+
                 } else {
                     val index = products.indexOf(product)
                     products.removeAt(index)
                     quantities.remove(product)
                     notifyItemRemoved(index)
+                    onQuantityChanged
                 }
             }
         }
@@ -64,6 +70,12 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.CartItemViewHolder>() {
             quantities[product] = 1
         }
         notifyDataSetChanged()
+    }
+
+    fun getTotalPrice(): Double {
+        return quantities.entries.sumOf { (product, quantity) ->
+            (product.price ?: 0.0) * quantity
+        }
     }
 
     inner class CartItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
