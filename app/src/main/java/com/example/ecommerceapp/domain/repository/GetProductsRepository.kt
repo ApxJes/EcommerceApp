@@ -1,13 +1,14 @@
 package com.example.ecommerceapp.domain.repository
 
+import androidx.paging.Pager
 import com.example.ecommerceapp.data.remote.dto.ItemsDto
 import com.example.ecommerceapp.domain.model.Product
 import kotlinx.coroutines.flow.Flow
 
 interface GetProductsRepository {
-    suspend fun getAllProducts(): ItemsDto
+    fun getAllProducts(): Pager<Int, Product>
 
-    suspend fun getProductsByCategory(category: String): ItemsDto
+    fun getProductsByCategory(category: String): Pager<Int, Product>
 
     fun getProducts(): Flow<List<Product>>
 

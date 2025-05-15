@@ -1,12 +1,11 @@
 package com.example.ecommerceapp.presentation.ui.fragment.categories
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -14,12 +13,11 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ecommerceapp.databinding.FragmentFragrancesBinding
-import com.example.ecommerceapp.presentation.adapter.GetProductsAdapter
+import com.example.ecommerceapp.presentation.adapter.PagingAdapter
 import com.example.ecommerceapp.presentation.viewMdoel.GetAllProductsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import kotlin.getValue
 
 @AndroidEntryPoint
 class FragrancesFragment : Fragment() {
@@ -27,7 +25,7 @@ class FragrancesFragment : Fragment() {
     private var _binding: FragmentFragrancesBinding? = null
     private val binding get() = _binding!!
     private val viewModel: GetAllProductsViewModel by viewModels()
-    private lateinit var fragrancesAdapter: GetProductsAdapter
+    private lateinit var fragrancesAdapter: PagingAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,7 +42,7 @@ class FragrancesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fragrancesAdapter = GetProductsAdapter()
+        fragrancesAdapter = PagingAdapter()
         setUpRecyclerViewForFashion()
         observeFragrancesProducts()
         viewModel.getProductsByCategory(category = "fragrances")
@@ -63,28 +61,21 @@ class FragrancesFragment : Fragment() {
     private fun observeFragrancesProducts() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.state.collectLatest { productState ->
-                    binding.loadingPrg.visibility =
-                        if (productState.isLoading) View.VISIBLE else View.GONE
-
-                    fragrancesAdapter.differ.submitList(productState.products)
-                    Log.d("FashionFragment", "Categories: ${productState.products.map { it.category }}")
-
-                    binding.txvEmptyState.visibility =
-                        if(productState.products.isEmpty()) View.VISIBLE else View.GONE
+                viewModel.categoryPagingData.collectLatest {
+                    fragrancesAdapter.submitData(it)
                 }
             }
-        }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.event.collect { event ->
-                when (event) {
-                    is GetAllProductsViewModel.UiEvent.ToastMessage -> {
-                        Toast.makeText(
-                            requireContext(),
-                            event.message,
-                            Toast.LENGTH_SHORT
-                        ).show()
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewModel.event.collect { event ->
+                    when (event) {
+                        is GetAllProductsViewModel.UiEvent.ToastMessage -> {
+                            Toast.makeText(
+                                requireContext(),
+                                event.message,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
                 }
             }

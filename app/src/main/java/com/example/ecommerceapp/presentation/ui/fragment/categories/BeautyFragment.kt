@@ -13,8 +13,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.viewpager.widget.PagerAdapter
 import com.example.ecommerceapp.databinding.FragmentBeautyBinding
-import com.example.ecommerceapp.presentation.adapter.GetProductsAdapter
+import com.example.ecommerceapp.presentation.adapter.PagingAdapter
 import com.example.ecommerceapp.presentation.viewMdoel.GetAllProductsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -26,7 +27,7 @@ class BeautyFragment : Fragment() {
     private var _binding: FragmentBeautyBinding? = null
     private val binding get() = _binding!!
     private val viewModel: GetAllProductsViewModel by viewModels()
-    private lateinit var beautyAdapter: GetProductsAdapter
+    private lateinit var beautyAdapter: PagingAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,7 +44,7 @@ class BeautyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        beautyAdapter = GetProductsAdapter()
+        beautyAdapter = PagingAdapter()
         setUpRecyclerViewForFashion()
         observeBeautyProducts()
         viewModel.getProductsByCategory(category = "beauty")
@@ -60,18 +61,10 @@ class BeautyFragment : Fragment() {
     }
 
     private fun observeBeautyProducts() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.state.collectLatest { productState ->
-                    binding.loadingPrg.visibility =
-                        if (productState.isLoading) View.VISIBLE else View.GONE
 
-                    beautyAdapter.differ.submitList(productState.products)
-                    Log.d("FashionFragment", "Categories: ${productState.products.map { it.category }}")
-
-                    binding.txvEmptyState.visibility =
-                        if(productState.products.isEmpty()) View.VISIBLE else View.GONE
-                }
+        lifecycleScope.launch {
+            viewModel.categoryPagingData.collectLatest {
+                beautyAdapter.submitData(it)
             }
         }
 

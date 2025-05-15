@@ -1,5 +1,6 @@
 package com.example.ecommerceapp.domain.userCase
 
+import androidx.paging.PagingData
 import com.example.ecommerceapp.core.Resource
 import com.example.ecommerceapp.domain.model.Product
 import com.example.ecommerceapp.domain.repository.GetProductsRepository
@@ -13,16 +14,7 @@ class GetAllProductsUseCase @Inject constructor(
     private val repository: GetProductsRepository
 ){
 
-    operator fun invoke(): Flow<Resource<List<Product>>> = flow {
-
-        try {
-            emit(Resource.Loading())
-            val products = repository.getAllProducts().products!!.map { it!!.toProduct() }
-            emit(Resource.Success(products))
-        } catch (e: HttpException) {
-            emit(Resource.Error(e.localizedMessage ?: "Unexpected error occur!"))
-        } catch (e: IOException) {
-            emit(Resource.Error(e.localizedMessage ?: "Couldn't reach server, please check your internet connection!!"))
-        }
+    operator fun invoke(): Flow<PagingData<Product>>{
+        return repository.getAllProducts().flow
     }
 }

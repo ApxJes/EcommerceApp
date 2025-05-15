@@ -25,7 +25,7 @@ class CartAdapter(
         )
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "DefaultLocale")
     override fun onBindViewHolder(holder: CartItemViewHolder, position: Int) {
         val product = products[position]
         val quantity = quantities[product] ?: 1
@@ -35,7 +35,7 @@ class CartAdapter(
             cartProductName.text = product.title
             cartProductPrice.text = "$${product.price}"
             txvItemCount.text = quantity.toString()
-            cartProductTotalPrice.text = "$${product.price?.times(quantity)}"
+            cartProductTotalPrice.text = "$"+String.format("%.2f", product.price?.times(quantity))
 
             plus.setOnClickListener {
                 quantities[product] = quantity + 1

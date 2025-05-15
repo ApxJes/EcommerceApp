@@ -20,6 +20,7 @@ import com.example.ecommerceapp.R
 import com.example.ecommerceapp.databinding.FragmentHomeBinding
 import com.example.ecommerceapp.domain.model.Product
 import com.example.ecommerceapp.presentation.adapter.GetProductsAdapter
+import com.example.ecommerceapp.presentation.adapter.PagingAdapter
 import com.example.ecommerceapp.presentation.viewMdoel.GetAllProductsViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,10 +32,10 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private lateinit var productAdpater: GetProductsAdapter
     private val viewModel: GetAllProductsViewModel by viewModels()
     private var fullProductList: List<Product> = emptyList()
     private lateinit var auth: FirebaseAuth
+    private lateinit var pagingAdapter: PagingAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,35 +53,25 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         auth = FirebaseAuth.getInstance()
-        productAdpater = GetProductsAdapter()
+        pagingAdapter = PagingAdapter()
         setUpRecyclerViewForProducts()
 
         getProducts()
         discountProducts()
         getProductsByCategory()
-        searchProducts()
         setUserProfilePictureAndName()
 
-        productAdpater.setOnClickListener { product ->
+        pagingAdapter.setOnClickListener { product ->
             val action = HomeFragmentDirections.actionHomeFragmentToProductDetailsFragment(product)
             findNavController().navigate(action)
         }
     }
 
     private fun getProducts() {
-        viewModel.getProducts()
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.state.collectLatest { products ->
-                    binding.loadingProgressBar.visibility =
-                        if (products.isLoading) View.VISIBLE else View.GONE
 
-                    if(products.products.isNotEmpty()) {
-                        fullProductList = products.products
-                         productAdpater.differ.submitList(products.products)
-                    }
-
-                }
+        lifecycleScope.launch {
+            viewModel.pagedProduct.collectLatest { pagingData ->
+                pagingAdapter.submitData(pagingData)
             }
         }
 
@@ -104,7 +95,7 @@ class HomeFragment : Fragment() {
 
     private fun setUpRecyclerViewForProducts() {
         binding.rcvHotDeals.apply {
-            adapter = productAdpater
+            adapter = pagingAdapter
             layoutManager = GridLayoutManager(requireActivity(), 2)
         }
     }
@@ -144,17 +135,6 @@ class HomeFragment : Fragment() {
         binding.btnGroceries.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToGroceriesFragment()
             findNavController().navigate(action)
-        }
-    }
-
-    private fun searchProducts() {
-        binding.edtSearchItem.addTextChangedListener { editable ->
-            val searchText = editable.toString().trim().lowercase()
-            val filterList = fullProductList.filter { product ->
-                product.title!!.lowercase().contains(searchText) ||
-                        product.description!!.lowercase().contains(searchText)
-            }
-            productAdpater.differ.submitList(filterList)
         }
     }
 
