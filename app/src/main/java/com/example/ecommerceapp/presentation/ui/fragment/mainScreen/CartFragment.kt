@@ -45,15 +45,22 @@ class CartFragment : Fragment() {
     @SuppressLint("SetTextI18n", "DefaultLocale")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        cartAdapter = CartAdapter {
-            val subTotal = cartAdapter.getTotalPrice()
-            val deliveryFee = 10.0
-            val total = subTotal + deliveryFee
+        cartAdapter = CartAdapter(
+            onQuantityChanged = {
+                val subTotal = cartAdapter.getTotalPrice()
+                val deliveryFee = 10.0
+                val total = subTotal + deliveryFee
 
-            binding.txvPrice.text = "$${subTotal}"
-            binding.txvDeliveryFee.text = "$${deliveryFee}"
-            binding.txvTotalPrice.text = "$"+ String.format("%.2f", total)
-        }
+                binding.txvPrice.text = "$"+ String.format("%.2f", subTotal)
+                binding.txvDeliveryFee.text = "$${deliveryFee}"
+                binding.txvTotalPrice.text = "$" + String.format("%.2f", total)
+            },
+
+            onItemsRemove = { product ->
+                cartViewModel.removeCart(product)
+            }
+        )
+
 
         binding.rcvCart.layoutManager = LinearLayoutManager(requireContext())
         binding.rcvCart.adapter = cartAdapter
@@ -64,7 +71,7 @@ class CartFragment : Fragment() {
             val deliveryFees = 10.0
             val totalPrice = subTotal + deliveryFees
 
-            binding.txvPrice.text = "$${subTotal}"
+            binding.txvPrice.text = "$"+ String.format("%.2f", subTotal)
             binding.txvDeliveryFee.text = "$${deliveryFees}"
             binding.txvTotalPrice.text = "$"+ String.format("%.2f", totalPrice)
 
@@ -85,6 +92,17 @@ class CartFragment : Fragment() {
                 "Thanks for ordering",
                 Toast.LENGTH_SHORT
             ).show()
+        }
+
+        binding.btnCheckOut1.setOnClickListener {
+            if(cartAdapter.itemCount > 0) {
+                binding.constraintLayout.visibility = View.VISIBLE
+                binding.btnCheckOut1.visibility = View.GONE
+            }
+        }
+
+        if(cartAdapter.itemCount <= 0) {
+            binding.btnCheckOut1.visibility = View.GONE
         }
     }
 

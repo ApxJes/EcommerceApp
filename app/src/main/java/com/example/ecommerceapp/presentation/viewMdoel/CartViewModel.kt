@@ -16,4 +16,8 @@ class CartViewModel @Inject constructor(): ViewModel(){
     fun addToCart(product: Product) {
         _cartItems.value = _cartItems.value + product
     }
+
+    fun removeCart(product: Product) {
+        _cartItems.value = _cartItems.value.filter { it != product }
+    }
 }

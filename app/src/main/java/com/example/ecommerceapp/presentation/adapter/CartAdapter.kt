@@ -12,7 +12,8 @@ import com.example.ecommerceapp.R
 import com.example.ecommerceapp.domain.model.Product
 
 class CartAdapter(
-    private val onQuantityChanged: () -> Unit
+    private val onQuantityChanged: () -> Unit,
+    private val onItemsRemove:(Product) -> Unit
 ) : RecyclerView.Adapter<CartAdapter.CartItemViewHolder>() {
 
     private val products = mutableListOf<Product>()
@@ -53,7 +54,8 @@ class CartAdapter(
                     products.removeAt(index)
                     quantities.remove(product)
                     notifyItemRemoved(index)
-                    onQuantityChanged
+                    onQuantityChanged()
+                    onItemsRemove(product)
                 }
             }
         }
