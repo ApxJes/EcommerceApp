@@ -1,26 +1,25 @@
 package com.example.ecommerceapp.presentation.ui.fragment.mainScreen
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ecommerceapp.R
 import com.example.ecommerceapp.databinding.FragmentAccountBinding
+import com.example.ecommerceapp.presentation.adapter.GetProductsAdapter
+import com.example.ecommerceapp.presentation.viewMdoel.GetProductsViewModel
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.UserProfileChangeRequest
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
-import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class AccountFragment : Fragment() {
@@ -28,21 +27,8 @@ class AccountFragment : Fragment() {
     private var _binding: FragmentAccountBinding? = null
     private val binding get() = _binding!!
     private lateinit var auth: FirebaseAuth
-
-    private var selectImageUri: Uri? = null
-
-    private val imagePickerLauncher =
-        registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri: Uri? ->
-            uri?.let {
-                requireContext().contentResolver.takePersistableUriPermission(
-                    it,
-                    Intent.FLAG_GRANT_READ_URI_PERMISSION
-                )
-                selectImageUri = it
-                binding.imvProfile.setImageURI(it)
-            }
-        }
-
+    private lateinit var productAdapter: GetProductsAdapter
+    private val viewModel: GetProductsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,8 +48,11 @@ class AccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         auth = FirebaseAuth.getInstance()
+        productAdapter = GetProductsAdapter()
 
-        checkLoginState()
+        observeSaveProducts()
+        setUpRecyclerViewForSaveProducts()
+        setUserProfilePictureAndName()
 
         binding.imvBack.setOnClickListener {
             findNavController().navigate(
@@ -73,69 +62,52 @@ class AccountFragment : Fragment() {
             )
         }
 
-        binding.imvSave.setOnClickListener {
-            updateProfile()
+        binding.imvEdit.setOnClickListener {
+            val action = AccountFragmentDirections
+                .actionAccountFragmentToEditAccountFragment()
+            findNavController().navigate(action)
         }
 
-        binding.imvProfile.setOnClickListener {
-            imagePickerLauncher.launch(arrayOf("image/*"))
-        }
-    }
-
-    private fun updateProfile() {
-        auth.currentUser?.let { user ->
-            val userName = binding.edtName.text.toString()
-            val builder = UserProfileChangeRequest.Builder()
-                .setDisplayName(userName)
-
-            selectImageUri.let {
-                builder.setPhotoUri(it)
-            }
-
-            val profileUpdate = builder.build()
-
-            CoroutineScope(Dispatchers.IO).launch {
-                try {
-
-                    user.updateProfile(profileUpdate).await()
-                    withContext(Dispatchers.Main) {
-                        checkLoginState()
-                        Toast.makeText(
-                            requireContext(),
-                            "Successfully updated user profile",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-
-                } catch (e: Exception) {
-                    withContext(Dispatchers.Main) {
-                        Toast.makeText(
-                            requireContext(),
-                            e.message,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-            }
+        productAdapter.setOnClickListener { product ->
+            val action = AccountFragmentDirections
+                .actionAccountFragmentToProductDetailsFragment(product)
+            findNavController().navigate(action)
         }
     }
 
-    private fun checkLoginState() {
+    private fun setUserProfilePictureAndName() {
         val user = auth.currentUser
         user?.let {
-            binding.txvName.text = user.displayName ?: ""
-            binding.txvEmail.text = user.email ?: ""
-            binding.edtName.setText(user.displayName ?: "")
+            binding.txvName.text = it.displayName ?: "Guest"
+            binding.txvEmail.text = it.email
 
-            if (user.photoUrl != null) {
+            if(it.photoUrl != null) {
                 try {
-                    binding.imvProfile.setImageURI(user.photoUrl)
-                } catch (e: SecurityException) {
+                    binding.imvProfile.setImageURI(it.photoUrl)
+
+                }  catch (e: SecurityException) {
                     binding.imvProfile.setImageResource(R.drawable.pp)
                 }
             } else {
                 binding.imvProfile.setImageResource(R.drawable.pp)
             }
+        }
+    }
+
+    private fun observeSaveProducts(){
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.state.collectLatest {saveProducts ->
+                    productAdapter.differ.submitList(saveProducts)
+                }
+            }
+        }
+    }
+
+    private fun setUpRecyclerViewForSaveProducts(){
+        binding.rcvSaveProducts.apply {
+            adapter = productAdapter
+            layoutManager = GridLayoutManager(requireActivity(), 2)
         }
     }
 

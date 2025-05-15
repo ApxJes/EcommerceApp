@@ -7,11 +7,6 @@
         android:icon="@drawable/home_selector"/>
 
     <item
-        android:id="@+id/saveFragment"
-        android:title="Save"
-        android:icon="@drawable/favorite_selector"/>
-
-    <item
         android:id="@+id/cartFragment"
         android:title="Cart"
         android:icon="@drawable/cart_selector"/>

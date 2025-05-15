@@ -34,26 +34,9 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNav.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            val hideBottomNav = setOf(
-                R.id.onBoardingFragment,
-                R.id.loginFragment,
-                R.id.signupWithEmailFragment,
-                R.id.loginWithEmailFragment,
-                R.id.forgetPasswordFragment,
-                R.id.productDetailsFragment,
-                R.id.fashionFragment,
-                R.id.fragrancesFragment,
-                R.id.beautyFragment,
-                R.id.groceriesFragment,
-                R.id.furnitureFragment,
-                R.id.cartFragment,
-                R.id.accountFragment,
-                R.id.saveFragment
-
-            )
 
             binding.bottomNav.visibility =
-                if(destination.id in hideBottomNav) View.GONE else View.VISIBLE
+                if(destination.id == R.id.homeFragment) View.VISIBLE else View.GONE
         }
     }
 

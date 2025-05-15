@@ -87,15 +87,6 @@
             app:destination="@id/groceriesFragment" />
     </fragment>
     <fragment
-        android:id="@+id/saveFragment"
-        android:name="com.example.ecommerceapp.presentation.ui.fragment.mainScreen.SaveFragment"
-        android:label="fragment_save"
-        tools:layout="@layout/fragment_save" >
-        <action
-            android:id="@+id/action_saveFragment_to_productDetailsFragment"
-            app:destination="@id/productDetailsFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/cartFragment"
         android:name="com.example.ecommerceapp.presentation.ui.fragment.mainScreen.CartFragment"
         android:label="fragment_cart"
@@ -112,6 +103,12 @@
         <action
             android:id="@+id/action_accountFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_accountFragment_to_editAccountFragment"
+            app:destination="@id/editAccountFragment" />
+        <action
+            android:id="@+id/action_accountFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/productDetailsFragment"
@@ -169,5 +166,14 @@
         <action
             android:id="@+id/action_groceriesFragment_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editAccountFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.mainScreen.EditAccountFragment"
+        android:label="fragment_edit_account"
+        tools:layout="@layout/fragment_edit_account" >
+        <action
+            android:id="@+id/action_editAccountFragment_to_accountFragment"
+            app:destination="@id/accountFragment" />
     </fragment>
 </navigation>
