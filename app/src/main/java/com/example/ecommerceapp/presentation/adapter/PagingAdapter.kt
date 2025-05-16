@@ -38,28 +38,35 @@ class PagingAdapter :
                 .into(productImage)
 
             productName.text = product.title
-            productBrand.text = product.brand
-            productPrice.text = "$" + product.price.toString()
-            productRating.text = String.format("%.1f", product.rating)
+            productPrice.text = "$"+ product.price.toString()+" USD"
 
             itemView.setOnClickListener {
                 onClick?.invoke(product)
             }
+
+            btnAddToCart.setOnClickListener {
+                addToCartClick?.invoke(product)
+            }
+
         }
     }
 
     private var onClick: ((Product) -> Unit)? = null
+    private var addToCartClick: ((Product) -> Unit)? = null
 
     fun setOnClickListener(listener: (Product) -> Unit) {
         onClick = listener
+    }
+
+    fun setOnAddToCartClickListener(listener: (Product) -> Unit) {
+        addToCartClick = listener
     }
 
     inner class ProductsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val productImage: ImageView = itemView.findViewById(R.id.imvProductImage)
         val productName: TextView = itemView.findViewById(R.id.txvProductName)
         val productPrice: TextView = itemView.findViewById(R.id.txvProductPrize)
-        val productRating: TextView = itemView.findViewById(R.id.txvProductRating)
-        val productBrand: TextView = itemView.findViewById(R.id.txvProductBrand)
+        val btnAddToCart: ImageView = itemView.findViewById(R.id.btnAddToCart)
     }
 
     class ProductDiffCallback : DiffUtil.ItemCallback<Product>() {

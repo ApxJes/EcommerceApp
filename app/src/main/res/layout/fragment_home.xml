@@ -7,53 +7,6 @@
     android:background="@color/white"
     tools:context=".presentation.ui.fragment.mainScreen.HomeFragment">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imvProfile"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="40dp"
-        android:src="@drawable/pp"
-        app:civ_border_color="#FF000000"
-        app:civ_border_width="2dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txvHello"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
-        android:text="Hello!"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@id/imvProfile"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txvUserName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
-        android:fontFamily="@font/switzer_bold"
-        android:text="John Doe"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@id/imvProfile"
-        app:layout_constraintTop_toBottomOf="@id/txvHello" />
-
-    <ImageView
-        android:id="@+id/imvNotification"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="20dp"
-        android:src="@drawable/notification"
-        app:layout_constraintBottom_toBottomOf="@id/imvProfile"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/imvProfile" />
-
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
@@ -62,55 +15,108 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txvUserName">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/bg_searchbox"
-        android:elevation="2dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingHorizontal="12dp"
-        android:paddingVertical="6dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imvProfile">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/search"
-            app:tint="@color/gray" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imvProfile"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="40dp"
+                    android:src="@drawable/pp"
+                    app:civ_border_color="#FF000000"
+                    app:civ_border_width="2dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/edtSearchItem"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:hint="Find your favorite items"
-            android:inputType="text"
-            android:textColor="@color/black"
-            android:textColorHint="@android:color/darker_gray" />
+                <TextView
+                    android:id="@+id/txvHello"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="40dp"
+                    android:text="Hello!"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toEndOf="@id/imvProfile"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="8dp"
-            android:src="@drawable/search_elements"
-            app:tint="@color/gray" />
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/txvUserName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/switzer_bold"
+                    android:text="John Doe"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toEndOf="@id/imvProfile"
+                    app:layout_constraintTop_toBottomOf="@id/txvHello" />
+
+                <ImageView
+                    android:id="@+id/imvNotification"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="20dp"
+                    android:src="@drawable/notification"
+                    app:layout_constraintBottom_toBottomOf="@id/imvProfile"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/imvProfile" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/bg_searchbox"
+                    android:elevation="2dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="6dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imvProfile">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/search"
+                        app:tint="@color/gray" />
+
+                    <EditText
+                        android:id="@+id/edtSearchItem"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:hint="Find your favorite items"
+                        android:inputType="text"
+                        android:textColor="@color/black"
+                        android:textColorHint="@android:color/darker_gray" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="8dp"
+                        android:src="@drawable/search_elements"
+                        app:tint="@color/gray" />
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -127,7 +133,7 @@
                     android:fontFamily="@font/worksans_regular"
                     android:text="Product Categories"
                     android:textColor="@color/black"
-                    android:textSize="14sp" />
+                    android:textSize="18sp" />
 
                 <View
                     android:layout_width="0dp"
@@ -135,13 +141,6 @@
                     android:layout_weight="1" />
 
             </LinearLayout>
-
-            <View
-                android:id="@+id/view"
-                android:layout_width="150dp"
-                android:layout_height="1.5dp"
-                android:layout_marginStart="17dp"
-                android:background="@color/black" />
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
@@ -333,23 +332,17 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/worksans_regular"
                 android:text="Products"
                 android:textColor="@color/black"
-                android:fontFamily="@font/worksans_regular"
-                android:textSize="16sp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"/>
-
-            <View
-                android:layout_width="80dp"
-                android:layout_height="1.5dp"
-                android:layout_marginStart="17dp"
-                android:background="@color/black" />
+                android:textSize="18sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcvHotDeals"
                 android:layout_width="match_parent"
-                android:layout_height="500dp"
+                android:layout_height="340dp"
                 android:layout_gravity="center"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"

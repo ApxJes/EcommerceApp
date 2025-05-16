@@ -7,20 +7,21 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
 import com.example.ecommerceapp.R
 import com.example.ecommerceapp.databinding.FragmentHomeBinding
 import com.example.ecommerceapp.domain.model.Product
-import com.example.ecommerceapp.presentation.adapter.GetProductsAdapter
 import com.example.ecommerceapp.presentation.adapter.PagingAdapter
+import com.example.ecommerceapp.presentation.viewMdoel.CartViewModel
 import com.example.ecommerceapp.presentation.viewMdoel.GetAllProductsViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,7 +34,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val viewModel: GetAllProductsViewModel by viewModels()
-    private var fullProductList: List<Product> = emptyList()
+    private val cartViewModel: CartViewModel by activityViewModels()
     private lateinit var auth: FirebaseAuth
     private lateinit var pagingAdapter: PagingAdapter
 
@@ -60,6 +61,8 @@ class HomeFragment : Fragment() {
         discountProducts()
         getProductsByCategory()
         setUserProfilePictureAndName()
+        addToCart()
+        searchingProducts()
 
         pagingAdapter.setOnClickListener { product ->
             val action = HomeFragmentDirections.actionHomeFragmentToProductDetailsFragment(product)
@@ -96,7 +99,8 @@ class HomeFragment : Fragment() {
     private fun setUpRecyclerViewForProducts() {
         binding.rcvHotDeals.apply {
             adapter = pagingAdapter
-            layoutManager = GridLayoutManager(requireActivity(), 2)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         }
     }
 
@@ -152,6 +156,28 @@ class HomeFragment : Fragment() {
                 }
             } else {
                 binding.imvProfile.setImageResource(R.drawable.pp)
+            }
+        }
+    }
+
+    private fun addToCart() {
+        pagingAdapter.setOnAddToCartClickListener {
+            cartViewModel.addToCart(it)
+            Toast.makeText(requireContext(), "Added to Cart", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun searchingProducts() {
+        binding.edtSearchItem.addTextChangedListener { editable ->
+            val query = editable.toString().trim()
+            if(query.isNotEmpty()) {
+                viewModel.searchingProducts(query)
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.searchResult.collectLatest {
+                pagingAdapter.submitData(it)
             }
         }
     }

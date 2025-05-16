@@ -61,7 +61,6 @@ class CartFragment : Fragment() {
             }
         )
 
-
         binding.rcvCart.layoutManager = LinearLayoutManager(requireContext())
         binding.rcvCart.adapter = cartAdapter
 

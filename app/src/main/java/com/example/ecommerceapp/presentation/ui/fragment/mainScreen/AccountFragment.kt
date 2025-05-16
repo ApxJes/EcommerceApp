@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -15,6 +17,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ecommerceapp.R
 import com.example.ecommerceapp.databinding.FragmentAccountBinding
 import com.example.ecommerceapp.presentation.adapter.GetProductsAdapter
+import com.example.ecommerceapp.presentation.viewMdoel.CartViewModel
 import com.example.ecommerceapp.presentation.viewMdoel.GetProductsViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,6 +32,7 @@ class AccountFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var productAdapter: GetProductsAdapter
     private val viewModel: GetProductsViewModel by viewModels()
+    private val cartViewModel: CartViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,6 +57,7 @@ class AccountFragment : Fragment() {
         observeSaveProducts()
         setUpRecyclerViewForSaveProducts()
         setUserProfilePictureAndName()
+        addToCart()
 
         binding.imvBack.setOnClickListener {
             findNavController().navigate(
@@ -108,6 +113,13 @@ class AccountFragment : Fragment() {
         binding.rcvSaveProducts.apply {
             adapter = productAdapter
             layoutManager = GridLayoutManager(requireActivity(), 2)
+        }
+    }
+
+    private fun addToCart() {
+        productAdapter.setOnAddToCartClickListener {
+            cartViewModel.addToCart(it)
+            Toast.makeText(requireContext(), "Added to Cart", Toast.LENGTH_SHORT).show()
         }
     }
 

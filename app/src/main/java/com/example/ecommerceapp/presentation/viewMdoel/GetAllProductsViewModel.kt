@@ -9,6 +9,7 @@ import com.example.ecommerceapp.core.Resource
 import com.example.ecommerceapp.domain.model.Product
 import com.example.ecommerceapp.domain.userCase.GetAllProductsUseCase
 import com.example.ecommerceapp.domain.userCase.GetProductsByCategoryUseCase
+import com.example.ecommerceapp.domain.userCase.SearchingProductsUseCase
 import com.example.ecommerceapp.presentation.state.GetProductsState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -26,7 +27,8 @@ import javax.inject.Inject
 @HiltViewModel
 class GetAllProductsViewModel @Inject constructor(
     private val getProductsUseCase: GetAllProductsUseCase,
-    private val getProductsByCategoryUseCase: GetProductsByCategoryUseCase
+    private val getProductsByCategoryUseCase: GetProductsByCategoryUseCase,
+    private val searchingProductsUseCase: SearchingProductsUseCase
 ) : ViewModel() {
 
     private var _state: MutableStateFlow<GetProductsState> = MutableStateFlow(GetProductsState())
@@ -34,6 +36,9 @@ class GetAllProductsViewModel @Inject constructor(
 
     private val _categoryPagingData = MutableStateFlow<PagingData<Product>>(PagingData.empty())
     val categoryPagingData = _categoryPagingData.asStateFlow()
+
+    private val _searchResult = MutableStateFlow<PagingData<Product>>(PagingData.empty())
+    val searchResult = _searchResult.asStateFlow()
 
     private var _event: MutableSharedFlow<UiEvent> = MutableSharedFlow<UiEvent>()
     val event = _event.asSharedFlow()
@@ -49,6 +54,16 @@ class GetAllProductsViewModel @Inject constructor(
                 .cachedIn(viewModelScope)
                 .collectLatest { pagingData ->
                     _categoryPagingData.value = pagingData
+                }
+        }
+    }
+
+    fun searchingProducts(query: String) {
+        viewModelScope.launch {
+            searchingProductsUseCase(query)
+                .cachedIn(viewModelScope)
+                .collectLatest { pagingData ->
+                    _searchResult.value = pagingData
                 }
         }
     }

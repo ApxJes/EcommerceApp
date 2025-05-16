@@ -19,4 +19,11 @@ interface ItemsApi {
         @Query("limit") limit: Int,
         @Query("skip") skip: Int
     ): ItemsDto
+
+    @GET("products/search")
+    suspend fun searchProducts(
+        @Query("q") query: String,
+        @Query("limit") limit: Int,
+        @Query("skip") skip: Int
+    ): ItemsDto
 }

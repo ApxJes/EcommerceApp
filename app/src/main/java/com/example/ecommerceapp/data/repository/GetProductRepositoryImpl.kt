@@ -5,6 +5,7 @@ import androidx.paging.PagingConfig
 import com.example.ecommerceapp.data.paging.ProductByCategoryPagingSource
 import com.example.ecommerceapp.data.paging.ProductPagingSource
 import com.example.ecommerceapp.data.local.ProductDao
+import com.example.ecommerceapp.data.paging.SearchingPagingSource
 import com.example.ecommerceapp.data.remote.ItemsApi
 import com.example.ecommerceapp.data.remote.dto.ItemsDto
 import com.example.ecommerceapp.domain.model.Product
@@ -33,6 +34,16 @@ class GetProductRepositoryImpl @Inject constructor(
                 enablePlaceholders = false
             ),
             pagingSourceFactory = { ProductByCategoryPagingSource(api = api, category = category)}
+        )
+    }
+
+    override fun searchProducts(query: String): Pager<Int, Product> {
+        return Pager (
+            config = PagingConfig(
+                pageSize = 20,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = { SearchingPagingSource(api = api, searchQuery = query) }
         )
     }
 
