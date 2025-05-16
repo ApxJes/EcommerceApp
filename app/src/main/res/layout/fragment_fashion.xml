@@ -4,78 +4,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     tools:context=".presentation.ui.fragment.categories.FashionFragment">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/back_arrow"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="12dp"
-        app:layout_constraintStart_toStartOf="parent"
         android:id="@+id/imvBack"
-        android:background="@drawable/back_bg"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:padding="8dp"
-        android:layout_marginStart="12dp"/>
+        android:src="@drawable/back_arrow"
+        android:background="@drawable/back_bg"
+        android:contentDescription="Back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/fashion"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:fontFamily="@font/switzer_bold"
         android:text="Fashion Products"
-        android:textSize="22sp"
+        android:textSize="20sp"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:fontFamily="@font/switzer_bold"
+        android:layout_marginStart="12dp"
+        app:layout_constraintStart_toEndOf="@id/imvBack"
+        app:layout_constraintTop_toTopOf="@id/imvBack"
+        app:layout_constraintBottom_toBottomOf="@id/imvBack"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <View
-        android:layout_width="200dp"
+        android:id="@+id/view"
+        android:layout_width="0dp"
         android:layout_height="1dp"
+        android:layout_marginTop="12dp"
         android:background="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/imvBack"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fashion"
-        android:id="@+id/view"/>
-
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcvFashion"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="12dp"
-        android:padding="8dp"
+        android:clipToPadding="false"
+        android:paddingTop="8dp"
+        android:paddingBottom="16dp"
         app:layout_constraintTop_toBottomOf="@id/view"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.core.widget.ContentLoadingProgressBar
         android:id="@+id/loadingPrg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txvEmptyState"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/supreme_regular"
-        android:text="No items are available right now"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

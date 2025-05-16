@@ -53,6 +53,7 @@
                         android:layout_height="wrap_content"
                         android:text="Hello!"
                         android:textColor="@color/black"
+                        android:fontFamily="@font/worksans_bold"
                         android:textSize="14sp" />
 
                     <TextView
@@ -61,7 +62,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/switzer_bold"
                         android:text="John Doe"
-                        android:textColor="@color/black"
+                        android:textColor="@color/primaryColor"
                         android:textSize="18sp" />
                 </LinearLayout>
 
@@ -74,7 +75,7 @@
                     app:layout_constraintBottom_toBottomOf="@id/imvProfile"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/imvProfile"
-                    app:tint="@color/black" />
+                    app:tint="@color/primaryColor" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
@@ -87,7 +88,6 @@
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
-            <!-- CATEGORY HORIZONTAL SCROLL -->
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -118,15 +118,6 @@
                             android:layout_height="36dp"
                             android:src="@drawable/fashion"
                             app:tint="@color/primaryColor" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="Fashion"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/supreme_regular"
-                            android:textSize="14sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -147,15 +138,6 @@
                             android:layout_height="36dp"
                             android:src="@drawable/beauty"
                             app:tint="@color/primaryColor" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:fontFamily="@font/supreme_regular"
-                            android:textColor="@color/black"
-                            android:text="Fashion"
-                            android:textSize="14sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -177,14 +159,6 @@
                             android:src="@drawable/living"
                             app:tint="@color/primaryColor" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:fontFamily="@font/supreme_regular"
-                            android:textColor="@color/black"
-                            android:text="Fashion"
-                            android:textSize="14sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -206,14 +180,6 @@
                             android:src="@drawable/fragrances"
                             app:tint="@color/primaryColor" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:fontFamily="@font/supreme_regular"
-                            android:textColor="@color/black"
-                            android:text="Fashion"
-                            android:textSize="14sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -234,17 +200,7 @@
                             android:layout_height="36dp"
                             android:src="@drawable/groceries"
                             app:tint="@color/primaryColor" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:fontFamily="@font/supreme_regular"
-                            android:textColor="@color/black"
-                            android:text="Fashion"
-                            android:textSize="14sp" />
                     </LinearLayout>
-
 
                 </LinearLayout>
             </HorizontalScrollView>
@@ -269,7 +225,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcvHotDeals"
                     android:layout_width="match_parent"
-                    android:layout_height="260dp"
+                    android:layout_height="290dp"
                     android:padding="8dp" />
             </androidx.cardview.widget.CardView>
 

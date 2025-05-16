@@ -3,16 +3,29 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="12dp"
-    android:background="@color/white">
+    android:layout_margin="8dp"
+    android:background="@color/white"
+    android:elevation="2dp"
+    android:padding="16dp">
+
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"
+        android:background="@color/black"
+        android:backgroundTint="@color/black"
+        android:backgroundTintMode="src_in"
+        android:clipToOutline="true" />
 
     <TextView
         android:id="@+id/txvReviewerName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Reviewer Name"
-        android:fontFamily="@font/worksans_regular"
-        android:textColor="@color/black"/>
+        android:fontFamily="@font/switzer_bold"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/txvReviewerEmail"
@@ -20,7 +33,8 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/worksans_regular"
         android:textColor="@color/black"
-        android:text="(email@example.com)" />
+        android:text="(email@example.com)"
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/txvReviewerComment"
@@ -29,14 +43,24 @@
         android:fontFamily="@font/worksans_regular"
         android:text="Comment text here"
         android:textColor="@color/black"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        android:textSize="15sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/black" />
 
     <TextView
         android:id="@+id/txvReviewDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="02.05.2025"
-        android:textColor="@color/black"
+        android:layout_gravity="end"
         android:fontFamily="@font/switzer_bold"
-        android:layout_gravity="end" />
+        android:layout_marginTop="8dp"
+        android:textColor="@color/gray"
+        android:textSize="13sp" />
 </LinearLayout>
+

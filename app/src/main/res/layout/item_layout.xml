@@ -1,79 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="150dp"
-    android:layout_height="230dp"
-    android:layout_margin="6dp"
-    android:elevation="8dp"
-    app:cardBackgroundColor="@android:color/white"
-    app:cardCornerRadius="30dp">
+    android:layout_width="160dp"
+    android:layout_height="250dp"
+    android:layout_margin="8dp"
+    android:elevation="6dp"
+    app:cardCornerRadius="20dp"
+    app:cardBackgroundColor="@android:color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/white">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="160dp"
-            app:cardCornerRadius="30dp">
+            android:layout_height="150dp"
+            android:layout_margin="10dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@android:color/white">
 
-            <LinearLayout
+            <ImageView
+                android:id="@+id/imvProductImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white">
-
-                <ImageView
-                    android:id="@+id/imvProductImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/fan" />
-            </LinearLayout>
-
+                android:scaleType="centerCrop"
+                android:src="@drawable/fan"
+                android:contentDescription="Product Image" />
         </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/txvProductName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
-            android:layout_marginTop="6dp"
-            android:ellipsize="end"
-            android:fontFamily="@font/switzer_bold"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="4dp"
             android:maxLines="1"
+            android:ellipsize="end"
             android:text="Portable Neck Fan"
             android:textColor="@color/black"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:fontFamily="@font/switzer_bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
             android:layout_marginTop="6dp"
-            android:orientation="horizontal">
+            android:layout_marginHorizontal="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:weightSum="1">
 
             <TextView
                 android:id="@+id/txvProductPrize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/card_bg"
-                android:fontFamily="@font/switzer_bold"
-                android:padding="6dp"
-                android:text="$20.0 USD"
+                android:paddingVertical="6dp"
+                android:paddingHorizontal="8dp"
+                android:text="$20.0USD"
                 android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:textSize="14sp"
+                android:fontFamily="@font/switzer_bold" />
 
             <ImageView
                 android:id="@+id/btnAddToCart"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="8dp"
                 android:background="@drawable/plus_bg"
-                android:padding="4dp"
+                android:padding="6dp"
                 android:src="@drawable/plus"
+                android:contentDescription="Add to cart"
                 app:tint="@color/white" />
         </LinearLayout>
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
