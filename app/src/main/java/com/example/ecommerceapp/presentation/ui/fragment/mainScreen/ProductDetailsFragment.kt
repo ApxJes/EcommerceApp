@@ -91,9 +91,10 @@ class ProductDetailsFragment : Fragment() {
 
         binding.txvProductBrand.text = "Brand: " + products.brand
         binding.txvProductName.text = products.title
-        binding.txvProductPrice.text = "$"+ products.price.toString()
+        binding.txvProductPrice.text = "$"+ products.price.toString()+" USD"
         binding.txvProduceDescription.text = products.description
         binding.txvProductRating.text = String.format("%.1f", products.rating)
+        binding.txvStockStatus.text = products.availabilityStatus
 
         binding.txvReview.setOnClickListener {
             productReview()

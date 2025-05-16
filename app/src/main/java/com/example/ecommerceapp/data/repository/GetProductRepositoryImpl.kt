@@ -5,6 +5,8 @@ import androidx.paging.PagingConfig
 import com.example.ecommerceapp.data.paging.ProductByCategoryPagingSource
 import com.example.ecommerceapp.data.paging.ProductPagingSource
 import com.example.ecommerceapp.data.local.ProductDao
+import com.example.ecommerceapp.data.paging.PopularProductsPagingSource
+import com.example.ecommerceapp.data.paging.RecommendProductsPagingSource
 import com.example.ecommerceapp.data.paging.SearchingPagingSource
 import com.example.ecommerceapp.data.remote.ItemsApi
 import com.example.ecommerceapp.data.remote.dto.ItemsDto
@@ -17,6 +19,7 @@ class GetProductRepositoryImpl @Inject constructor(
     private val api: ItemsApi,
     private val dao: ProductDao
 ) : GetProductsRepository {
+
     override fun getAllProducts(): Pager<Int, Product> {
         return Pager(
             config = PagingConfig(
@@ -44,6 +47,26 @@ class GetProductRepositoryImpl @Inject constructor(
                 enablePlaceholders = false
             ),
             pagingSourceFactory = { SearchingPagingSource(api = api, searchQuery = query) }
+        )
+    }
+
+    override fun getPopularProducts(): Pager<Int, Product> {
+        return Pager (
+            config = PagingConfig(
+                pageSize = 20,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = { PopularProductsPagingSource(api = api)}
+        )
+    }
+
+    override fun getRecommendProducts(): Pager<Int, Product> {
+        return Pager (
+            config = PagingConfig(
+                pageSize = 20,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = { RecommendProductsPagingSource(api = api)}
         )
     }
 

@@ -12,6 +12,10 @@ interface GetProductsRepository {
 
     fun searchProducts(query: String): Pager<Int, Product>
 
+    fun getPopularProducts(): Pager<Int, Product>
+
+    fun getRecommendProducts(): Pager<Int, Product>
+
     fun getProducts(): Flow<List<Product>>
 
     suspend fun insertProduct(product: Product)

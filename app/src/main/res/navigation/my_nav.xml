@@ -85,6 +85,9 @@
         <action
             android:id="@+id/action_homeFragment_to_groceriesFragment"
             app:destination="@id/groceriesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
@@ -175,5 +178,14 @@
         <action
             android:id="@+id/action_editAccountFragment_to_accountFragment"
             app:destination="@id/accountFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.mainScreen.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
     </fragment>
 </navigation>

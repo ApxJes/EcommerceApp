@@ -12,210 +12,150 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
+        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/imvProfile"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="40dp"
                     android:src="@drawable/pp"
                     app:civ_border_color="#FF000000"
                     app:civ_border_width="2dp"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/txvHello"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="40dp"
-                    android:text="Hello!"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toEndOf="@id/imvProfile"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/txvUserName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/switzer_bold"
-                    android:text="John Doe"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toEndOf="@id/imvProfile"
-                    app:layout_constraintTop_toBottomOf="@id/txvHello" />
-
-                <ImageView
-                    android:id="@+id/imvNotification"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginEnd="20dp"
-                    android:src="@drawable/notification"
-                    app:layout_constraintBottom_toBottomOf="@id/imvProfile"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/imvProfile" />
 
                 <LinearLayout
-                    android:id="@+id/linearLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/bg_searchbox"
-                    android:elevation="2dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="6dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/imvProfile">
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginEnd="8dp"
-                        android:src="@drawable/search"
-                        app:tint="@color/gray" />
-
-                    <EditText
-                        android:id="@+id/edtSearchItem"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@android:color/transparent"
-                        android:hint="Find your favorite items"
-                        android:inputType="text"
-                        android:textColor="@color/black"
-                        android:textColorHint="@android:color/darker_gray" />
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginStart="8dp"
-                        android:src="@drawable/search_elements"
-                        app:tint="@color/gray" />
-                </LinearLayout>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="20dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/txvCategories"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/worksans_regular"
-                    android:text="Product Categories"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:layout_marginStart="12dp"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="@id/imvProfile"
+                    app:layout_constraintStart_toEndOf="@id/imvProfile"
+                    app:layout_constraintTop_toTopOf="@id/imvProfile">
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/txvHello"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hello!"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
 
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/txvUserName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/switzer_bold"
+                        android:text="John Doe"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+                </LinearLayout>
 
+                <ImageView
+                    android:id="@+id/imvSearch"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="Search"
+                    android:src="@drawable/search"
+                    app:layout_constraintBottom_toBottomOf="@id/imvProfile"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/imvProfile"
+                    app:tint="@color/black" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/txvCategories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/space_grotesk_bold"
+                android:text="Product Categories"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <!-- CATEGORY HORIZONTAL SCROLL -->
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginTop="12dp"
                 android:overScrollMode="never"
-                android:scrollbars="none"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txvCategories">
+                android:scrollbars="none">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingEnd="8dp">
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:id="@+id/btnFashion"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
-                        android:background="@drawable/category_drawable_bg"
+                        android:background="@drawable/category_bg"
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="6dp">
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="8dp">
 
                         <ImageView
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:src="@drawable/fashion"
-                            app:tint="@color/black" />
+                            app:tint="@color/primaryColor" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:fontFamily="@font/supreme_regular"
                             android:text="Fashion"
                             android:textColor="@color/black"
+                            android:fontFamily="@font/supreme_regular"
                             android:textSize="14sp" />
                     </LinearLayout>
-
 
                     <LinearLayout
                         android:id="@+id/btnBeauty"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
-                        android:background="@drawable/category_drawable_bg"
+                        android:background="@drawable/category_bg"
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="6dp">
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="8dp">
 
                         <ImageView
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:src="@drawable/beauty"
-                            app:tint="@color/black" />
+                            app:tint="@color/primaryColor" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             android:fontFamily="@font/supreme_regular"
-                            android:text="Beauty"
                             android:textColor="@color/black"
+                            android:text="Fashion"
                             android:textSize="14sp" />
-
                     </LinearLayout>
 
                     <LinearLayout
@@ -223,28 +163,28 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
-                        android:background="@drawable/category_drawable_bg"
+                        android:background="@drawable/category_bg"
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="6dp">
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="8dp">
 
                         <ImageView
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:src="@drawable/living"
-                            app:tint="@color/black" />
+                            app:tint="@color/primaryColor" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             android:fontFamily="@font/supreme_regular"
-                            android:text="furniture"
                             android:textColor="@color/black"
+                            android:text="Fashion"
                             android:textSize="14sp" />
-
                     </LinearLayout>
 
                     <LinearLayout
@@ -252,28 +192,28 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
-                        android:background="@drawable/category_drawable_bg"
+                        android:background="@drawable/category_bg"
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="6dp">
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="8dp">
 
                         <ImageView
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:src="@drawable/fragrances"
-                            app:tint="@color/black" />
+                            app:tint="@color/primaryColor" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             android:fontFamily="@font/supreme_regular"
-                            android:text="Fragrances"
                             android:textColor="@color/black"
+                            android:text="Fashion"
                             android:textSize="14sp" />
-
                     </LinearLayout>
 
                     <LinearLayout
@@ -281,84 +221,118 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
-                        android:background="@drawable/category_drawable_bg"
+                        android:background="@drawable/category_bg"
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="6dp">
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="8dp">
 
                         <ImageView
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:src="@drawable/groceries"
-                            app:tint="@color/black" />
+                            app:tint="@color/primaryColor" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             android:fontFamily="@font/supreme_regular"
-                            android:text="Groceries"
                             android:textColor="@color/black"
+                            android:text="Fashion"
                             android:textSize="14sp" />
-
                     </LinearLayout>
+
 
                 </LinearLayout>
             </HorizontalScrollView>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:fontFamily="@font/space_grotesk_bold"
+                android:text="Available Products"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
-                app:cardCornerRadius="25dp"
-                android:elevation="12dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/bg_searchbox">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:elevation="2dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="12dp">
 
-                <com.denzcoskun.imageslider.ImageSlider
-                    android:id="@+id/imageSlider"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcvHotDeals"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:iss_auto_cycle="true"
-                    app:iss_corner_radius="20"
-                    app:iss_delay="5000"
-                    app:iss_period="4000" />
-
+                    android:layout_height="260dp"
+                    android:padding="8dp" />
             </androidx.cardview.widget.CardView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/worksans_regular"
-                android:text="Products"
+                android:layout_marginTop="28dp"
+                android:fontFamily="@font/space_grotesk_bold"
                 android:textColor="@color/black"
+                android:text="Popular Products"
                 android:textSize="18sp" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcvHotDeals"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="340dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="20dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="20dp" />
+                android:elevation="2dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="12dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcvPopularProducts"
+                    android:layout_width="match_parent"
+                    android:layout_height="320dp"
+                    android:padding="8dp" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:fontFamily="@font/space_grotesk_bold"
+                android:textColor="@color/black"
+                android:text="Recommended Products"
+                android:textSize="18sp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:elevation="2dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="12dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcvRecommendProducts"
+                    android:layout_width="match_parent"
+                    android:layout_height="320dp"
+                    android:padding="8dp" />
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
     </ScrollView>
 
     <ProgressBar
+        android:id="@+id/loadingProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/loadingProgressBar"
         android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

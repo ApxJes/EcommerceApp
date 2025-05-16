@@ -38,7 +38,7 @@ class PagingAdapter :
                 .into(productImage)
 
             productName.text = product.title
-            productPrice.text = "$"+ product.price.toString()+" USD"
+            productPrice.text = "$"+ product.price.toString()+"USD"
 
             itemView.setOnClickListener {
                 onClick?.invoke(product)

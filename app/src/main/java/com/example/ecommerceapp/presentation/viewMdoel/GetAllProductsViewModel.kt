@@ -1,15 +1,14 @@
 package com.example.ecommerceapp.presentation.viewMdoel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.ecommerceapp.core.Resource
 import com.example.ecommerceapp.domain.model.Product
 import com.example.ecommerceapp.domain.userCase.GetAllProductsUseCase
+import com.example.ecommerceapp.domain.userCase.GetPopularProductsUseCase
 import com.example.ecommerceapp.domain.userCase.GetProductsByCategoryUseCase
-import com.example.ecommerceapp.domain.userCase.SearchingProductsUseCase
+import com.example.ecommerceapp.domain.userCase.GetRecommendProductsUseCase
 import com.example.ecommerceapp.presentation.state.GetProductsState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -17,18 +16,16 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.buffer
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class GetAllProductsViewModel @Inject constructor(
     private val getProductsUseCase: GetAllProductsUseCase,
+    private val getPopularProductsUseCase: GetPopularProductsUseCase,
     private val getProductsByCategoryUseCase: GetProductsByCategoryUseCase,
-    private val searchingProductsUseCase: SearchingProductsUseCase
+    private val getRecommendProductsUseCase: GetRecommendProductsUseCase
 ) : ViewModel() {
 
     private var _state: MutableStateFlow<GetProductsState> = MutableStateFlow(GetProductsState())
@@ -37,9 +34,6 @@ class GetAllProductsViewModel @Inject constructor(
     private val _categoryPagingData = MutableStateFlow<PagingData<Product>>(PagingData.empty())
     val categoryPagingData = _categoryPagingData.asStateFlow()
 
-    private val _searchResult = MutableStateFlow<PagingData<Product>>(PagingData.empty())
-    val searchResult = _searchResult.asStateFlow()
-
     private var _event: MutableSharedFlow<UiEvent> = MutableSharedFlow<UiEvent>()
     val event = _event.asSharedFlow()
 
@@ -47,6 +41,13 @@ class GetAllProductsViewModel @Inject constructor(
             getProductsUseCase()
                 .cachedIn(viewModelScope)
 
+    val popularProducts: Flow<PagingData<Product>> =
+        getPopularProductsUseCase()
+            .cachedIn(viewModelScope)
+
+    val recommendProducts: Flow<PagingData<Product>> =
+        getRecommendProductsUseCase()
+            .cachedIn(viewModelScope)
 
     fun getProductsByCategory(category: String) {
         viewModelScope.launch {
@@ -54,16 +55,6 @@ class GetAllProductsViewModel @Inject constructor(
                 .cachedIn(viewModelScope)
                 .collectLatest { pagingData ->
                     _categoryPagingData.value = pagingData
-                }
-        }
-    }
-
-    fun searchingProducts(query: String) {
-        viewModelScope.launch {
-            searchingProductsUseCase(query)
-                .cachedIn(viewModelScope)
-                .collectLatest { pagingData ->
-                    _searchResult.value = pagingData
                 }
         }
     }
