@@ -1,21 +1,18 @@
 package com.example.ecommerceapp.presentation.ui.fragment.categories
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ecommerceapp.databinding.FragmentFashionBinding
 import com.example.ecommerceapp.presentation.adapter.PagingAdapter
-import com.example.ecommerceapp.presentation.viewMdoel.GetAllProductsViewModel
+import com.example.ecommerceapp.presentation.viewMdoel.RemoteProductsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -25,7 +22,7 @@ class FashionFragment : Fragment() {
 
     private var _binding: FragmentFashionBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: GetAllProductsViewModel by viewModels()
+    private val viewModel: RemoteProductsViewModel by viewModels()
     private lateinit var fashionAdapter: PagingAdapter
 
     override fun onCreateView(
@@ -69,7 +66,7 @@ class FashionFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.event.collect { event ->
                 when (event) {
-                    is GetAllProductsViewModel.UiEvent.ToastMessage -> {
+                    is RemoteProductsViewModel.UiEvent.ToastMessage -> {
                         Toast.makeText(
                             requireContext(),
                             event.message,

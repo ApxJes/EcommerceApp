@@ -1,7 +1,7 @@
 package com.example.ecommerceapp.data.remote.dto
 
 
-import com.example.ecommerceapp.domain.model.Product
+import com.example.ecommerceapp.domain.model.ProductVo
 import com.google.gson.annotations.SerializedName
 
 data class ProductDto(
@@ -50,8 +50,8 @@ data class ProductDto(
     @SerializedName("weight")
     val weight: Int?
 ) {
-    fun toProduct(): Product {
-        return Product (
+    fun toProduct(): ProductVo {
+        return ProductVo (
             availabilityStatus = availabilityStatus,
             brand = brand,
             category = category,

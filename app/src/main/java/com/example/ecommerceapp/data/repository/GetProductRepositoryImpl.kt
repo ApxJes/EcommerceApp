@@ -2,25 +2,30 @@ package com.example.ecommerceapp.data.repository
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
+import com.example.ecommerceapp.data.local.ProductDao
+import com.example.ecommerceapp.data.paging.DIscountPagingSource
+import com.example.ecommerceapp.data.paging.PopularProductsPagingSource
 import com.example.ecommerceapp.data.paging.ProductByCategoryPagingSource
 import com.example.ecommerceapp.data.paging.ProductPagingSource
-import com.example.ecommerceapp.data.local.ProductDao
-import com.example.ecommerceapp.data.paging.PopularProductsPagingSource
 import com.example.ecommerceapp.data.paging.RecommendProductsPagingSource
 import com.example.ecommerceapp.data.paging.SearchingPagingSource
-import com.example.ecommerceapp.data.remote.ItemsApi
+import com.example.ecommerceapp.data.remote.api_service.ItemsApiService
 import com.example.ecommerceapp.data.remote.dto.ItemsDto
-import com.example.ecommerceapp.domain.model.Product
+import com.example.ecommerceapp.domain.model.ProductVo
 import com.example.ecommerceapp.domain.repository.GetProductsRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GetProductRepositoryImpl @Inject constructor(
-    private val api: ItemsApi,
+    private val api: ItemsApiService,
     private val dao: ProductDao
 ) : GetProductsRepository {
 
-    override fun getAllProducts(): Pager<Int, Product> {
+    override suspend fun getSomeProducts(): ItemsDto {
+        return api.getSomeProducts()
+    }
+
+    override fun getAllProducts(): Pager<Int, ProductVo> {
         return Pager(
             config = PagingConfig(
                 pageSize = 20,
@@ -30,7 +35,7 @@ class GetProductRepositoryImpl @Inject constructor(
         )
     }
 
-    override fun getProductsByCategory(category: String): Pager<Int, Product> {
+    override fun getProductsByCategory(category: String): Pager<Int, ProductVo> {
         return Pager(
             config = PagingConfig(
                 pageSize = 10,
@@ -40,7 +45,7 @@ class GetProductRepositoryImpl @Inject constructor(
         )
     }
 
-    override fun searchProducts(query: String): Pager<Int, Product> {
+    override fun searchProducts(query: String): Pager<Int, ProductVo> {
         return Pager (
             config = PagingConfig(
                 pageSize = 20,
@@ -50,7 +55,7 @@ class GetProductRepositoryImpl @Inject constructor(
         )
     }
 
-    override fun getPopularProducts(): Pager<Int, Product> {
+    override fun getPopularProducts(): Pager<Int, ProductVo> {
         return Pager (
             config = PagingConfig(
                 pageSize = 20,
@@ -60,7 +65,7 @@ class GetProductRepositoryImpl @Inject constructor(
         )
     }
 
-    override fun getRecommendProducts(): Pager<Int, Product> {
+    override fun getRecommendProducts(): Pager<Int, ProductVo> {
         return Pager (
             config = PagingConfig(
                 pageSize = 20,
@@ -70,14 +75,26 @@ class GetProductRepositoryImpl @Inject constructor(
         )
     }
 
+    override fun getDiscountsProducts(category: String): Pager<Int, ProductVo> {
+        return Pager(
+            config = PagingConfig(pageSize = 10),
+            pagingSourceFactory = {
+                DIscountPagingSource(
+                    api = api,
+                    category = category,
+                    applyFifteenPercentDiscount = true
+                )
+            }
+        )
+    }
 
-    override fun getProducts(): Flow<List<Product>> {
+    override fun getProducts(): Flow<List<ProductVo>> {
         return dao.getProducts()
     }
 
-    override suspend fun insertProduct(product: Product) = dao.insertProduct(product)
+    override suspend fun insertProduct(product: ProductVo) = dao.insertProduct(product)
 
 
-    override suspend fun deleteProduct(product: Product) = dao.deleteProduct(product)
+    override suspend fun deleteProduct(product: ProductVo) = dao.deleteProduct(product)
 
 }

@@ -2,7 +2,7 @@ package com.example.ecommerceapp.domain.model
 
 import java.io.Serializable
 
-data class Review(
+data class ReviewVo(
     val comment: String?,
     val date: String?,
     val rating: Int?,

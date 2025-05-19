@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ecommerceapp.databinding.FragmentReviewBottomSheetBinding
-import com.example.ecommerceapp.domain.model.Review
+import com.example.ecommerceapp.domain.model.ReviewVo
 import com.example.ecommerceapp.presentation.adapter.ReviewAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -15,11 +15,11 @@ class ReviewBottomSheet : BottomSheetDialogFragment() {
     private var _binding: FragmentReviewBottomSheetBinding? = null
     private val binding get() = _binding!!
     private lateinit var reviewAdapter: ReviewAdapter
-    private var reviewList: List<Review> = emptyList()
+    private var reviewList: List<ReviewVo> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        reviewList = arguments?.getSerializable("reviewList") as? List<Review> ?: emptyList()
+        reviewList = arguments?.getSerializable("reviewList") as? List<ReviewVo> ?: emptyList()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -43,7 +43,7 @@ class ReviewBottomSheet : BottomSheetDialogFragment() {
     }
 
     companion object {
-        fun newInstance(reviews: List<Review>): ReviewBottomSheet {
+        fun newInstance(reviews: List<ReviewVo>): ReviewBottomSheet {
             val bundle = Bundle().apply {
                 putSerializable("reviewList", ArrayList(reviews))
             }

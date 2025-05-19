@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -16,9 +14,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ecommerceapp.R
 import com.example.ecommerceapp.databinding.FragmentAccountBinding
-import com.example.ecommerceapp.presentation.adapter.GetProductsAdapter
-import com.example.ecommerceapp.presentation.viewMdoel.CartViewModel
-import com.example.ecommerceapp.presentation.viewMdoel.GetProductsViewModel
+import com.example.ecommerceapp.presentation.adapter.ProductsAdapter
+import com.example.ecommerceapp.presentation.viewMdoel.LocalProductsViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -30,9 +27,8 @@ class AccountFragment : Fragment() {
     private var _binding: FragmentAccountBinding? = null
     private val binding get() = _binding!!
     private lateinit var auth: FirebaseAuth
-    private lateinit var productAdapter: GetProductsAdapter
-    private val viewModel: GetProductsViewModel by viewModels()
-    private val cartViewModel: CartViewModel by activityViewModels()
+    private lateinit var productAdapter: ProductsAdapter
+    private val viewModel: LocalProductsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,12 +48,11 @@ class AccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         auth = FirebaseAuth.getInstance()
-        productAdapter = GetProductsAdapter()
+        productAdapter = ProductsAdapter()
 
         observeSaveProducts()
         setUpRecyclerViewForSaveProducts()
         setUserProfilePictureAndName()
-        addToCart()
 
         binding.imvBack.setOnClickListener {
             findNavController().navigate(
@@ -113,13 +108,6 @@ class AccountFragment : Fragment() {
         binding.rcvSaveProducts.apply {
             adapter = productAdapter
             layoutManager = GridLayoutManager(requireActivity(), 2)
-        }
-    }
-
-    private fun addToCart() {
-        productAdapter.setOnAddToCartClickListener {
-            cartViewModel.addToCart(it)
-            Toast.makeText(requireContext(), "Added to Cart", Toast.LENGTH_SHORT).show()
         }
     }
 

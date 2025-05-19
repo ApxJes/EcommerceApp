@@ -11,21 +11,21 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.ecommerceapp.R
-import com.example.ecommerceapp.domain.model.Product
+import com.example.ecommerceapp.domain.model.ProductVo
 
-class GetProductsAdapter : RecyclerView.Adapter<GetProductsAdapter.ProductsViewHolder>() {
+class ProductsAdapter : RecyclerView.Adapter<ProductsAdapter.ProductsViewHolder>() {
 
-    private val differCallBack = object : DiffUtil.ItemCallback<Product>() {
+    private val differCallBack = object : DiffUtil.ItemCallback<ProductVo>() {
         override fun areItemsTheSame(
-            oldItem: Product,
-            newItem: Product
+            oldItem: ProductVo,
+            newItem: ProductVo
         ): Boolean {
             return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
-            oldItem: Product,
-            newItem: Product
+            oldItem: ProductVo,
+            newItem: ProductVo
         ): Boolean {
             return oldItem == newItem
         }
@@ -55,16 +55,12 @@ class GetProductsAdapter : RecyclerView.Adapter<GetProductsAdapter.ProductsViewH
                 .into(productImage)
 
             productName.text = product.title
-            productPrice.text = "$"+ product.price.toString()+"USD"
+            productPrice.text = "$"+ product.price.toString()
+            productRating.text = String.format("%.1f", product.rating)
 
             itemView.setOnClickListener {
                 onClick?.invoke(product)
             }
-
-            btnAddToCart.setOnClickListener {
-                onAddToClick?.invoke(product)
-            }
-
         }
     }
 
@@ -76,17 +72,11 @@ class GetProductsAdapter : RecyclerView.Adapter<GetProductsAdapter.ProductsViewH
         val productImage: ImageView = itemView.findViewById(R.id.imvProductImage)
         val productName: TextView = itemView.findViewById(R.id.txvProductName)
         val productPrice: TextView = itemView.findViewById(R.id.txvProductPrize)
-        val btnAddToCart: ImageView = itemView.findViewById(R.id.btnAddToCart)
+        val productRating: TextView = itemView.findViewById(R.id.txvRating)
     }
 
-    private var onClick: ((Product) -> Unit)? = null
-    private var onAddToClick: ((Product) -> Unit)? = null
-
-    fun setOnClickListener(listener: (Product) -> Unit) {
+    private var onClick: ((ProductVo) -> Unit)? = null
+    fun setOnClickListener(listener: (ProductVo) -> Unit) {
         onClick = listener
-    }
-
-    fun setOnAddToCartClickListener(listener: (Product) -> Unit) {
-        onAddToClick = listener
     }
 }

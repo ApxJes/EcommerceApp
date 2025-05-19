@@ -15,13 +15,12 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.navOptions
 import com.bumptech.glide.Glide
 import com.example.ecommerceapp.R
 import com.example.ecommerceapp.databinding.FragmentProductDetailsBinding
-import com.example.ecommerceapp.domain.model.Review
+import com.example.ecommerceapp.domain.model.ReviewVo
 import com.example.ecommerceapp.presentation.viewMdoel.CartViewModel
-import com.example.ecommerceapp.presentation.viewMdoel.GetProductsViewModel
+import com.example.ecommerceapp.presentation.viewMdoel.LocalProductsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -32,7 +31,7 @@ class ProductDetailsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val args: ProductDetailsFragmentArgs by navArgs()
-    private val viewModel: GetProductsViewModel by viewModels()
+    private val viewModel: LocalProductsViewModel by viewModels()
     private val cartViewModel: CartViewModel by activityViewModels()
 
     private var productWasSaved = false
@@ -58,11 +57,7 @@ class ProductDetailsFragment : Fragment() {
         addToCart()
 
         binding.imvBack.setOnClickListener {
-            findNavController().navigate(
-                R.id.homeFragment, null, NavOptions.Builder()
-                    .setPopUpTo(R.id.onBoardingFragment, true)
-                    .build()
-            )
+            requireActivity().supportFragmentManager.popBackStack()
         }
 
         binding.imvFavorite.setOnClickListener {
@@ -102,10 +97,9 @@ class ProductDetailsFragment : Fragment() {
     }
 
     private fun productReview() {
-
         val review = args.product.reviews
         if(review!!.isNotEmpty()) {
-            val bottomSheet = ReviewBottomSheet.Companion.newInstance(review as List<Review>)
+            val bottomSheet = ReviewBottomSheet.Companion.newInstance(review as List<ReviewVo>)
             bottomSheet.show(parentFragmentManager, bottomSheet.tag)
         } else {
             Toast.makeText(requireContext(), "No reviews available", Toast.LENGTH_SHORT).show()

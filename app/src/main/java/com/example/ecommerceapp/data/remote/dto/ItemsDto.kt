@@ -1,7 +1,7 @@
 package com.example.ecommerceapp.data.remote.dto
 
 
-import com.example.ecommerceapp.domain.model.Item
+import com.example.ecommerceapp.domain.model.ItemVo
 import com.google.gson.annotations.SerializedName
 
 data class ItemsDto(
@@ -14,8 +14,8 @@ data class ItemsDto(
     @SerializedName("total")
     val total: Int?
 ) {
-    fun toItem(): Item {
-        return Item(
+    fun toItem(): ItemVo {
+        return ItemVo(
             limit = limit,
             produce = products!!.map { it!!.toProduct() },
             skip = skip,

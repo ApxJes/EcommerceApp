@@ -27,7 +27,6 @@ class SearchFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var pagingAdapter: PagingAdapter
     private val viewModel: SearchingProductsViewModel by viewModels()
-    private val cartViewModel: CartViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,11 +43,6 @@ class SearchFragment : Fragment() {
 
         observeSearchProducts()
         setUpRecyclerViewForSearchProducts()
-
-        pagingAdapter.setOnAddToCartClickListener {
-            cartViewModel.addToCart(it)
-            Toast.makeText(requireContext(), "Added to Cart", Toast.LENGTH_SHORT).show()
-        }
 
         pagingAdapter.setOnClickListener {
             val action = SearchFragmentDirections

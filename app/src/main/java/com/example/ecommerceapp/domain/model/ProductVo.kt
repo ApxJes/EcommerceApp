@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import java.io.Serializable
 
 @Entity(tableName = "products_table")
-data class Product(
+data class ProductVo(
 
     @PrimaryKey(autoGenerate = true) val id: Int?,
 
@@ -17,7 +17,7 @@ data class Product(
     val minimumOrderQuantity: Int?,
     val price: Double?,
     val rating: Double?,
-    val reviews: List<Review?>?,
+    val reviews: List<ReviewVo?>?,
     val stock: Int?,
     val thumbnail: String?,
     val title: String?,

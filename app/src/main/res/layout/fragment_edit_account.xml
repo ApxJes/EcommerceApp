@@ -9,10 +9,8 @@
 
     <ImageView
         android:id="@+id/imvBack"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/back_bg"
-        android:padding="8dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:src="@drawable/back_arrow"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -20,10 +18,9 @@
 
     <ImageView
         android:id="@+id/imvSave"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_marginEnd="0dp"
-        android:padding="8dp"
         android:src="@drawable/done"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -45,17 +42,6 @@
             android:src="@drawable/pp"
             app:civ_border_color="#FF000000"
             app:civ_border_width="2dp" />
-
-        <ImageView
-            android:id="@+id/imvEdit"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="6dp"
-            android:padding="4dp"
-            android:background="@drawable/profile_circle_shape"
-            android:src="@drawable/edit"
-            />
     </FrameLayout>
 
     <TextView

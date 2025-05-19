@@ -23,17 +23,15 @@
 
         <ImageView
             android:id="@+id/txvBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/back_arrow"
-            android:background="@drawable/back_bg"
-            android:padding="8dp"/>
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/back_arrow" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="110dp"
-            android:fontFamily="@font/switzer_bold"
+            android:fontFamily="@font/supreme_regular"
             android:text="Review"
             android:textColor="@color/black"
             android:textSize="20sp" />

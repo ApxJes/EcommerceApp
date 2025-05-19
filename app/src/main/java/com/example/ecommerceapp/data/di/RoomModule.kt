@@ -1,7 +1,8 @@
-package com.example.ecommerceapp.data.local
+package com.example.ecommerceapp.data.di
 
 import android.content.Context
 import androidx.room.Room
+import com.example.ecommerceapp.data.local.ProductDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

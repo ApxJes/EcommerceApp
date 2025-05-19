@@ -77,12 +77,7 @@ class CartFragment : Fragment() {
         }.launchIn(viewLifecycleOwner.lifecycleScope)
 
         binding.imvBack.setOnClickListener {
-            findNavController().navigate(
-                R.id.homeFragment, null,
-                NavOptions.Builder()
-                    .setPopUpTo(R.id.onBoardingFragment, true)
-                    .build()
-            )
+            requireActivity().supportFragmentManager.popBackStack()
         }
 
         binding.btnCheckOut.setOnClickListener {

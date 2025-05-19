@@ -1,6 +1,7 @@
-package com.example.ecommerceapp.data.remote
+package com.example.ecommerceapp.data.di
 
 import com.example.ecommerceapp.core.Constants
+import com.example.ecommerceapp.data.remote.api_service.ItemsApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,7 +37,7 @@ object RetrofitModule {
 
     @Provides
     @Singleton
-    fun providesApi(retrofit: Retrofit): ItemsApi {
-        return retrofit.create(ItemsApi::class.java)
+    fun providesApi(retrofit: Retrofit): ItemsApiService {
+        return retrofit.create(ItemsApiService::class.java)
     }
 }

@@ -1,7 +1,7 @@
 package com.example.ecommerceapp.data.remote.dto
 
 
-import com.example.ecommerceapp.domain.model.Review
+import com.example.ecommerceapp.domain.model.ReviewVo
 import com.google.gson.annotations.SerializedName
 
 data class ReviewDto(
@@ -16,8 +16,8 @@ data class ReviewDto(
     @SerializedName("reviewerName")
     val reviewerName: String?
 ) {
-    fun toReview(): Review {
-        return Review(
+    fun toReview(): ReviewVo {
+        return ReviewVo(
             comment = comment,
             date = date,
             rating = rating,

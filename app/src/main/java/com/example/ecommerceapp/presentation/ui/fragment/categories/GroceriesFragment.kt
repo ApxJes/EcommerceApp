@@ -14,7 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ecommerceapp.databinding.FragmentGroceriesBinding
 import com.example.ecommerceapp.presentation.adapter.PagingAdapter
-import com.example.ecommerceapp.presentation.viewMdoel.GetAllProductsViewModel
+import com.example.ecommerceapp.presentation.viewMdoel.RemoteProductsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -24,7 +24,7 @@ class GroceriesFragment : Fragment() {
 
     private var _binding: FragmentGroceriesBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: GetAllProductsViewModel by viewModels()
+    private val viewModel: RemoteProductsViewModel by viewModels()
     private lateinit var groceriesAdapter: PagingAdapter
 
     override fun onCreateView(
@@ -70,7 +70,7 @@ class GroceriesFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.event.collect { event ->
                 when (event) {
-                    is GetAllProductsViewModel.UiEvent.ToastMessage -> {
+                    is RemoteProductsViewModel.UiEvent.ToastMessage -> {
                         Toast.makeText(
                             requireContext(),
                             event.message,

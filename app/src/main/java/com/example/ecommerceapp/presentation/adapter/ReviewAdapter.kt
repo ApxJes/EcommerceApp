@@ -8,16 +8,16 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ecommerceapp.R
-import com.example.ecommerceapp.domain.model.Review
+import com.example.ecommerceapp.domain.model.ReviewVo
 
 class ReviewAdapter : RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
 
-    private val differCallback = object : DiffUtil.ItemCallback<Review>() {
-        override fun areItemsTheSame(oldItem: Review, newItem: Review): Boolean {
+    private val differCallback = object : DiffUtil.ItemCallback<ReviewVo>() {
+        override fun areItemsTheSame(oldItem: ReviewVo, newItem: ReviewVo): Boolean {
             return oldItem.reviewerEmail == newItem.reviewerEmail && oldItem.date == newItem.date
         }
 
-        override fun areContentsTheSame(oldItem: Review, newItem: Review): Boolean {
+        override fun areContentsTheSame(oldItem: ReviewVo, newItem: ReviewVo): Boolean {
             return oldItem == newItem
         }
     }

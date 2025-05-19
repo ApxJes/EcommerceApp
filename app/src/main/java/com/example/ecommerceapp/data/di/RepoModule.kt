@@ -1,6 +1,7 @@
-package com.example.ecommerceapp.domain.repository
+package com.example.ecommerceapp.data.di
 
 import com.example.ecommerceapp.data.repository.GetProductRepositoryImpl
+import com.example.ecommerceapp.domain.repository.GetProductsRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

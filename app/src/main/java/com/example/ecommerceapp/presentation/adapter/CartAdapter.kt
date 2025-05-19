@@ -9,15 +9,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.ecommerceapp.R
-import com.example.ecommerceapp.domain.model.Product
+import com.example.ecommerceapp.domain.model.ProductVo
 
 class CartAdapter(
     private val onQuantityChanged: () -> Unit,
-    private val onItemsRemove:(Product) -> Unit
+    private val onItemsRemove:(ProductVo) -> Unit
 ) : RecyclerView.Adapter<CartAdapter.CartItemViewHolder>() {
 
-    private val products = mutableListOf<Product>()
-    private val quantities = mutableMapOf<Product, Int>()
+    private val products = mutableListOf<ProductVo>()
+    private val quantities = mutableMapOf<ProductVo, Int>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartItemViewHolder {
         return CartItemViewHolder(
@@ -64,7 +64,7 @@ class CartAdapter(
     override fun getItemCount(): Int = products.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setItem(newItems: List<Product>) {
+    fun setItem(newItems: List<ProductVo>) {
         products.clear()
         products.addAll(newItems)
         quantities.clear()

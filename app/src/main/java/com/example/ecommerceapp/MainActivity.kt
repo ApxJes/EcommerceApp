@@ -35,8 +35,10 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
 
+            val showBottomNav = setOf(R.id.homeFragment, R.id.cartFragment, R.id.accountFragment)
+
             binding.bottomNav.visibility =
-                if(destination.id == R.id.homeFragment) View.VISIBLE else View.GONE
+                if(destination.id in showBottomNav ) View.VISIBLE else View.GONE
         }
     }
 

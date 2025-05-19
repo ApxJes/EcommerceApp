@@ -2,24 +2,24 @@ package com.example.ecommerceapp.data.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.ecommerceapp.data.remote.ItemsApi
-import com.example.ecommerceapp.domain.model.Product
+import com.example.ecommerceapp.data.remote.api_service.ItemsApiService
+import com.example.ecommerceapp.domain.model.ProductVo
 
 class RecommendProductsPagingSource (
-    private val api: ItemsApi,
-) : PagingSource<Int, Product>() {
+    private val api: ItemsApiService,
+) : PagingSource<Int, ProductVo>() {
 
-    override fun getRefreshKey(state: PagingState<Int, Product>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, ProductVo>): Int? {
         return state.anchorPosition?.let { anchor ->
             state.closestPageToPosition(anchor)?.prevKey?.plus(1)
                 ?: state.closestPageToPosition(anchor)?.nextKey?.minus(1)
         }
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Product> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ProductVo> {
         return try {
             val page = params.key ?: 0
-            val response = api.getItems(limit = 20, skip = page * params.loadSize)
+            val response = api.getAllProducts(limit = 20, skip = page * params.loadSize)
 
             val recommended = response.products
                 ?.mapNotNull { it?.toProduct() }

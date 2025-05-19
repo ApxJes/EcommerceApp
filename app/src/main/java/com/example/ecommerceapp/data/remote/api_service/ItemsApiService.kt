@@ -1,14 +1,17 @@
-package com.example.ecommerceapp.data.remote
+package com.example.ecommerceapp.data.remote.api_service
 
 import com.example.ecommerceapp.data.remote.dto.ItemsDto
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface ItemsApi {
+interface ItemsApiService {
 
     @GET("products")
-    suspend fun getItems(
+    suspend fun getSomeProducts(): ItemsDto
+
+    @GET("products")
+    suspend fun getAllProducts(
         @Query("limit") limit: Int,
         @Query("skip") skip: Int,
     ): ItemsDto

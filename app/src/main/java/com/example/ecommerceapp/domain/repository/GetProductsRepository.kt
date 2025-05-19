@@ -2,23 +2,28 @@ package com.example.ecommerceapp.domain.repository
 
 import androidx.paging.Pager
 import com.example.ecommerceapp.data.remote.dto.ItemsDto
-import com.example.ecommerceapp.domain.model.Product
+import com.example.ecommerceapp.domain.model.ProductVo
 import kotlinx.coroutines.flow.Flow
 
 interface GetProductsRepository {
-    fun getAllProducts(): Pager<Int, Product>
 
-    fun getProductsByCategory(category: String): Pager<Int, Product>
+    suspend fun getSomeProducts(): ItemsDto
 
-    fun searchProducts(query: String): Pager<Int, Product>
+    fun getAllProducts(): Pager<Int, ProductVo>
 
-    fun getPopularProducts(): Pager<Int, Product>
+    fun getProductsByCategory(category: String): Pager<Int, ProductVo>
 
-    fun getRecommendProducts(): Pager<Int, Product>
+    fun searchProducts(query: String): Pager<Int, ProductVo>
 
-    fun getProducts(): Flow<List<Product>>
+    fun getPopularProducts(): Pager<Int, ProductVo>
 
-    suspend fun insertProduct(product: Product)
+    fun getRecommendProducts(): Pager<Int, ProductVo>
 
-    suspend fun deleteProduct(product: Product)
+    fun getDiscountsProducts(category: String): Pager<Int, ProductVo>
+
+    fun getProducts(): Flow<List<ProductVo>>
+
+    suspend fun insertProduct(product: ProductVo)
+
+    suspend fun deleteProduct(product: ProductVo)
 }

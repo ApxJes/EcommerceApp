@@ -6,18 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
+import com.denzcoskun.imageslider.ImageSlider
+import com.denzcoskun.imageslider.constants.ScaleTypes
+import com.denzcoskun.imageslider.models.SlideModel
 import com.example.ecommerceapp.R
 import com.example.ecommerceapp.databinding.FragmentHomeBinding
-import com.example.ecommerceapp.presentation.adapter.PagingAdapter
-import com.example.ecommerceapp.presentation.viewMdoel.CartViewModel
-import com.example.ecommerceapp.presentation.viewMdoel.GetAllProductsViewModel
+import com.example.ecommerceapp.presentation.adapter.ProductsAdapter
+import com.example.ecommerceapp.presentation.viewMdoel.RemoteProductsViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -28,13 +29,10 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: GetAllProductsViewModel by viewModels()
-    private val cartViewModel: CartViewModel by activityViewModels()
+    private val viewModel: RemoteProductsViewModel by viewModels()
     private lateinit var auth: FirebaseAuth
 
-    private lateinit var pagingAdapter: PagingAdapter
-    private lateinit var popularAdapter: PagingAdapter
-    private lateinit var recommendAdapter: PagingAdapter
+    private lateinit var productsAdapter: ProductsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,50 +50,43 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         auth = FirebaseAuth.getInstance()
-        pagingAdapter = PagingAdapter()
-        popularAdapter = PagingAdapter()
-        recommendAdapter = PagingAdapter()
+        productsAdapter = ProductsAdapter()
 
-        setUpRecyclerViewForProducts()
-        setUpRecyclerViewForPopularProducts()
-        setUpRecyclerViewForRecommendedProducts()
+        setUpProductsRecyclerView()
+        getAvailableProducts()
 
-        getProducts()
-        getPopularProducts()
-        getRecommendProducts()
-
-        getProductsByCategory()
+        fetchProductsByItsCategory()
         setUserProfilePictureAndName()
-        addToCart()
+        setImageSlider()
 
-        pagingAdapter.setOnClickListener { product ->
+        productsAdapter.setOnClickListener { product ->
             val action = HomeFragmentDirections.actionHomeFragmentToProductDetailsFragment(product)
             findNavController().navigate(action)
-        }
-
-        popularAdapter.setOnClickListener {
-            findNavController().navigate(
-                HomeFragmentDirections.actionHomeFragmentToProductDetailsFragment(it)
-            )
-        }
-
-        recommendAdapter.setOnClickListener {
-            findNavController().navigate(
-                HomeFragmentDirections.actionHomeFragmentToProductDetailsFragment(it)
-            )
         }
 
         binding.imvSearch.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToSearchFragment()
             findNavController().navigate(action)
         }
+
+        binding.txvViewAllProducts.setOnClickListener {
+            findNavController().navigate(
+                HomeFragmentDirections.actionHomeFragmentToAllProductsFragment()
+            )
+        }
     }
 
-    private fun getProducts() {
+    private fun getAvailableProducts() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.getSomeProducts.collectLatest { productsList ->
+                    binding.loadingProgressBar.visibility =
+                        if (productsList.isLoading) View.VISIBLE else View.GONE
 
-        lifecycleScope.launch {
-            viewModel.pagedProduct.collectLatest { pagingData ->
-                pagingAdapter.submitData(pagingData)
+                    if (productsList.products.isNotEmpty()) {
+                        productsAdapter.differ.submitList(productsList.products)
+                    }
+                }
             }
         }
 
@@ -103,7 +94,7 @@ class HomeFragment : Fragment() {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.event.collect { event ->
                     when(event) {
-                        is GetAllProductsViewModel.UiEvent.ToastMessage -> {
+                        is RemoteProductsViewModel.UiEvent.ToastMessage -> {
                             Toast.makeText(
                                 requireContext(),
                                 event.message,
@@ -117,48 +108,14 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun getPopularProducts() {
-        lifecycleScope.launch {
-            viewModel.popularProducts.collectLatest {
-                popularAdapter.submitData(it)
-            }
-        }
-    }
-
-    private fun getRecommendProducts() {
-        lifecycleScope.launch {
-            viewModel.recommendProducts.collectLatest {
-                recommendAdapter.submitData(it)
-            }
-        }
-    }
-
-
-    private fun setUpRecyclerViewForProducts() {
+    private fun setUpProductsRecyclerView() {
         binding.rcvHotDeals.apply {
-            adapter = pagingAdapter
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = productsAdapter
+            layoutManager = GridLayoutManager(requireContext(), 2)
         }
     }
 
-    private fun setUpRecyclerViewForPopularProducts() {
-        binding.rcvPopularProducts.apply {
-            adapter = popularAdapter
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        }
-    }
-
-    private fun setUpRecyclerViewForRecommendedProducts() {
-        binding.rcvRecommendProducts.apply {
-            adapter = recommendAdapter
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        }
-    }
-
-    private fun getProductsByCategory() {
+    private fun fetchProductsByItsCategory() {
         binding.btnFashion.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToFashionFragment()
             findNavController().navigate(action)
@@ -203,21 +160,14 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun addToCart() {
-        pagingAdapter.setOnAddToCartClickListener {
-            cartViewModel.addToCart(it)
-            Toast.makeText(requireContext(), "Added to Cart", Toast.LENGTH_SHORT).show()
-        }
+    private fun setImageSlider() {
+        val imageSlider: ImageSlider = requireActivity().findViewById(R.id.imageSlider)
+        val imageList = ArrayList<SlideModel>()
 
-        popularAdapter.setOnAddToCartClickListener {
-            cartViewModel.addToCart(it)
-            Toast.makeText(requireContext(), "Added to Cart", Toast.LENGTH_SHORT).show()
-        }
+        imageList.add(SlideModel(R.drawable.beauty1, ScaleTypes.FIT))
+        imageList.add(SlideModel(R.drawable.fragrances1, ScaleTypes.FIT))
 
-        recommendAdapter.setOnAddToCartClickListener {
-            cartViewModel.addToCart(it)
-            Toast.makeText(requireContext(), "Added to Cart", Toast.LENGTH_SHORT).show()
-        }
+        imageSlider.setImageList(imageList, ScaleTypes.FIT)
     }
 
     override fun onDestroyView() {

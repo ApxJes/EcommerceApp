@@ -9,21 +9,16 @@
 
     <ImageView
         android:id="@+id/imvBack"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:padding="8dp"
-        android:background="@drawable/back_bg"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:src="@drawable/back_arrow"
-        android:contentDescription="Back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imvEdit"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:padding="8dp"
-        android:background="@drawable/back_bg"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:src="@drawable/edit"
         android:contentDescription="Edit Profile"
         app:layout_constraintEnd_toEndOf="parent"
