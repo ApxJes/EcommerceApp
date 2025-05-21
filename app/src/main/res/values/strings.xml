@@ -16,4 +16,7 @@
     <string name="web_clientId">
         114904318549-n3hn426f045phsmuqu2llvplrr02park.apps.googleusercontent.com
     </string>
+
+    <string name="see_more"><u>See more</u></string>
+
 </resources>

@@ -2,6 +2,7 @@ package com.example.ecommerceapp.data.repository
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.example.ecommerceapp.data.local.ProductDao
 import com.example.ecommerceapp.data.paging.DIscountPagingSource
 import com.example.ecommerceapp.data.paging.PopularProductsPagingSource
@@ -12,36 +13,37 @@ import com.example.ecommerceapp.data.paging.SearchingPagingSource
 import com.example.ecommerceapp.data.remote.api_service.ItemsApiService
 import com.example.ecommerceapp.data.remote.dto.ItemsDto
 import com.example.ecommerceapp.domain.model.ProductVo
-import com.example.ecommerceapp.domain.repository.GetProductsRepository
+import com.example.ecommerceapp.domain.repository.ProductsRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetProductRepositoryImpl @Inject constructor(
+class ProductsRepositoryImpl @Inject constructor(
     private val api: ItemsApiService,
     private val dao: ProductDao
-) : GetProductsRepository {
+) : ProductsRepository {
 
     override suspend fun getSomeProducts(): ItemsDto {
         return api.getSomeProducts()
     }
 
-    override fun getAllProducts(): Pager<Int, ProductVo> {
+    override fun getAllProducts(): Flow<PagingData<ProductVo>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 20,
+                enablePlaceholders = false,
+                prefetchDistance = 5
+            ),
+            pagingSourceFactory = { ProductPagingSource(api) }
+        ).flow
+    }
+
+    override fun getProductsByCategory(category: List<String>): Pager<Int, ProductVo> {
         return Pager(
             config = PagingConfig(
                 pageSize = 20,
                 enablePlaceholders = false
             ),
-            pagingSourceFactory = { ProductPagingSource(api) }
-        )
-    }
-
-    override fun getProductsByCategory(category: String): Pager<Int, ProductVo> {
-        return Pager(
-            config = PagingConfig(
-                pageSize = 10,
-                enablePlaceholders = false
-            ),
-            pagingSourceFactory = { ProductByCategoryPagingSource(api = api, category = category)}
+            pagingSourceFactory = { ProductByCategoryPagingSource(api = api, categories = category)}
         )
     }
 

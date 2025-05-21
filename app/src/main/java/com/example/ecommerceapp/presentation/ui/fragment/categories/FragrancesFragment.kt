@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ecommerceapp.databinding.FragmentFragrancesBinding
 import com.example.ecommerceapp.presentation.adapter.PagingAdapter
@@ -45,7 +47,7 @@ class FragrancesFragment : Fragment() {
         fragrancesAdapter = PagingAdapter()
         setUpRecyclerViewForFashion()
         observeFragrancesProducts()
-        viewModel.getProductsByCategory(category = "fragrances")
+        viewModel.getProductsByCategory(category = listOf("fragrances"))
 
         binding.imvBack.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
@@ -62,6 +64,9 @@ class FragrancesFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.categoryPagingData.collectLatest {
+                    fragrancesAdapter.addLoadStateListener { loadState ->
+                        binding.progressBarLoading.isVisible = loadState.source.refresh is LoadState.Loading
+                    }
                     fragrancesAdapter.submitData(it)
                 }
             }

@@ -1,20 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".presentation.ui.fragment.mainScreen.HomeFragment">
-
-    <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:fillViewport="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,7 +23,7 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:src="@drawable/pp"
-                    app:civ_border_color="#FF000000"
+                    app:civ_border_color="@color/primaryColor"
                     app:civ_border_width="2dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -52,7 +43,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Hello!"
-                        android:textColor="@color/black"
+                        android:textColor="@color/primaryColor"
                         android:fontFamily="@font/supreme_regular"
                         android:textSize="14sp" />
 
@@ -65,18 +56,49 @@
                         android:textColor="@color/black"
                         android:textSize="18sp" />
                 </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/btnSearchBox"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_searchbox"
+                android:elevation="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp">
 
                 <ImageView
-                    android:id="@+id/imvSearch"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:contentDescription="Search"
+                    android:layout_marginEnd="12dp"
                     android:src="@drawable/search"
-                    app:layout_constraintBottom_toBottomOf="@id/imvProfile"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/imvProfile"
-                    app:tint="@color/black" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    app:tint="@color/primaryColor" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:hint="Find the items you want"
+                    android:inputType="text"
+                    android:textColor="#544E4E"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:fontFamily="@font/worksans_regular"
+                    android:maxLines="1"
+                    android:imeOptions="actionSearch" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="12dp"
+                    android:src="@drawable/search_elements"
+                    app:tint="@color/primaryColor" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -87,7 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:fontFamily="@font/worksans_regular"
+                    android:fontFamily="@font/switzer_bold"
                     android:text="Categories"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
@@ -103,8 +125,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:fontFamily="@font/switzer_bold"
-                    android:text="View All"
-                    android:textColor="@color/black"
+                    android:text="@string/see_more"
+                    android:textColor="@color/primaryColor"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -150,7 +172,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/space_grotesk_bold"
+                            android:fontFamily="@font/supreme_regular"
                             android:text="Fashion"
                             android:textColor="@color/black"
                             android:textSize="12sp" />
@@ -186,7 +208,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/space_grotesk_bold"
+                            android:fontFamily="@font/supreme_regular"
                             android:text="Beauty"
                             android:textColor="@color/black"
                             android:textSize="12sp" />
@@ -222,7 +244,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/space_grotesk_bold"
+                            android:fontFamily="@font/supreme_regular"
                             android:text="Furniture"
                             android:textColor="@color/black"
                             android:textSize="12sp" />
@@ -258,7 +280,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/space_grotesk_bold"
+                            android:fontFamily="@font/supreme_regular"
                             android:text="Fragrances"
                             android:textColor="@color/black"
                             android:textSize="12sp" />
@@ -294,7 +316,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/space_grotesk_bold"
+                            android:fontFamily="@font/supreme_regular"
                             android:text="Groceries"
                             android:textColor="@color/black"
                             android:textSize="12sp" />
@@ -333,7 +355,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/worksans_regular"
+                    android:fontFamily="@font/switzer_bold"
                     android:text="Available Products"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
@@ -348,8 +370,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/switzer_bold"
-                    android:text="See More"
-                    android:textColor="@color/black"
+                    android:text="@string/see_more"
+                    android:textColor="@color/primaryColor"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -362,18 +384,13 @@
                 android:clipToPadding="false"
                 android:layout_marginTop="12dp"/>
 
+            <ProgressBar
+                android:id="@+id/loadingProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:layout_gravity="center"/>
+
         </LinearLayout>
-    </ScrollView>
-
-    <ProgressBar
-        android:id="@+id/loadingProgressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
 

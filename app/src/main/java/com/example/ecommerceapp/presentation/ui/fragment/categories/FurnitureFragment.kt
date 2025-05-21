@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ecommerceapp.databinding.FragmentFurnitureBinding
 import com.example.ecommerceapp.presentation.adapter.PagingAdapter
@@ -43,7 +45,12 @@ class FurnitureFragment : Fragment() {
         furnitureAdapter = PagingAdapter()
         setUpRecyclerViewForFashion()
         observeFurnitureProducts()
-        viewModel.getProductsByCategory(category = "furniture")
+
+        val homeDecorationCategories = listOf<String>(
+            "furniture", "home-decoration"
+        )
+
+        viewModel.getProductsByCategory(homeDecorationCategories)
 
         binding.imvBack.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
@@ -60,6 +67,9 @@ class FurnitureFragment : Fragment() {
 
         lifecycleScope.launch {
             viewModel.categoryPagingData.collectLatest {
+                furnitureAdapter.addLoadStateListener { loadState ->
+                    binding.progressBarLoading.isVisible = loadState.source.refresh is LoadState.Loading
+                }
                 furnitureAdapter.submitData(it)
             }
         }

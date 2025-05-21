@@ -98,6 +98,10 @@ class CartFragment : Fragment() {
         if(cartAdapter.itemCount <= 0) {
             binding.btnCheckOut1.visibility = View.GONE
         }
+
+        binding.imvBack.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
     }
 
     override fun onDestroyView() {

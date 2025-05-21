@@ -1,7 +1,7 @@
 package com.example.ecommerceapp.data.di
 
-import com.example.ecommerceapp.data.repository.GetProductRepositoryImpl
-import com.example.ecommerceapp.domain.repository.GetProductsRepository
+import com.example.ecommerceapp.data.repository.ProductsRepositoryImpl
+import com.example.ecommerceapp.domain.repository.ProductsRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -15,6 +15,6 @@ abstract class RepoModule {
     @Binds
     @Singleton
     abstract fun providesRepoImpl(
-        getProductRepositoryImpl: GetProductRepositoryImpl
-    ): GetProductsRepository
+        getProductRepositoryImpl: ProductsRepositoryImpl
+    ): ProductsRepository
 }

@@ -91,6 +91,15 @@
         <action
             android:id="@+id/action_homeFragment_to_allProductsFragment"
             app:destination="@id/allProductsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_popularProductsFragment"
+            app:destination="@id/popularProductsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_recommendProductsFragment"
+            app:destination="@id/recommendProductsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_allCategoriesFragment"
+            app:destination="@id/allCategoriesFragment" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
@@ -200,4 +209,25 @@
             android:id="@+id/action_allProductsFragment_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/popularProductsFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.mainScreen.PopularProductsFragment"
+        android:label="PopularProductsFragment" >
+        <action
+            android:id="@+id/action_popularProductsFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recommendProductsFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.mainScreen.RecommendProductsFragment"
+        android:label="RecommendProductsFragment" >
+        <action
+            android:id="@+id/action_recommendProductsFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/allCategoriesFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.mainScreen.AllCategoriesFragment"
+        android:label="fragment_all_categories"
+        tools:layout="@layout/fragment_all_categories" />
 </navigation>

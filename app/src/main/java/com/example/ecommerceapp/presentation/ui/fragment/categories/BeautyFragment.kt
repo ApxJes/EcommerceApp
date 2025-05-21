@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ecommerceapp.databinding.FragmentBeautyBinding
 import com.example.ecommerceapp.presentation.adapter.PagingAdapter
@@ -41,9 +43,14 @@ class BeautyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         beautyAdapter = PagingAdapter()
-        setUpRecyclerViewForFashion()
+        setUpRecyclerViewForBeauty()
         observeBeautyProducts()
-        viewModel.getProductsByCategory(category = "beauty")
+
+        val beautyCategories = listOf<String>(
+            "beauty", "skin-care"
+        )
+
+        viewModel.getProductsByCategory(category = beautyCategories)
 
         binding.imvBack.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
@@ -60,6 +67,9 @@ class BeautyFragment : Fragment() {
 
         lifecycleScope.launch {
             viewModel.categoryPagingData.collectLatest {
+                beautyAdapter.addLoadStateListener { loadState ->
+                    binding.progressBarLoading.isVisible = loadState.source.refresh is LoadState.Loading
+                }
                 beautyAdapter.submitData(it)
             }
         }
@@ -79,7 +89,7 @@ class BeautyFragment : Fragment() {
         }
     }
 
-    private fun setUpRecyclerViewForFashion() {
+    private fun setUpRecyclerViewForBeauty() {
         binding.rcvBeauty.apply {
             adapter = beautyAdapter
             layoutManager = GridLayoutManager(requireActivity(), 2)

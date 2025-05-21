@@ -7,7 +7,7 @@ import com.example.ecommerceapp.domain.model.ProductVo
 
 class ProductByCategoryPagingSource(
     private val api: ItemsApiService,
-    private val category: String
+    private val categories: List<String>
 ) : PagingSource<Int, ProductVo>() {
     override fun getRefreshKey(state: PagingState<Int, ProductVo>): Int? {
         return state.anchorPosition?.let { anchorPos ->
@@ -21,18 +21,22 @@ class ProductByCategoryPagingSource(
             val page = params.key ?: 0
             val pageSize = params.loadSize
 
-            val response = api.getProductsByCategory(
-                category = category,
-                limit = 10,
-                skip = page * pageSize
-            )
+            val allProducts = mutableListOf<ProductVo>()
+            for (category in categories) {
+                val response = api.getProductsByCategory(
+                    category,
+                    limit = 20,
+                    skip = page * pageSize
+                )
 
-            val products = response.products?.map { it!!.toProduct() } ?: emptyList()
+                val products = response.products?.mapNotNull { it?.toProduct() } ?: emptyList()
+                allProducts.addAll(products)
+            }
 
             LoadResult.Page(
-                data = products,
+                data = allProducts,
                 prevKey = if (page == 0) null else page - 1,
-                nextKey = if (products.isEmpty()) null else page + 1
+                nextKey = if (allProducts.isEmpty()) null else page + 1
             )
 
         } catch (e: Exception) {

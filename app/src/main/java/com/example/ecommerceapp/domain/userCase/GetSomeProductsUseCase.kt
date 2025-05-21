@@ -2,7 +2,7 @@ package com.example.ecommerceapp.domain.userCase
 
 import com.example.ecommerceapp.core.Resource
 import com.example.ecommerceapp.domain.model.ProductVo
-import com.example.ecommerceapp.domain.repository.GetProductsRepository
+import com.example.ecommerceapp.domain.repository.ProductsRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import okio.IOException
@@ -10,7 +10,7 @@ import retrofit2.HttpException
 import javax.inject.Inject
 
 class GetSomeProductsUseCase @Inject constructor(
-    private val repository: GetProductsRepository
+    private val repository: ProductsRepository
 ){
 
     suspend operator fun invoke(): Flow<Resource<List<ProductVo>>> = flow {

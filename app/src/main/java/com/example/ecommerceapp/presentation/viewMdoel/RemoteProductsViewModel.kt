@@ -28,10 +28,10 @@ import javax.inject.Inject
 @HiltViewModel
 class RemoteProductsViewModel @Inject constructor(
     private val getSomeProductsUseCase: GetSomeProductsUseCase,
-    private val getProductsUseCase: GetAllProductsUseCase,
-    private val getPopularProductsUseCase: GetPopularProductsUseCase,
+    getProductsUseCase: GetAllProductsUseCase,
+    getPopularProductsUseCase: GetPopularProductsUseCase,
     private val getProductsByCategoryUseCase: GetProductsByCategoryUseCase,
-    private val getRecommendProductsUseCase: GetRecommendProductsUseCase,
+    getRecommendProductsUseCase: GetRecommendProductsUseCase,
 ) : ViewModel() {
 
     private var _state: MutableStateFlow<GetProductsState> = MutableStateFlow(GetProductsState())
@@ -53,6 +53,7 @@ class RemoteProductsViewModel @Inject constructor(
 
     val getAllAvailableProducts: Flow<PagingData<ProductVo>> =
             getProductsUseCase()
+                .buffer()
                 .cachedIn(viewModelScope)
 
     val popularProducts: Flow<PagingData<ProductVo>> =
@@ -95,7 +96,7 @@ class RemoteProductsViewModel @Inject constructor(
         }
     }
 
-    fun getProductsByCategory(category: String) {
+    fun getProductsByCategory(category: List<String>) {
         viewModelScope.launch {
             getProductsByCategoryUseCase(category)
                 .cachedIn(viewModelScope)

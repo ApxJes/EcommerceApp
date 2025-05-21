@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ecommerceapp.domain.model.ProductVo
 import com.example.ecommerceapp.domain.userCase.DeleteProductUseCase
-import com.example.ecommerceapp.domain.userCase.GetProductsUseCase
+import com.example.ecommerceapp.domain.userCase.GetSavedProductsUseCase
 import com.example.ecommerceapp.domain.userCase.InsertProductUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -16,7 +16,7 @@ import javax.inject.Inject
 class LocalProductsViewModel @Inject constructor(
     private val insertProductUseCase: InsertProductUseCase,
     private val deleteProductUseCase: DeleteProductUseCase,
-    private val getProductsUseCase: GetProductsUseCase
+    private val getProductsUseCase: GetSavedProductsUseCase
 ): ViewModel(){
 
     private val _saveProducts = getProductsUseCase()

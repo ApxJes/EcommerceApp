@@ -1,16 +1,15 @@
 package com.example.ecommerceapp.domain.userCase
 
-import androidx.paging.PagingData
 import com.example.ecommerceapp.domain.model.ProductVo
 import com.example.ecommerceapp.domain.repository.ProductsRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetPopularProductsUseCase @Inject constructor(
+class GetSavedProductsUseCase @Inject constructor(
     private val repository: ProductsRepository
 ) {
 
-    operator fun invoke(): Flow<PagingData<ProductVo>> {
-        return repository.getPopularProducts().flow
+    operator fun invoke(): Flow<List<ProductVo>> {
+        return repository.getProducts()
     }
 }

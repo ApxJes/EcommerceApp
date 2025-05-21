@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ecommerceapp.databinding.FragmentFashionBinding
 import com.example.ecommerceapp.presentation.adapter.PagingAdapter
@@ -43,7 +45,13 @@ class FashionFragment : Fragment() {
         fashionAdapter = PagingAdapter()
         setUpRecyclerViewForFashion()
         observeFashionProducts()
-        viewModel.getProductsByCategory(category = "Fashion")
+
+        val fashionCategories = listOf<String>(
+            "mens-shirts", "mens-shoes", "tops",
+            "womens-dresses", "womens-bags", "womens-shoes"
+        )
+
+        viewModel.getProductsByCategory(fashionCategories)
 
         binding.imvBack.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
@@ -59,6 +67,9 @@ class FashionFragment : Fragment() {
     private fun observeFashionProducts() {
         lifecycleScope.launch {
             viewModel.categoryPagingData.collectLatest {
+                fashionAdapter.addLoadStateListener { loadState ->
+                    binding.progressBarLoading.isVisible = loadState.source.refresh is LoadState.Loading
+                }
                 fashionAdapter.submitData(it)
             }
         }

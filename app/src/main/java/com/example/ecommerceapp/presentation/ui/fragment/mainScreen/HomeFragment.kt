@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -12,8 +13,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.constants.ScaleTypes
+import com.denzcoskun.imageslider.interfaces.ItemClickListener
 import com.denzcoskun.imageslider.models.SlideModel
 import com.example.ecommerceapp.R
 import com.example.ecommerceapp.databinding.FragmentHomeBinding
@@ -58,21 +61,17 @@ class HomeFragment : Fragment() {
         fetchProductsByItsCategory()
         setUserProfilePictureAndName()
         setImageSlider()
+        toSeeAllAvailableProducts()
+        toSeeAllCategories()
 
         productsAdapter.setOnClickListener { product ->
             val action = HomeFragmentDirections.actionHomeFragmentToProductDetailsFragment(product)
             findNavController().navigate(action)
         }
 
-        binding.imvSearch.setOnClickListener {
+        binding.btnSearchBox.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToSearchFragment()
             findNavController().navigate(action)
-        }
-
-        binding.txvViewAllProducts.setOnClickListener {
-            findNavController().navigate(
-                HomeFragmentDirections.actionHomeFragmentToAllProductsFragment()
-            )
         }
     }
 
@@ -164,10 +163,41 @@ class HomeFragment : Fragment() {
         val imageSlider: ImageSlider = requireActivity().findViewById(R.id.imageSlider)
         val imageList = ArrayList<SlideModel>()
 
-        imageList.add(SlideModel(R.drawable.beauty1, ScaleTypes.FIT))
-        imageList.add(SlideModel(R.drawable.fragrances1, ScaleTypes.FIT))
-
+        imageList.add(SlideModel(R.drawable.recommend_poster, ScaleTypes.FIT))
+        imageList.add(SlideModel(R.drawable.popular_poster, ScaleTypes.FIT))
         imageSlider.setImageList(imageList, ScaleTypes.FIT)
+
+        imageSlider.setItemClickListener(object : ItemClickListener {
+            override fun onItemSelected(position: Int) {
+                when(position) {
+                    0 -> findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToRecommendProductsFragment())
+                    1 -> findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToPopularProductsFragment())
+                }
+            }
+
+        })
+    }
+
+    private fun toSeeAllAvailableProducts() {
+        binding.txvViewAllProducts.setOnClickListener {
+            findNavController().navigate(
+                HomeFragmentDirections.actionHomeFragmentToAllProductsFragment()
+            )
+        }
+
+        binding.txvViewAllProducts.isClickable = true
+        binding.txvViewAllProducts.isFocusable = false
+    }
+
+    private fun toSeeAllCategories() {
+        binding.txvViewAllCategories.setOnClickListener {
+            findNavController().navigate(
+                HomeFragmentDirections.actionHomeFragmentToAllCategoriesFragment()
+            )
+        }
+
+        binding.txvViewAllCategories.isClickable = true
+        binding.txvViewAllCategories.isFocusable = false
     }
 
     override fun onDestroyView() {
