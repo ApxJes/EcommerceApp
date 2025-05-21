@@ -63,14 +63,10 @@ class HomeFragment : Fragment() {
         setImageSlider()
         toSeeAllAvailableProducts()
         toSeeAllCategories()
+        navigateToSearchFragment()
 
         productsAdapter.setOnClickListener { product ->
             val action = HomeFragmentDirections.actionHomeFragmentToProductDetailsFragment(product)
-            findNavController().navigate(action)
-        }
-
-        binding.btnSearchBox.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeFragmentToSearchFragment()
             findNavController().navigate(action)
         }
     }
@@ -198,6 +194,18 @@ class HomeFragment : Fragment() {
 
         binding.txvViewAllCategories.isClickable = true
         binding.txvViewAllCategories.isFocusable = false
+    }
+
+    private fun navigateToSearchFragment() {
+        binding.btnSearchBox.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToSearchFragment()
+            findNavController().navigate(action)
+        }
+
+        binding.tvSearch.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToSearchFragment()
+            findNavController().navigate(action)
+        }
     }
 
     override fun onDestroyView() {

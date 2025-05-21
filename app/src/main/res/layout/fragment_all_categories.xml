@@ -43,6 +43,7 @@
             android:layout_height="40dp" />
 
         <LinearLayout
+            android:id="@+id/btnLaptop"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_marginBottom="10dp"
@@ -61,7 +62,7 @@
                     android:layout_height="36dp"
                     android:layout_gravity="center"
                     android:background="@drawable/fav_bg"
-                    android:src="@drawable/fashion"
+                    android:src="@drawable/laptops"
                     app:tint="#323135" />
 
             </FrameLayout>
@@ -89,11 +90,13 @@
                 android:layout_height="14dp"
                 android:src="@drawable/forward_arrow"
                 android:layout_gravity="center_vertical"
-                app:tint="@color/black" />
+                app:tint="@color/black"
+                android:layout_marginEnd="15dp"/>
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/btnSmartPhone"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_marginBottom="10dp"
@@ -112,7 +115,7 @@
                     android:layout_height="36dp"
                     android:layout_gravity="center"
                     android:background="@drawable/fav_bg"
-                    android:src="@drawable/fashion"
+                    android:src="@drawable/smartphones"
                     app:tint="#323135" />
 
             </FrameLayout>
@@ -140,11 +143,13 @@
                 android:layout_height="14dp"
                 android:src="@drawable/forward_arrow"
                 android:layout_gravity="center_vertical"
+                android:layout_marginEnd="15dp"
                 app:tint="@color/black" />
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/btnWatch"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_marginBottom="10dp"
@@ -163,7 +168,7 @@
                     android:layout_height="36dp"
                     android:layout_gravity="center"
                     android:background="@drawable/fav_bg"
-                    android:src="@drawable/fashion"
+                    android:src="@drawable/watches"
                     app:tint="#323135" />
 
             </FrameLayout>
@@ -191,11 +196,13 @@
                 android:layout_height="14dp"
                 android:src="@drawable/forward_arrow"
                 android:layout_gravity="center_vertical"
+                android:layout_marginEnd="15dp"
                 app:tint="@color/black" />
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/btnMobileAccessory"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_marginBottom="10dp"
@@ -214,7 +221,7 @@
                     android:layout_height="36dp"
                     android:layout_gravity="center"
                     android:background="@drawable/fav_bg"
-                    android:src="@drawable/fashion"
+                    android:src="@drawable/mobileaccessories"
                     app:tint="#323135" />
 
             </FrameLayout>
@@ -242,11 +249,13 @@
                 android:layout_height="14dp"
                 android:src="@drawable/forward_arrow"
                 android:layout_gravity="center_vertical"
+                android:layout_marginEnd="15dp"
                 app:tint="@color/black" />
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/btnKitchenAccessory"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_marginBottom="10dp"
@@ -265,7 +274,7 @@
                     android:layout_height="36dp"
                     android:layout_gravity="center"
                     android:background="@drawable/fav_bg"
-                    android:src="@drawable/fashion"
+                    android:src="@drawable/kitchenaccessories"
                     app:tint="#323135" />
 
             </FrameLayout>
@@ -293,11 +302,13 @@
                 android:layout_height="14dp"
                 android:src="@drawable/forward_arrow"
                 android:layout_gravity="center_vertical"
+                android:layout_marginEnd="15dp"
                 app:tint="@color/black" />
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/btnSportAccessory"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_marginBottom="10dp"
@@ -316,7 +327,7 @@
                     android:layout_height="36dp"
                     android:layout_gravity="center"
                     android:background="@drawable/fav_bg"
-                    android:src="@drawable/fashion"
+                    android:src="@drawable/sportaccessories"
                     app:tint="#323135" />
 
             </FrameLayout>
@@ -344,11 +355,13 @@
                 android:layout_height="14dp"
                 android:src="@drawable/forward_arrow"
                 android:layout_gravity="center_vertical"
+                android:layout_marginEnd="15dp"
                 app:tint="@color/black" />
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/btnSunglass"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_marginBottom="10dp"
@@ -367,7 +380,7 @@
                     android:layout_height="36dp"
                     android:layout_gravity="center"
                     android:background="@drawable/fav_bg"
-                    android:src="@drawable/fashion"
+                    android:src="@drawable/sunglasses"
                     app:tint="#323135" />
 
             </FrameLayout>
@@ -395,11 +408,13 @@
                 android:layout_height="14dp"
                 android:src="@drawable/forward_arrow"
                 android:layout_gravity="center_vertical"
+                android:layout_marginEnd="15dp"
                 app:tint="@color/black" />
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/btnVehicle"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_marginBottom="10dp"
@@ -418,7 +433,7 @@
                     android:layout_height="36dp"
                     android:layout_gravity="center"
                     android:background="@drawable/fav_bg"
-                    android:src="@drawable/fashion"
+                    android:src="@drawable/vehicle"
                     app:tint="#323135" />
 
             </FrameLayout>
@@ -446,59 +461,9 @@
                 android:layout_height="14dp"
                 android:src="@drawable/forward_arrow"
                 android:layout_gravity="center_vertical"
+                android:layout_marginEnd="15dp"
                 app:tint="@color/black" />
 
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/linear_bg"
-            android:orientation="horizontal"
-            android:padding="6dp">
-
-            <FrameLayout
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:layout_gravity="center"
-                android:background="@drawable/category_bg">
-
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/fav_bg"
-                    android:src="@drawable/fashion"
-                    app:tint="#323135" />
-
-            </FrameLayout>
-
-            <View
-                android:layout_width="25dp"
-                android:layout_height="0dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:fontFamily="@font/supreme_regular"
-                android:text="Motorcycles"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
-
-            <ImageView
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:src="@drawable/forward_arrow"
-                android:layout_gravity="center_vertical"
-                app:tint="@color/black" />
-        </LinearLayout>
-
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

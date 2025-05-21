@@ -37,6 +37,10 @@ class CartAdapter(
             txvItemCount.text = quantity.toString()
             cartProductTotalPrice.text = "$"+String.format("%.2f", product.price?.times(quantity))
 
+            itemView.setOnClickListener {
+                onClick?.invoke(product)
+            }
+
             plus.setOnClickListener {
                 quantities[product] = quantity + 1
                 notifyItemChanged(position)
@@ -78,6 +82,11 @@ class CartAdapter(
         return quantities.entries.sumOf { (product, quantity) ->
             (product.price ?: 0.0) * quantity
         }
+    }
+
+    private var onClick: ((ProductVo) -> Unit)? = null
+    fun setOnClickListener(listener: (ProductVo) -> Unit) {
+        onClick = listener
     }
 
     inner class CartItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

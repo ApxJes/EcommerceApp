@@ -76,10 +76,6 @@ class CartFragment : Fragment() {
 
         }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-        binding.imvBack.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
-        }
-
         binding.btnCheckOut.setOnClickListener {
             Toast.makeText(
                 requireContext(),
@@ -99,8 +95,10 @@ class CartFragment : Fragment() {
             binding.btnCheckOut1.visibility = View.GONE
         }
 
-        binding.imvBack.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
+        cartAdapter.setOnClickListener {
+            findNavController().navigate(
+                CartFragmentDirections.actionCartFragmentToProductDetailsFragment(it)
+            )
         }
     }
 

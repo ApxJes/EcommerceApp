@@ -19,16 +19,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/linearLayout">
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/back_arrow"
-            android:id="@+id/imvBack"
-            android:layout_marginTop="3dp"/>
-
         <View
-            android:layout_width="30dp"
-            android:layout_height="0dp"/>
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -37,6 +31,12 @@
             android:textSize="20sp"
             android:fontFamily="@font/switzer_bold"
             android:textColor="@color/black"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

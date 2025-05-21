@@ -109,6 +109,9 @@
         <argument
             android:name="product"
             app:argType="com.example.ecommerceapp.domain.model.ProductVo" />
+        <action
+            android:id="@+id/action_cartFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/accountFragment"
@@ -136,6 +139,9 @@
         <action
             android:id="@+id/action_productDetailsFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_productDetailsFragment_self"
+            app:destination="@id/productDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/fashionFragment"
@@ -229,5 +235,94 @@
         android:id="@+id/allCategoriesFragment"
         android:name="com.example.ecommerceapp.presentation.ui.fragment.mainScreen.AllCategoriesFragment"
         android:label="fragment_all_categories"
-        tools:layout="@layout/fragment_all_categories" />
+        tools:layout="@layout/fragment_all_categories" >
+        <action
+            android:id="@+id/action_allCategoriesFragment_to_laptopFragment"
+            app:destination="@id/laptopFragment" />
+        <action
+            android:id="@+id/action_allCategoriesFragment_to_smartPhoneFragment"
+            app:destination="@id/smartPhoneFragment" />
+        <action
+            android:id="@+id/action_allCategoriesFragment_to_watchFragment"
+            app:destination="@id/watchFragment" />
+        <action
+            android:id="@+id/action_allCategoriesFragment_to_mobileAccessoryFragment"
+            app:destination="@id/mobileAccessoryFragment" />
+        <action
+            android:id="@+id/action_allCategoriesFragment_to_kitchenAccessoriesFragment"
+            app:destination="@id/kitchenAccessoriesFragment" />
+        <action
+            android:id="@+id/action_allCategoriesFragment_to_sportAccessoriesFragment"
+            app:destination="@id/sportAccessoriesFragment" />
+        <action
+            android:id="@+id/action_allCategoriesFragment_to_sunglassesFragment"
+            app:destination="@id/sunglassesFragment" />
+        <action
+            android:id="@+id/action_allCategoriesFragment_to_vehicleFragment"
+            app:destination="@id/vehicleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/laptopFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.categories.LaptopFragment"
+        android:label="LaptopFragment" >
+        <action
+            android:id="@+id/action_laptopFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/smartPhoneFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.categories.SmartPhoneFragment"
+        android:label="SmartPhoneFragment" >
+        <action
+            android:id="@+id/action_smartPhoneFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/watchFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.categories.WatchFragment"
+        android:label="WatchFragment" >
+        <action
+            android:id="@+id/action_watchFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mobileAccessoryFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.categories.MobileAccessoryFragment"
+        android:label="MobileAccessoryFragment" >
+        <action
+            android:id="@+id/action_mobileAccessoryFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/kitchenAccessoriesFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.categories.KitchenAccessoriesFragment"
+        android:label="KitchenAccessoriesFragment" >
+        <action
+            android:id="@+id/action_kitchenAccessoriesFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sportAccessoriesFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.categories.SportAccessoriesFragment"
+        android:label="SportAccessoriesFragment" >
+        <action
+            android:id="@+id/action_sportAccessoriesFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sunglassesFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.categories.SunglassesFragment"
+        android:label="SunglassesFragment" >
+        <action
+            android:id="@+id/action_sunglassesFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/vehicleFragment"
+        android:name="com.example.ecommerceapp.presentation.ui.fragment.categories.VehicleFragment"
+        android:label="VehicleFragment" >
+        <action
+            android:id="@+id/action_vehicleFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
 </navigation>

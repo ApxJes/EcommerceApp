@@ -54,14 +54,6 @@ class AccountFragment : Fragment() {
         setUpRecyclerViewForSaveProducts()
         setUserProfilePictureAndName()
 
-        binding.imvBack.setOnClickListener {
-            findNavController().navigate(
-                R.id.homeFragment, null, NavOptions.Builder()
-                    .setPopUpTo(R.id.onBoardingFragment, true)
-                    .build()
-            )
-        }
-
         binding.imvEdit.setOnClickListener {
             val action = AccountFragmentDirections
                 .actionAccountFragmentToEditAccountFragment()
