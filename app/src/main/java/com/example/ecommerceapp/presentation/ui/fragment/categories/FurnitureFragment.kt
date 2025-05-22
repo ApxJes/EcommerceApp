@@ -12,8 +12,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.ecommerceapp.core.NavOption
 import com.example.ecommerceapp.databinding.FragmentFurnitureBinding
 import com.example.ecommerceapp.presentation.adapter.PagingAdapter
+import com.example.ecommerceapp.presentation.ui.fragment.mainScreen.HomeFragmentDirections
 import com.example.ecommerceapp.presentation.viewMdoel.RemoteProductsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -45,6 +47,7 @@ class FurnitureFragment : Fragment() {
         furnitureAdapter = PagingAdapter()
         setUpRecyclerViewForFashion()
         observeFurnitureProducts()
+        navigateToSearchFragment()
 
         val homeDecorationCategories = listOf<String>(
             "furniture", "home-decoration"
@@ -59,7 +62,7 @@ class FurnitureFragment : Fragment() {
         furnitureAdapter.setOnClickListener {
             val action = FurnitureFragmentDirections
                 .actionFurnitureFragmentToProductDetailsFragment(it)
-            findNavController().navigate(action)
+            findNavController().navigate(action, NavOption.navOptions)
         }
     }
 
@@ -93,6 +96,18 @@ class FurnitureFragment : Fragment() {
         binding.rcvFurniture.apply {
             adapter = furnitureAdapter
             layoutManager = GridLayoutManager(requireActivity(), 2)
+        }
+    }
+
+    private fun navigateToSearchFragment() {
+        binding.btnSearchBox.setOnClickListener {
+            val action = FurnitureFragmentDirections.actionFurnitureFragmentToSearchFragment()
+            findNavController().navigate(action)
+        }
+
+        binding.tvSearch.setOnClickListener {
+            val action = FurnitureFragmentDirections.actionFurnitureFragmentToSearchFragment()
+            findNavController().navigate(action)
         }
     }
 

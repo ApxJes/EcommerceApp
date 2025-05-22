@@ -14,8 +14,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.ecommerceapp.core.NavOption
 import com.example.ecommerceapp.databinding.FragmentLaptopBinding
 import com.example.ecommerceapp.presentation.adapter.PagingAdapter
+import com.example.ecommerceapp.presentation.ui.fragment.mainScreen.HomeFragmentDirections
 import com.example.ecommerceapp.presentation.viewMdoel.RemoteProductsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -48,6 +50,7 @@ class LaptopFragment : Fragment() {
 
         setLaptopsRecyclerView()
         fetchLaptops()
+        navigateToSearchFragment()
 
         binding.imvBack.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
@@ -93,6 +96,18 @@ class LaptopFragment : Fragment() {
         binding.rcvLaptops.apply {
             adapter = pagingAdapter
             layoutManager = GridLayoutManager(requireActivity(), 2)
+        }
+    }
+
+    private fun navigateToSearchFragment() {
+        binding.btnSearchBox.setOnClickListener {
+            val action = LaptopFragmentDirections.actionLaptopFragmentToSearchFragment()
+            findNavController().navigate(action, NavOption.navOptions)
+        }
+
+        binding.tvSearch.setOnClickListener {
+            val action = LaptopFragmentDirections.actionLaptopFragmentToSearchFragment()
+            findNavController().navigate(action, NavOption.navOptions)
         }
     }
 

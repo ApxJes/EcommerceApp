@@ -14,6 +14,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.ecommerceapp.core.NavOption
 import com.example.ecommerceapp.databinding.FragmentVehicleBinding
 import com.example.ecommerceapp.presentation.adapter.PagingAdapter
 import com.example.ecommerceapp.presentation.viewMdoel.RemoteProductsViewModel
@@ -48,6 +49,7 @@ class VehicleFragment : Fragment() {
 
         setVehicleRecyclerView()
         fetchVehicles()
+        navigateToSearchFragment()
 
         binding.imvBack.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
@@ -93,6 +95,18 @@ class VehicleFragment : Fragment() {
         binding.rcvVehicle.apply {
             adapter = pagingAdapter
             layoutManager = GridLayoutManager(requireActivity(), 2)
+        }
+    }
+
+    private fun navigateToSearchFragment() {
+        binding.btnSearchBox.setOnClickListener {
+            val action = VehicleFragmentDirections.actionVehicleFragmentToSearchFragment()
+            findNavController().navigate(action, NavOption.navOptions)
+        }
+
+        binding.tvSearch.setOnClickListener {
+            val action = VehicleFragmentDirections.actionVehicleFragmentToSearchFragment()
+            findNavController().navigate(action, NavOption.navOptions)
         }
     }
 

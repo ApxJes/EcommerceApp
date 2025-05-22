@@ -50,6 +50,7 @@ class AllProductsFragment : Fragment() {
 
         fetchAllProducts()
         setUpAllProductsRecyclerView()
+        navigateToSearchFragment()
 
         pagingAdapter.setOnClickListener {
             findNavController().navigate(
@@ -81,6 +82,18 @@ class AllProductsFragment : Fragment() {
             layoutManager = GridLayoutManager(requireActivity(), 2)
             setHasFixedSize(true)
             itemAnimator = null
+        }
+    }
+
+    private fun navigateToSearchFragment() {
+        binding.btnSearchBox.setOnClickListener {
+            val action = AllProductsFragmentDirections.actionAllProductsFragmentToSearchFragment()
+            findNavController().navigate(action)
+        }
+
+        binding.tvSearch.setOnClickListener {
+            val action = AllProductsFragmentDirections.actionAllProductsFragmentToSearchFragment()
+            findNavController().navigate(action)
         }
     }
 

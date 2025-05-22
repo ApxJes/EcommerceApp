@@ -12,8 +12,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.ecommerceapp.core.NavOption
 import com.example.ecommerceapp.databinding.FragmentFashionBinding
 import com.example.ecommerceapp.presentation.adapter.PagingAdapter
+import com.example.ecommerceapp.presentation.ui.fragment.mainScreen.HomeFragmentDirections
 import com.example.ecommerceapp.presentation.viewMdoel.RemoteProductsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -45,6 +47,7 @@ class FashionFragment : Fragment() {
         fashionAdapter = PagingAdapter()
         setUpRecyclerViewForFashion()
         observeFashionProducts()
+        navigateToSearchFragment()
 
         val fashionCategories = listOf<String>(
             "mens-shirts", "mens-shoes", "tops",
@@ -60,7 +63,7 @@ class FashionFragment : Fragment() {
         fashionAdapter.setOnClickListener {
             val action = FashionFragmentDirections
                 .actionFashionFragmentToProductDetailsFragment(it)
-            findNavController().navigate(action)
+            findNavController().navigate(action, NavOption.navOptions)
         }
     }
 
@@ -93,6 +96,18 @@ class FashionFragment : Fragment() {
         binding.rcvFashion.apply {
             adapter = fashionAdapter
             layoutManager = GridLayoutManager(requireActivity(), 2)
+        }
+    }
+
+    private fun navigateToSearchFragment() {
+        binding.btnSearchBox.setOnClickListener {
+            val action = FashionFragmentDirections.actionFashionFragmentToSearchFragment()
+            findNavController().navigate(action)
+        }
+
+        binding.tvSearch.setOnClickListener {
+            val action = FashionFragmentDirections.actionFashionFragmentToSearchFragment()
+            findNavController().navigate(action)
         }
     }
 

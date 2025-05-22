@@ -18,6 +18,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.ecommerceapp.R
+import com.example.ecommerceapp.core.NavOption
 import com.example.ecommerceapp.databinding.FragmentProductDetailsBinding
 import com.example.ecommerceapp.domain.model.ReviewVo
 import com.example.ecommerceapp.presentation.adapter.PagingAdapter

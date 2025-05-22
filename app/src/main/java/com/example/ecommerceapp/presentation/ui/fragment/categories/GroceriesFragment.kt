@@ -14,8 +14,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.ecommerceapp.core.NavOption
 import com.example.ecommerceapp.databinding.FragmentGroceriesBinding
 import com.example.ecommerceapp.presentation.adapter.PagingAdapter
+import com.example.ecommerceapp.presentation.ui.fragment.mainScreen.HomeFragmentDirections
 import com.example.ecommerceapp.presentation.viewMdoel.RemoteProductsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -47,6 +49,7 @@ class GroceriesFragment : Fragment() {
         groceriesAdapter = PagingAdapter()
         setUpRecyclerViewForFashion()
         observeGroceriesProducts()
+        navigateToSearchFragment()
         viewModel.getProductsByCategory(category = listOf("groceries"))
 
         binding.imvBack.setOnClickListener {
@@ -56,7 +59,7 @@ class GroceriesFragment : Fragment() {
         groceriesAdapter.setOnClickListener {
             val action = GroceriesFragmentDirections
                 .actionGroceriesFragmentToProductDetailsFragment(it)
-            findNavController().navigate(action)
+            findNavController().navigate(action, NavOption.navOptions)
         }
     }
 
@@ -91,6 +94,18 @@ class GroceriesFragment : Fragment() {
         binding.rcvGroceries.apply {
             adapter = groceriesAdapter
             layoutManager = GridLayoutManager(requireActivity(), 2)
+        }
+    }
+
+    private fun navigateToSearchFragment() {
+        binding.btnSearchBox.setOnClickListener {
+            val action = GroceriesFragmentDirections.actionGroceriesFragmentToSearchFragment()
+            findNavController().navigate(action)
+        }
+
+        binding.tvSearch.setOnClickListener {
+            val action = GroceriesFragmentDirections.actionGroceriesFragmentToSearchFragment()
+            findNavController().navigate(action)
         }
     }
 

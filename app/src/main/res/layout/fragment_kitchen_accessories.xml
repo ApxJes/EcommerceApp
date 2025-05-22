@@ -26,19 +26,53 @@
                 android:layout_height="20dp"
                 android:src="@drawable/back_arrow"
                 android:id="@+id/imvBack"
-                android:layout_marginTop="3dp"/>
+                android:layout_marginTop="10dp"/>
 
             <View
-                android:layout_width="30dp"
+                android:layout_width="15dp"
                 android:layout_height="0dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Kitchen Accessories"
-                android:textSize="20sp"
-                android:fontFamily="@font/switzer_bold"
-                android:textColor="@color/black"/>
+            <LinearLayout
+                android:id="@+id/btnSearchBox"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_searchbox"
+                android:elevation="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="12dp"
+                    android:src="@drawable/search"
+                    app:tint="@color/primaryColor" />
+
+                <TextView
+                    android:id="@+id/tvSearch"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:hint="Find the items you want"
+                    android:inputType="text"
+                    android:textColor="#544E4E"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:fontFamily="@font/worksans_regular"
+                    android:maxLines="1"
+                    android:imeOptions="actionSearch" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="12dp"
+                    android:src="@drawable/search_elements"
+                    app:tint="@color/primaryColor" />
+            </LinearLayout>
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

@@ -14,8 +14,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.ecommerceapp.core.NavOption
 import com.example.ecommerceapp.databinding.FragmentKitchenAccessoriesBinding
 import com.example.ecommerceapp.presentation.adapter.PagingAdapter
+import com.example.ecommerceapp.presentation.ui.fragment.mainScreen.HomeFragmentDirections
 import com.example.ecommerceapp.presentation.viewMdoel.RemoteProductsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -48,6 +50,7 @@ class KitchenAccessoriesFragment : Fragment() {
 
         setKitchenAccessoriesRecyclerView()
         fetchKitchenAccessory()
+        navigateToSearchFragment()
 
         binding.imvBack.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
@@ -96,6 +99,17 @@ class KitchenAccessoriesFragment : Fragment() {
         }
     }
 
+    private fun navigateToSearchFragment() {
+        binding.btnSearchBox.setOnClickListener {
+            val action = KitchenAccessoriesFragmentDirections.actionKitchenAccessoriesFragmentToSearchFragment()
+            findNavController().navigate(action, NavOption.navOptions)
+        }
+
+        binding.tvSearch.setOnClickListener {
+            val action = KitchenAccessoriesFragmentDirections.actionKitchenAccessoriesFragmentToSearchFragment()
+            findNavController().navigate(action, NavOption.navOptions)
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

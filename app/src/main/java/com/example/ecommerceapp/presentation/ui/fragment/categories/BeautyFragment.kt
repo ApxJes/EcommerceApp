@@ -12,8 +12,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.ecommerceapp.core.NavOption
 import com.example.ecommerceapp.databinding.FragmentBeautyBinding
 import com.example.ecommerceapp.presentation.adapter.PagingAdapter
+import com.example.ecommerceapp.presentation.ui.fragment.mainScreen.HomeFragmentDirections
 import com.example.ecommerceapp.presentation.viewMdoel.RemoteProductsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -45,6 +47,7 @@ class BeautyFragment : Fragment() {
         beautyAdapter = PagingAdapter()
         setUpRecyclerViewForBeauty()
         observeBeautyProducts()
+        navigateToSearchFragment()
 
         val beautyCategories = listOf<String>(
             "beauty", "skin-care"
@@ -59,7 +62,7 @@ class BeautyFragment : Fragment() {
         beautyAdapter.setOnClickListener {
             val action = BeautyFragmentDirections
                 .actionBeautyFragmentToProductDetailsFragment(it)
-            findNavController().navigate(action)
+            findNavController().navigate(action, NavOption.navOptions)
         }
     }
 
@@ -93,6 +96,18 @@ class BeautyFragment : Fragment() {
         binding.rcvBeauty.apply {
             adapter = beautyAdapter
             layoutManager = GridLayoutManager(requireActivity(), 2)
+        }
+    }
+
+    private fun navigateToSearchFragment() {
+        binding.btnSearchBox.setOnClickListener {
+            val action = BeautyFragmentDirections.actionBeautyFragmentToSearchFragment()
+            findNavController().navigate(action)
+        }
+
+        binding.tvSearch.setOnClickListener {
+            val action = BeautyFragmentDirections.actionBeautyFragmentToSearchFragment()
+            findNavController().navigate(action)
         }
     }
 

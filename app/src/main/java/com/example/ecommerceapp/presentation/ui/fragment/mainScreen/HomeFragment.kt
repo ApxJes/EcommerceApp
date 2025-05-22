@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +20,7 @@ import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.interfaces.ItemClickListener
 import com.denzcoskun.imageslider.models.SlideModel
 import com.example.ecommerceapp.R
+import com.example.ecommerceapp.core.NavOption
 import com.example.ecommerceapp.databinding.FragmentHomeBinding
 import com.example.ecommerceapp.presentation.adapter.ProductsAdapter
 import com.example.ecommerceapp.presentation.viewMdoel.RemoteProductsViewModel
@@ -67,7 +69,7 @@ class HomeFragment : Fragment() {
 
         productsAdapter.setOnClickListener { product ->
             val action = HomeFragmentDirections.actionHomeFragmentToProductDetailsFragment(product)
-            findNavController().navigate(action)
+            findNavController().navigate(action, NavOption.navOptions)
         }
     }
 
@@ -111,29 +113,37 @@ class HomeFragment : Fragment() {
     }
 
     private fun fetchProductsByItsCategory() {
+
+        val navOptions = NavOptions.Builder()
+            .setEnterAnim(R.anim.fade_in)
+            .setExitAnim(R.anim.fade_out)
+            .setPopEnterAnim(R.anim.fade_in)
+            .setPopExitAnim(R.anim.fade_out)
+            .build()
+
         binding.btnFashion.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToFashionFragment()
-            findNavController().navigate(action)
+            findNavController().navigate(action, navOptions)
         }
 
         binding.btnBeauty.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToBeautyFragment()
-            findNavController().navigate(action)
+            findNavController().navigate(action, navOptions)
         }
 
         binding.btnFurniture.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToFurnitureFragment()
-            findNavController().navigate(action)
+            findNavController().navigate(action, navOptions)
         }
 
         binding.btnFragrances.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToFragrancesFragment()
-            findNavController().navigate(action)
+            findNavController().navigate(action, navOptions)
         }
 
         binding.btnGroceries.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToGroceriesFragment()
-            findNavController().navigate(action)
+            findNavController().navigate(action, navOptions)
         }
     }
 

@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.ecommerceapp.core.NavOption
 import com.example.ecommerceapp.databinding.FragmentSearchBinding
 import com.example.ecommerceapp.presentation.adapter.PagingAdapter
 import com.example.ecommerceapp.presentation.viewMdoel.CartViewModel
@@ -47,7 +48,11 @@ class SearchFragment : Fragment() {
         pagingAdapter.setOnClickListener {
             val action = SearchFragmentDirections
                 .actionSearchFragmentToProductDetailsFragment(it)
-            findNavController().navigate(action)
+            findNavController().navigate(action, NavOption.navOptions)
+        }
+
+        binding.imvBack.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
         }
 
     }

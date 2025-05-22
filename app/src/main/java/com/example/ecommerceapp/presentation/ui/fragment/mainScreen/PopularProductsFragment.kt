@@ -46,6 +46,7 @@ class PopularProductsFragment : Fragment() {
         pagaingAdapter = PagingAdapter()
         fetchPopularProducts()
         setPopularProductsRecyclerView()
+        navigateToSearchFragment()
 
         binding.imvBack.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
@@ -72,6 +73,18 @@ class PopularProductsFragment : Fragment() {
         binding.rcvPopularProducts.apply {
             adapter = pagaingAdapter
             layoutManager = GridLayoutManager(requireActivity(), 2)
+        }
+    }
+
+    private fun navigateToSearchFragment() {
+        binding.btnSearchBox.setOnClickListener {
+            val action = PopularProductsFragmentDirections.actionPopularProductsFragmentToSearchFragment()
+            findNavController().navigate(action)
+        }
+
+        binding.tvSearch.setOnClickListener {
+            val action = PopularProductsFragmentDirections.actionPopularProductsFragmentToSearchFragment()
+            findNavController().navigate(action)
         }
     }
 

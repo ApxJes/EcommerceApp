@@ -47,6 +47,7 @@ class RecommendProductsFragment : Fragment() {
 
         fetchRecommendProducts()
         setRecommendProductsRecyclerView()
+        navigateToSearchFragment()
 
         binding.imvBack.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
@@ -73,6 +74,18 @@ class RecommendProductsFragment : Fragment() {
         binding.rcvRecommendProducts.apply {
             adapter = pagingAdapter
             layoutManager = GridLayoutManager(requireActivity(), 2)
+        }
+    }
+
+    private fun navigateToSearchFragment() {
+        binding.btnSearchBox.setOnClickListener {
+            val action = RecommendProductsFragmentDirections.actionRecommendProductsFragmentToSearchFragment()
+            findNavController().navigate(action)
+        }
+
+        binding.tvSearch.setOnClickListener {
+            val action = RecommendProductsFragmentDirections.actionRecommendProductsFragmentToSearchFragment()
+            findNavController().navigate(action)
         }
     }
 

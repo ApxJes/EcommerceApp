@@ -14,8 +14,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.ecommerceapp.core.NavOption
 import com.example.ecommerceapp.databinding.FragmentFragrancesBinding
 import com.example.ecommerceapp.presentation.adapter.PagingAdapter
+import com.example.ecommerceapp.presentation.ui.fragment.mainScreen.HomeFragmentDirections
 import com.example.ecommerceapp.presentation.viewMdoel.RemoteProductsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -47,6 +49,8 @@ class FragrancesFragment : Fragment() {
         fragrancesAdapter = PagingAdapter()
         setUpRecyclerViewForFashion()
         observeFragrancesProducts()
+        navigateToSearchFragment()
+
         viewModel.getProductsByCategory(category = listOf("fragrances"))
 
         binding.imvBack.setOnClickListener {
@@ -56,7 +60,7 @@ class FragrancesFragment : Fragment() {
         fragrancesAdapter.setOnClickListener {
             val action = FragrancesFragmentDirections
                 .actionFragrancesFragmentToProductDetailsFragment(it)
-            findNavController().navigate(action)
+            findNavController().navigate(action, NavOption.navOptions)
         }
     }
 
@@ -91,6 +95,18 @@ class FragrancesFragment : Fragment() {
         binding.rcvFragrances.apply {
             adapter = fragrancesAdapter
             layoutManager = GridLayoutManager(requireActivity(), 2)
+        }
+    }
+
+    private fun navigateToSearchFragment() {
+        binding.btnSearchBox.setOnClickListener {
+            val action = FragrancesFragmentDirections.actionFragrancesFragmentToSearchFragment()
+            findNavController().navigate(action)
+        }
+
+        binding.tvSearch.setOnClickListener {
+            val action = FragrancesFragmentDirections.actionFragrancesFragmentToSearchFragment()
+            findNavController().navigate(action)
         }
     }
 
