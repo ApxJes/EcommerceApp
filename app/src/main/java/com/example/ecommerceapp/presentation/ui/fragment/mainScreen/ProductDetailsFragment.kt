@@ -83,7 +83,13 @@ class ProductDetailsFragment : Fragment() {
                 productWasSaved = false
                 Toast.makeText(requireContext(), "Product removed", Toast.LENGTH_SHORT).show()
             }
+        }
 
+        binding.tvSeemore.setOnClickListener {
+            findNavController().navigate(
+                ProductDetailsFragmentDirections.actionProductDetailsFragmentToSearchFragment(),
+                NavOption.navOptions
+            )
         }
     }
 
@@ -142,7 +148,7 @@ class ProductDetailsFragment : Fragment() {
     }
 
     private fun fetchSimilarProducts() {
-        args?.product?.category?.let { category ->
+        args.product.category?.let { category ->
             remoteViewModel.getProductsByCategory(listOf(category))
         }
 

@@ -12,6 +12,11 @@
         android:icon="@drawable/cart_selector"/>
 
     <item
+        android:id="@+id/saveFragment"
+        android:title="Favorite"
+        android:icon="@drawable/fav_selector1"/>
+
+    <item
         android:id="@+id/accountFragment"
         android:title="Profile"
         android:icon="@drawable/account_selector"/>

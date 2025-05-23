@@ -27,8 +27,6 @@ class AccountFragment : Fragment() {
     private var _binding: FragmentAccountBinding? = null
     private val binding get() = _binding!!
     private lateinit var auth: FirebaseAuth
-    private lateinit var productAdapter: ProductsAdapter
-    private val viewModel: LocalProductsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,21 +46,12 @@ class AccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         auth = FirebaseAuth.getInstance()
-        productAdapter = ProductsAdapter()
 
-        observeSaveProducts()
-        setUpRecyclerViewForSaveProducts()
         setUserProfilePictureAndName()
 
         binding.imvEdit.setOnClickListener {
             val action = AccountFragmentDirections
                 .actionAccountFragmentToEditAccountFragment()
-            findNavController().navigate(action)
-        }
-
-        productAdapter.setOnClickListener { product ->
-            val action = AccountFragmentDirections
-                .actionAccountFragmentToProductDetailsFragment(product)
             findNavController().navigate(action)
         }
     }
@@ -85,24 +74,6 @@ class AccountFragment : Fragment() {
             }
         }
     }
-
-    private fun observeSaveProducts(){
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.state.collectLatest {saveProducts ->
-                    productAdapter.differ.submitList(saveProducts)
-                }
-            }
-        }
-    }
-
-    private fun setUpRecyclerViewForSaveProducts(){
-        binding.rcvSaveProducts.apply {
-            adapter = productAdapter
-            layoutManager = GridLayoutManager(requireActivity(), 2)
-        }
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
