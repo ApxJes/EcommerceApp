@@ -83,10 +83,6 @@ class RecommendProductsFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-        binding.tvSearch.setOnClickListener {
-            val action = RecommendProductsFragmentDirections.actionRecommendProductsFragmentToSearchFragment()
-            findNavController().navigate(action)
-        }
     }
 
     override fun onDestroyView() {

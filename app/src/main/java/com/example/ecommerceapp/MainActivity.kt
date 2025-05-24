@@ -9,6 +9,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.ecommerceapp.databinding.ActivityMainBinding
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,6 +32,16 @@ class MainActivity : AppCompatActivity() {
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         val navController = navHostFragment.navController
+
+        val navGraph = navController.navInflater.inflate(R.navigation.my_nav)
+        val user = FirebaseAuth.getInstance().currentUser
+        val startDestination = if (user == null) {
+            R.id.loginFragment
+        } else {
+            R.id.homeFragment
+        }
+        navGraph.setStartDestination(startDestination)
+        navController.graph = navGraph
         binding.bottomNav.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->

@@ -20,10 +20,11 @@
     <string name="see_more"><u>See more</u></string>
     <string name="similar_products"><u>Similar products</u></string>
     <string name="review"><u>Review</u></string>
-    <string name="save_text">
-        You don\'t have the favorite products
-    </string>
+
+    <string name="save_text">You don\'t have the favorite products</string>
+    <string name="cart_text1">You don\'t have the cart products</string>
 
     <string name="save_text1">To add an products to your favorite, simply click the favorite button.</string>
+    <string name="cart_text">To add an products to your cart, simply click the cart button.</string>
 
 </resources>

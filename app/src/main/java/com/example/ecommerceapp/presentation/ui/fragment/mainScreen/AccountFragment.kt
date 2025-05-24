@@ -48,6 +48,7 @@ class AccountFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
 
         setUserProfilePictureAndName()
+        setLogout()
 
         binding.imvEdit.setOnClickListener {
             val action = AccountFragmentDirections
@@ -59,7 +60,7 @@ class AccountFragment : Fragment() {
     private fun setUserProfilePictureAndName() {
         val user = auth.currentUser
         user?.let {
-            binding.txvName.text = it.displayName ?: "Guest"
+            binding.txvName.text = it.displayName ?: "Unknown"
             binding.txvEmail.text = it.email
 
             if(it.photoUrl != null) {
@@ -74,6 +75,15 @@ class AccountFragment : Fragment() {
             }
         }
     }
+
+    private fun setLogout() {
+        binding.btnLogout.setOnClickListener {
+            auth.signOut()
+
+            findNavController().navigate(AccountFragmentDirections.actionAccountFragmentToLoginFragment())
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

@@ -4,22 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.ecommerceapp.R
 import com.example.ecommerceapp.databinding.FragmentAllProductsBinding
 import com.example.ecommerceapp.presentation.adapter.PagingAdapter
 import com.example.ecommerceapp.presentation.viewMdoel.RemoteProductsViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.buffer
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -35,22 +33,18 @@ class AllProductsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentAllProductsBinding.inflate(
-            inflater,
-            container, false
-        )
-
+    ): View {
+        _binding = FragmentAllProductsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         pagingAdapter = PagingAdapter()
 
-        fetchAllProducts()
-        setUpAllProductsRecyclerView()
-        navigateToSearchFragment()
+        setUpRecyclerView()
+        setupNavigation()
 
         pagingAdapter.setOnClickListener {
             findNavController().navigate(
@@ -61,39 +55,36 @@ class AllProductsFragment : Fragment() {
         binding.imvBack.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
+
+        fetchAllProducts()
     }
 
     private fun fetchAllProducts() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.getAllAvailableProducts.buffer().collectLatest {
-                    pagingAdapter.addLoadStateListener { loadState ->
-                        binding.loadingPrg.isVisible = loadState.source.refresh is LoadState.Loading
-                    }
-                    pagingAdapter.submitData(it)
+                viewModel.getAllAvailableProducts.collectLatest { pagingData ->
+                    pagingAdapter.submitData(pagingData)
                 }
             }
         }
     }
 
-    private fun setUpAllProductsRecyclerView() {
+    private fun setUpRecyclerView() {
         binding.rcvAllProducts.apply {
             adapter = pagingAdapter
-            layoutManager = GridLayoutManager(requireActivity(), 2)
+            layoutManager = GridLayoutManager(requireContext(), 2)
             setHasFixedSize(true)
             itemAnimator = null
         }
     }
 
-    private fun navigateToSearchFragment() {
+    private fun setupNavigation() {
+        val navToSearch = AllProductsFragmentDirections.actionAllProductsFragmentToSearchFragment()
         binding.btnSearchBox.setOnClickListener {
-            val action = AllProductsFragmentDirections.actionAllProductsFragmentToSearchFragment()
-            findNavController().navigate(action)
+            findNavController().navigate(navToSearch)
         }
-
         binding.tvSearch.setOnClickListener {
-            val action = AllProductsFragmentDirections.actionAllProductsFragmentToSearchFragment()
-            findNavController().navigate(action)
+            findNavController().navigate(navToSearch)
         }
     }
 

@@ -13,7 +13,7 @@ class GetSomeProductsUseCase @Inject constructor(
     private val repository: ProductsRepository
 ){
 
-    suspend operator fun invoke(): Flow<Resource<List<ProductVo>>> = flow {
+    operator fun invoke(): Flow<Resource<List<ProductVo>>> = flow {
         try {
             emit(Resource.Loading())
             val products = repository.getSomeProducts().products!!.map { it!!.toProduct() }

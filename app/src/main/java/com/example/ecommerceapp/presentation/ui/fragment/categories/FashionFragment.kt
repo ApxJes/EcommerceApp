@@ -60,6 +60,12 @@ class FashionFragment : Fragment() {
             requireActivity().supportFragmentManager.popBackStack()
         }
 
+        fashionAdapter.addLoadStateListener { loadState ->
+            _binding?.let { binding ->
+                binding.progressBarLoading.isVisible = loadState.source.refresh is LoadState.Loading
+            }
+        }
+
         fashionAdapter.setOnClickListener {
             val action = FashionFragmentDirections
                 .actionFashionFragmentToProductDetailsFragment(it)
@@ -70,9 +76,6 @@ class FashionFragment : Fragment() {
     private fun observeFashionProducts() {
         lifecycleScope.launch {
             viewModel.categoryPagingData.collectLatest {
-                fashionAdapter.addLoadStateListener { loadState ->
-                    binding.progressBarLoading.isVisible = loadState.source.refresh is LoadState.Loading
-                }
                 fashionAdapter.submitData(it)
             }
         }
@@ -101,11 +104,6 @@ class FashionFragment : Fragment() {
 
     private fun navigateToSearchFragment() {
         binding.btnSearchBox.setOnClickListener {
-            val action = FashionFragmentDirections.actionFashionFragmentToSearchFragment()
-            findNavController().navigate(action)
-        }
-
-        binding.tvSearch.setOnClickListener {
             val action = FashionFragmentDirections.actionFashionFragmentToSearchFragment()
             findNavController().navigate(action)
         }

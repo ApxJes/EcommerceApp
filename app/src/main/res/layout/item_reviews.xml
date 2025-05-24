@@ -3,9 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_margin="8dp"
+    android:layout_margin="12dp"
     android:background="@color/white"
-    android:elevation="2dp"
+    android:elevation="4dp"
     android:padding="16dp">
 
     <View
@@ -45,12 +45,6 @@
         android:textColor="@color/black"
         android:layout_marginTop="16dp"
         android:textSize="15sp" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/black" />
 
     <TextView
         android:id="@+id/txvReviewDate"

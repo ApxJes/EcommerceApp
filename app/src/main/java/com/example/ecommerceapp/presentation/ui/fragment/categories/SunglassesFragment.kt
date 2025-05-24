@@ -56,6 +56,12 @@ class SunglassesFragment : Fragment() {
             requireActivity().supportFragmentManager.popBackStack()
         }
 
+        pagingAdapter.addLoadStateListener { loadState ->
+            _binding?.let { binding ->
+                binding.progressBarLoading.isVisible = loadState.source.refresh is LoadState.Loading
+            }
+        }
+
         pagingAdapter.setOnClickListener {
             findNavController().navigate(
                 SunglassesFragmentDirections.actionSunglassesFragmentToProductDetailsFragment(it)
@@ -69,9 +75,6 @@ class SunglassesFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.categoryPagingData.collectLatest {
-                    pagingAdapter.addLoadStateListener { loadState ->
-                        binding.progressBarLoading.isVisible = loadState.source.refresh is LoadState.Loading
-                    }
                     pagingAdapter.submitData(it)
                 }
             }
@@ -101,11 +104,6 @@ class SunglassesFragment : Fragment() {
 
     private fun navigateToSearchFragment() {
         binding.btnSearchBox.setOnClickListener {
-            val action = SunglassesFragmentDirections.actionSunglassesFragmentToSearchFragment()
-            findNavController().navigate(action, NavOption.navOptions)
-        }
-
-        binding.tvSearch.setOnClickListener {
             val action = SunglassesFragmentDirections.actionSunglassesFragmentToSearchFragment()
             findNavController().navigate(action, NavOption.navOptions)
         }

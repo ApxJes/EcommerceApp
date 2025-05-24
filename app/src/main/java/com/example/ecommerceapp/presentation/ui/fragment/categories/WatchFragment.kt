@@ -54,6 +54,12 @@ class WatchFragment : Fragment() {
             requireActivity().supportFragmentManager.popBackStack()
         }
 
+        pagingAdapter.addLoadStateListener { loadState ->
+            _binding?.let { binding ->
+                binding.progressBarLoading.isVisible = loadState.source.refresh is LoadState.Loading
+            }
+        }
+
         pagingAdapter.setOnClickListener {
             findNavController().navigate(
                 WatchFragmentDirections.actionWatchFragmentToProductDetailsFragment(it)
@@ -67,9 +73,6 @@ class WatchFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.categoryPagingData.collectLatest {
-                    pagingAdapter.addLoadStateListener { loadState ->
-                        binding.progressBarLoading.isVisible = loadState.source.refresh is LoadState.Loading
-                    }
                     pagingAdapter.submitData(it)
                 }
             }
@@ -103,10 +106,6 @@ class WatchFragment : Fragment() {
             findNavController().navigate(action, NavOption.navOptions)
         }
 
-        binding.tvSearch.setOnClickListener {
-            val action = WatchFragmentDirections.actionWatchFragmentToSearchFragment()
-            findNavController().navigate(action, NavOption.navOptions)
-        }
     }
 
     override fun onDestroyView() {

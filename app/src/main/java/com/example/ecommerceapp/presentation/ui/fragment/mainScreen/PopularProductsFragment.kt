@@ -81,11 +81,6 @@ class PopularProductsFragment : Fragment() {
             val action = PopularProductsFragmentDirections.actionPopularProductsFragmentToSearchFragment()
             findNavController().navigate(action)
         }
-
-        binding.tvSearch.setOnClickListener {
-            val action = PopularProductsFragmentDirections.actionPopularProductsFragmentToSearchFragment()
-            findNavController().navigate(action)
-        }
     }
 
     override fun onDestroyView() {

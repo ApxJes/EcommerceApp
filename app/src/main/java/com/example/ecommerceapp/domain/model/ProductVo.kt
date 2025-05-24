@@ -23,4 +23,5 @@ data class ProductVo(
     val title: String?,
     val warrantyInformation: String?,
     val shippingInformation: String?,
+    val images: List<String?>?,
 ): Serializable

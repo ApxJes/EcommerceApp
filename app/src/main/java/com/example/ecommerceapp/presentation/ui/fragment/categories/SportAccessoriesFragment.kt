@@ -55,6 +55,11 @@ class SportAccessoriesFragment : Fragment() {
         binding.imvBack.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
+        pagingAdapter.addLoadStateListener { loadState ->
+            _binding?.let { binding ->
+                binding.progressBarLoading.isVisible = loadState.source.refresh is LoadState.Loading
+            }
+        }
 
         pagingAdapter.setOnClickListener {
             SportAccessoriesFragmentDirections
@@ -68,9 +73,6 @@ class SportAccessoriesFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.categoryPagingData.collectLatest {
-                    pagingAdapter.addLoadStateListener { loadState ->
-                        binding.progressBarLoading.isVisible = loadState.source.refresh is LoadState.Loading
-                    }
                     pagingAdapter.submitData(it)
                 }
             }
@@ -104,10 +106,6 @@ class SportAccessoriesFragment : Fragment() {
             findNavController().navigate(action, NavOption.navOptions)
         }
 
-        binding.tvSearch.setOnClickListener {
-            val action = SportAccessoriesFragmentDirections.actionSportAccessoriesFragmentToSearchFragment()
-            findNavController().navigate(action, NavOption.navOptions)
-        }
     }
 
 

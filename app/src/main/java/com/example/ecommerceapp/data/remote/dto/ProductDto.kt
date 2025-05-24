@@ -3,6 +3,8 @@ package com.example.ecommerceapp.data.remote.dto
 
 import com.example.ecommerceapp.domain.model.ProductVo
 import com.google.gson.annotations.SerializedName
+import kotlin.String
+import kotlin.collections.List
 
 data class ProductDto(
     @SerializedName("availabilityStatus")
@@ -66,7 +68,8 @@ data class ProductDto(
             thumbnail = thumbnail,
             title = title,
             warrantyInformation = warrantyInformation,
-            shippingInformation = shippingInformation
+            shippingInformation = shippingInformation,
+            images =  images,
         )
     }
 }

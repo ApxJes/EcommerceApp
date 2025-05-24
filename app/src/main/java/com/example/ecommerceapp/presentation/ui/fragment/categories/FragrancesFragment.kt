@@ -57,6 +57,13 @@ class FragrancesFragment : Fragment() {
             requireActivity().supportFragmentManager.popBackStack()
         }
 
+        fragrancesAdapter.addLoadStateListener { loadState ->
+            _binding?.let { binding ->
+                binding.progressBarLoading.isVisible = loadState.source.refresh is LoadState.Loading
+            }
+        }
+
+
         fragrancesAdapter.setOnClickListener {
             val action = FragrancesFragmentDirections
                 .actionFragrancesFragmentToProductDetailsFragment(it)
@@ -68,9 +75,6 @@ class FragrancesFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.categoryPagingData.collectLatest {
-                    fragrancesAdapter.addLoadStateListener { loadState ->
-                        binding.progressBarLoading.isVisible = loadState.source.refresh is LoadState.Loading
-                    }
                     fragrancesAdapter.submitData(it)
                 }
             }
@@ -100,11 +104,6 @@ class FragrancesFragment : Fragment() {
 
     private fun navigateToSearchFragment() {
         binding.btnSearchBox.setOnClickListener {
-            val action = FragrancesFragmentDirections.actionFragrancesFragmentToSearchFragment()
-            findNavController().navigate(action)
-        }
-
-        binding.tvSearch.setOnClickListener {
             val action = FragrancesFragmentDirections.actionFragrancesFragmentToSearchFragment()
             findNavController().navigate(action)
         }

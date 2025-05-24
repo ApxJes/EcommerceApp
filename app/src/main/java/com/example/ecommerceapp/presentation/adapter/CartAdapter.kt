@@ -2,27 +2,32 @@ package com.example.ecommerceapp.presentation.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.ecommerceapp.R
+import com.example.ecommerceapp.databinding.CartItemLayoutBinding
 import com.example.ecommerceapp.domain.model.ProductVo
 
 class CartAdapter(
     private val onQuantityChanged: () -> Unit,
-    private val onItemsRemove:(ProductVo) -> Unit
+    private val onItemsRemove: (ProductVo) -> Unit
 ) : RecyclerView.Adapter<CartAdapter.CartItemViewHolder>() {
 
     private val products = mutableListOf<ProductVo>()
     private val quantities = mutableMapOf<ProductVo, Int>()
 
+    private var onClick: ((ProductVo) -> Unit)? = null
+    fun setOnClickListener(listener: (ProductVo) -> Unit) {
+        onClick = listener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartItemViewHolder {
-        return CartItemViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.cart_item_layout, parent, false)
+        val binding = CartItemLayoutBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
         )
+        return CartItemViewHolder(binding)
     }
 
     @SuppressLint("SetTextI18n", "DefaultLocale")
@@ -30,14 +35,14 @@ class CartAdapter(
         val product = products[position]
         val quantity = quantities[product] ?: 1
 
-        with(holder) {
-            Glide.with(itemView.context).load(product.thumbnail).into(cartImage)
-            cartProductName.text = product.title
-            cartProductPrice.text = "$${product.price}"
+        holder.binding.apply {
+            Glide.with(root.context).load(product.thumbnail).into(imvCartImage)
+            txvCartItemName.text = product.title
+            txvCartItemPrice.text = "$${product.price}"
             txvItemCount.text = quantity.toString()
-            cartProductTotalPrice.text = "$"+String.format("%.2f", product.price?.times(quantity))
+            txvCartItemTotalPrice.text = "$" + String.format("%.2f", product.price?.times(quantity))
 
-            itemView.setOnClickListener {
+            root.setOnClickListener {
                 onClick?.invoke(product)
             }
 
@@ -52,7 +57,6 @@ class CartAdapter(
                     quantities[product] = quantity - 1
                     notifyItemChanged(position)
                     onQuantityChanged()
-
                 } else {
                     val index = products.indexOf(product)
                     products.removeAt(index)
@@ -84,18 +88,6 @@ class CartAdapter(
         }
     }
 
-    private var onClick: ((ProductVo) -> Unit)? = null
-    fun setOnClickListener(listener: (ProductVo) -> Unit) {
-        onClick = listener
-    }
-
-    inner class CartItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val cartImage: ImageView = itemView.findViewById(R.id.imvCartImage)
-        val cartProductName: TextView = itemView.findViewById(R.id.txvCartItemName)
-        val cartProductPrice: TextView = itemView.findViewById(R.id.txvCartItemPrice)
-        val cartProductTotalPrice: TextView = itemView.findViewById(R.id.txvCartItemTotalPrice)
-        val txvItemCount: TextView = itemView.findViewById(R.id.txvItemCount)
-        val plus: ImageView = itemView.findViewById(R.id.plus)
-        val minus: ImageView = itemView.findViewById(R.id.minus)
-    }
+    inner class CartItemViewHolder(val binding: CartItemLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }

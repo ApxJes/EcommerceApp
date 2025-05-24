@@ -59,6 +59,12 @@ class FurnitureFragment : Fragment() {
             requireActivity().supportFragmentManager.popBackStack()
         }
 
+        furnitureAdapter.addLoadStateListener { loadState ->
+            _binding?.let { binding ->
+                binding.progressBarLoading.isVisible = loadState.source.refresh is LoadState.Loading
+            }
+        }
+
         furnitureAdapter.setOnClickListener {
             val action = FurnitureFragmentDirections
                 .actionFurnitureFragmentToProductDetailsFragment(it)
@@ -70,9 +76,6 @@ class FurnitureFragment : Fragment() {
 
         lifecycleScope.launch {
             viewModel.categoryPagingData.collectLatest {
-                furnitureAdapter.addLoadStateListener { loadState ->
-                    binding.progressBarLoading.isVisible = loadState.source.refresh is LoadState.Loading
-                }
                 furnitureAdapter.submitData(it)
             }
         }
@@ -101,11 +104,6 @@ class FurnitureFragment : Fragment() {
 
     private fun navigateToSearchFragment() {
         binding.btnSearchBox.setOnClickListener {
-            val action = FurnitureFragmentDirections.actionFurnitureFragmentToSearchFragment()
-            findNavController().navigate(action)
-        }
-
-        binding.tvSearch.setOnClickListener {
             val action = FurnitureFragmentDirections.actionFurnitureFragmentToSearchFragment()
             findNavController().navigate(action)
         }

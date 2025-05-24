@@ -59,6 +59,12 @@ class BeautyFragment : Fragment() {
             requireActivity().supportFragmentManager.popBackStack()
         }
 
+        beautyAdapter.addLoadStateListener { loadState ->
+            _binding?.let { binding ->
+                binding.progressBarLoading.isVisible = loadState.source.refresh is LoadState.Loading
+            }
+        }
+
         beautyAdapter.setOnClickListener {
             val action = BeautyFragmentDirections
                 .actionBeautyFragmentToProductDetailsFragment(it)
@@ -70,9 +76,6 @@ class BeautyFragment : Fragment() {
 
         lifecycleScope.launch {
             viewModel.categoryPagingData.collectLatest {
-                beautyAdapter.addLoadStateListener { loadState ->
-                    binding.progressBarLoading.isVisible = loadState.source.refresh is LoadState.Loading
-                }
                 beautyAdapter.submitData(it)
             }
         }
@@ -101,11 +104,6 @@ class BeautyFragment : Fragment() {
 
     private fun navigateToSearchFragment() {
         binding.btnSearchBox.setOnClickListener {
-            val action = BeautyFragmentDirections.actionBeautyFragmentToSearchFragment()
-            findNavController().navigate(action)
-        }
-
-        binding.tvSearch.setOnClickListener {
             val action = BeautyFragmentDirections.actionBeautyFragmentToSearchFragment()
             findNavController().navigate(action)
         }

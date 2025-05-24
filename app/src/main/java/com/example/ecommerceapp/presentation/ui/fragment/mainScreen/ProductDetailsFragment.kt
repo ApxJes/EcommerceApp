@@ -19,11 +19,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.ecommerceapp.R
 import com.example.ecommerceapp.core.NavOption
+import com.example.ecommerceapp.core.Resource
 import com.example.ecommerceapp.databinding.FragmentProductDetailsBinding
 import com.example.ecommerceapp.domain.model.ReviewVo
 import com.example.ecommerceapp.presentation.adapter.PagingAdapter
+import com.example.ecommerceapp.presentation.adapter.ProductImagesAdapter
 import com.example.ecommerceapp.presentation.viewMdoel.CartViewModel
 import com.example.ecommerceapp.presentation.viewMdoel.LocalProductsViewModel
+import com.example.ecommerceapp.presentation.viewMdoel.ProductDetailsViewModel
 import com.example.ecommerceapp.presentation.viewMdoel.RemoteProductsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -39,6 +42,7 @@ class ProductDetailsFragment : Fragment() {
     private val viewModel: LocalProductsViewModel by viewModels()
     private val cartViewModel: CartViewModel by activityViewModels()
     private val remoteViewModel: RemoteProductsViewModel by viewModels()
+    private val productDetailsViewModel: ProductDetailsViewModel by viewModels()
     private lateinit var pagingAdapter: PagingAdapter
 
     private var productWasSaved = false
@@ -67,6 +71,7 @@ class ProductDetailsFragment : Fragment() {
 
         fetchSimilarProducts()
         setSimilarProductsRecyclerView()
+        setToSeeAllSimilarProducts()
 
         binding.imvBack.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
@@ -84,33 +89,47 @@ class ProductDetailsFragment : Fragment() {
                 Toast.makeText(requireContext(), "Product removed", Toast.LENGTH_SHORT).show()
             }
         }
-
-        binding.tvSeemore.setOnClickListener {
-            findNavController().navigate(
-                ProductDetailsFragmentDirections.actionProductDetailsFragmentToSearchFragment(),
-                NavOption.navOptions
-            )
-        }
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "DefaultLocale")
     private fun getProductDetails() {
-        val products = args.product
-        view?.let {
-            Glide.with(it)
-                .load(products.thumbnail)
-                .into(binding.imvProductImage)
-        }
+        val productsId = args.product.id
+        productDetailsViewModel.fetchProductDetails(productsId!!)
 
-        binding.txvProductBrand.text = "Brand: " + products.brand
-        binding.txvProductName.text = products.title
-        binding.txvProductPrice.text = "$"+ products.price.toString()+" USD"
-        binding.txvProduceDescription.text = products.description
-        binding.txvProductRating.text = String.format("%.1f", products.rating)
-        binding.txvStockStatus.text = products.availabilityStatus
+        lifecycleScope.launchWhenCreated {
+            productDetailsViewModel.state.collectLatest { state ->
+                when(state) {
+                    is Resource.Success -> {
+                        binding.progressBarLoading.visibility = View.GONE
 
-        binding.txvReview.setOnClickListener {
-            productReview()
+                        val product = state.data
+
+                        view?.let {
+                            Glide.with(requireContext())
+                                .load(product?.thumbnail)
+                                .into(binding.imvProductImage)
+                        }
+                        binding.txvProductBrand.text = "Brand: " + product?.brand
+                        binding.txvProductName.text = product?.title
+                        binding.txvProductPrice.text = "$"+ product?.price.toString()+" USD"
+                        binding.txvProduceDescription.text = product?.description
+                        binding.txvProductRating.text = String.format("%.1f", product?.rating)
+                        binding.txvStockStatus.text = product?.availabilityStatus
+
+                        binding.txvReview.setOnClickListener {
+                            productReview()
+                        }
+
+                    }
+                    is Resource.Error-> {
+                        binding.progressBarLoading.visibility = View.GONE
+                        Toast.makeText(requireContext(), state.message ?: "Something went wrong", Toast.LENGTH_SHORT).show()
+                    }
+                    is Resource.Loading -> {
+                        binding.progressBarLoading.visibility = View.VISIBLE
+                    }
+                }
+            }
         }
     }
 
@@ -171,6 +190,28 @@ class ProductDetailsFragment : Fragment() {
         binding.rcvSimilarProducts.apply {
             adapter = pagingAdapter
             layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
+        }
+    }
+
+    private fun setToSeeAllSimilarProducts() {
+        binding.tvSeemore.setOnClickListener {
+            when(args.product.category?.lowercase()) {
+                "beauty" -> findNavController().navigate(ProductDetailsFragmentDirections.actionProductDetailsFragmentToBeautyFragment())
+                "fashion" -> findNavController().navigate(ProductDetailsFragmentDirections.actionProductDetailsFragmentToFashionFragment())
+                "furniture" -> findNavController().navigate(ProductDetailsFragmentDirections.actionProductDetailsFragmentToFurnitureFragment())
+                "fragrances" -> findNavController().navigate(ProductDetailsFragmentDirections.actionProductDetailsFragmentToFragrancesFragment())
+                "groceries" -> findNavController().navigate(ProductDetailsFragmentDirections.actionProductDetailsFragmentToGroceriesFragment())
+                "laptops" -> findNavController().navigate(ProductDetailsFragmentDirections.actionProductDetailsFragmentToLaptopFragment())
+                "smart-phones" -> findNavController().navigate(ProductDetailsFragmentDirections.actionProductDetailsFragmentToSmartPhoneFragment())
+                "womens-watches" -> findNavController().navigate(ProductDetailsFragmentDirections.actionProductDetailsFragmentToWatchFragment())
+                "mens-watches" -> findNavController().navigate(ProductDetailsFragmentDirections.actionProductDetailsFragmentToWatchFragment())
+                "mobile-accessories" -> findNavController().navigate(ProductDetailsFragmentDirections.actionProductDetailsFragmentToMobileAccessoryFragment())
+                "kitchen-accessories" -> findNavController().navigate(ProductDetailsFragmentDirections.actionProductDetailsFragmentToKitchenAccessoriesFragment())
+                "sports-accessories" -> findNavController().navigate(ProductDetailsFragmentDirections.actionProductDetailsFragmentToSportAccessoriesFragment())
+                "sunglasses" -> findNavController().navigate(ProductDetailsFragmentDirections.actionProductDetailsFragmentToSunglassesFragment())
+                "vehicle" -> findNavController().navigate(ProductDetailsFragmentDirections.actionProductDetailsFragmentToVehicleFragment())
+                "motorcycle" -> findNavController().navigate(ProductDetailsFragmentDirections.actionProductDetailsFragmentToVehicleFragment())
+            }
         }
     }
 

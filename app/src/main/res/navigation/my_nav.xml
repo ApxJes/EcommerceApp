@@ -127,6 +127,9 @@
         <action
             android:id="@+id/action_accountFragment_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
+        <action
+            android:id="@+id/action_accountFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/productDetailsFragment"
@@ -145,6 +148,49 @@
         <action
             android:id="@+id/action_productDetailsFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_productDetailsFragment_to_groceriesFragment"
+            app:destination="@id/groceriesFragment" />
+        <action
+            android:id="@+id/action_productDetailsFragment_to_beautyFragment"
+            app:destination="@id/beautyFragment" />
+        <action
+            android:id="@+id/action_productDetailsFragment_to_fashionFragment"
+            app:destination="@id/fashionFragment" />
+        <action
+            android:id="@+id/action_productDetailsFragment_to_furnitureFragment"
+            app:destination="@id/furnitureFragment" />
+        <action
+            android:id="@+id/action_productDetailsFragment_to_fragrancesFragment"
+            app:destination="@id/fragrancesFragment" />
+        <action
+            android:id="@+id/action_productDetailsFragment_to_sportAccessoriesFragment"
+            app:destination="@id/sportAccessoriesFragment" />
+        <action
+            android:id="@+id/action_productDetailsFragment_to_recommendProductsFragment"
+            app:destination="@id/recommendProductsFragment" />
+        <action
+            android:id="@+id/action_productDetailsFragment_to_laptopFragment"
+            app:destination="@id/laptopFragment" />
+        <action
+            android:id="@+id/action_productDetailsFragment_to_smartPhoneFragment"
+            app:destination="@id/smartPhoneFragment" />
+        <action
+            android:id="@+id/action_productDetailsFragment_to_mobileAccessoryFragment"
+            app:destination="@id/mobileAccessoryFragment" />
+        <action
+            android:id="@+id/action_productDetailsFragment_to_vehicleFragment"
+            app:destination="@id/vehicleFragment" />
+        <action
+            android:id="@+id/action_productDetailsFragment_to_watchFragment"
+            app:destination="@id/watchFragment" />
+        <action
+            android:id="@+id/action_productDetailsFragment_to_sunglassesFragment"
+            app:destination="@id/sunglassesFragment" />
+        <action
+            android:id="@+id/action_productDetailsFragment_to_kitchenAccessoriesFragment"
+            app:destination="@id/kitchenAccessoriesFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/fashionFragment"

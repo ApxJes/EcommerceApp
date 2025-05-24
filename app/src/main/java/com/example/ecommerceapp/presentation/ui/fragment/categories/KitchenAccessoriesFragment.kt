@@ -56,6 +56,12 @@ class KitchenAccessoriesFragment : Fragment() {
             requireActivity().supportFragmentManager.popBackStack()
         }
 
+        pagingAdapter.addLoadStateListener { loadState ->
+            _binding?.let { binding ->
+                binding.progressBarLoading.isVisible = loadState.source.refresh is LoadState.Loading
+            }
+        }
+
         pagingAdapter.setOnClickListener {
             findNavController().navigate(
                 KitchenAccessoriesFragmentDirections.actionKitchenAccessoriesFragmentToProductDetailsFragment(it)
@@ -69,9 +75,6 @@ class KitchenAccessoriesFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.categoryPagingData.collectLatest {
-                    pagingAdapter.addLoadStateListener { loadState ->
-                        binding.progressBarLoading.isVisible = loadState.source.refresh is LoadState.Loading
-                    }
                     pagingAdapter.submitData(it)
                 }
             }
@@ -101,11 +104,6 @@ class KitchenAccessoriesFragment : Fragment() {
 
     private fun navigateToSearchFragment() {
         binding.btnSearchBox.setOnClickListener {
-            val action = KitchenAccessoriesFragmentDirections.actionKitchenAccessoriesFragmentToSearchFragment()
-            findNavController().navigate(action, NavOption.navOptions)
-        }
-
-        binding.tvSearch.setOnClickListener {
             val action = KitchenAccessoriesFragmentDirections.actionKitchenAccessoriesFragmentToSearchFragment()
             findNavController().navigate(action, NavOption.navOptions)
         }

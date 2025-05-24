@@ -53,7 +53,6 @@ class RemoteProductsViewModel @Inject constructor(
 
     val getAllAvailableProducts: Flow<PagingData<ProductVo>> =
             getProductsUseCase()
-                .buffer()
                 .cachedIn(viewModelScope)
 
     val popularProducts: Flow<PagingData<ProductVo>> =

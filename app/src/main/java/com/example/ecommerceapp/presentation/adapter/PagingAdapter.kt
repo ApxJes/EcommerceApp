@@ -2,27 +2,34 @@ package com.example.ecommerceapp.presentation.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.ecommerceapp.R
+import com.example.ecommerceapp.databinding.ItemLayoutBinding
 import com.example.ecommerceapp.domain.model.ProductVo
 
 class PagingAdapter :
     PagingDataAdapter<ProductVo, PagingAdapter.ProductsViewHolder>(ProductDiffCallback()) {
 
+    private var onClick: ((ProductVo) -> Unit)? = null
+    fun setOnClickListener(listener: (ProductVo) -> Unit) {
+        onClick = listener
+    }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): ProductsViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_layout, parent, false)
-        return ProductsViewHolder(view)
+        val binding = ItemLayoutBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return ProductsViewHolder(binding)
     }
 
     @SuppressLint("SetTextI18n", "DefaultLocale")
@@ -32,32 +39,26 @@ class PagingAdapter :
     ) {
         val product = getItem(position) ?: return
 
-        holder.apply {
-            Glide.with(itemView.context)
+        holder.binding.apply {
+            Glide.with(root.context)
                 .load(product.thumbnail)
-                .into(productImage)
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(imvProductImage)
 
-            productName.text = product.title
-            productPrice.text = "$"+ product.price.toString()
-            productRating.text = String.format("%.1f", product.rating)
+            txvProductName.text = product.title
+            txvProductPrize.text = "$${product.price}"
+            txvRating.text = String.format("%.1f", product.rating)
 
-            itemView.setOnClickListener {
+            root.setOnClickListener {
                 onClick?.invoke(product)
             }
         }
     }
 
-    private var onClick: ((ProductVo) -> Unit)? = null
-    fun setOnClickListener(listener: (ProductVo) -> Unit) {
-        onClick = listener
-    }
-
-    inner class ProductsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val productImage: ImageView = itemView.findViewById(R.id.imvProductImage)
-        val productName: TextView = itemView.findViewById(R.id.txvProductName)
-        val productPrice: TextView = itemView.findViewById(R.id.txvProductPrize)
-        val productRating: TextView = itemView.findViewById(R.id.txvRating)
-    }
+    inner class ProductsViewHolder(val binding: ItemLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     class ProductDiffCallback : DiffUtil.ItemCallback<ProductVo>() {
         override fun areItemsTheSame(oldItem: ProductVo, newItem: ProductVo): Boolean {

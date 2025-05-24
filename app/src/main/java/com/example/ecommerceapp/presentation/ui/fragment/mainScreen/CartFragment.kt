@@ -74,6 +74,14 @@ class CartFragment : Fragment() {
             binding.txvDeliveryFee.text = "$${deliveryFees}"
             binding.txvTotalPrice.text = "$"+ String.format("%.2f", totalPrice)
 
+            if(it.isEmpty()) {
+                binding.emptyLayout.visibility = View.VISIBLE
+                binding.rcvCart.visibility = View.GONE
+            } else {
+                binding.emptyLayout.visibility = View.GONE
+                binding.rcvCart.visibility = View.VISIBLE
+            }
+
         }.launchIn(viewLifecycleOwner.lifecycleScope)
 
         binding.btnCheckOut.setOnClickListener {

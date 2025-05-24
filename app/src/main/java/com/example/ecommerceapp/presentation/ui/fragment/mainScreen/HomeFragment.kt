@@ -74,6 +74,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun getAvailableProducts() {
+        viewModel.getSomeProducts()
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.getSomeProducts.collectLatest { productsList ->
@@ -150,7 +151,7 @@ class HomeFragment : Fragment() {
     private fun setUserProfilePictureAndName() {
         val user = auth.currentUser
         user?.let {
-            binding.txvUserName.text = it.displayName ?: "Guest"
+            binding.txvUserName.text = it.displayName ?: "Unknown"
 
             if(it.photoUrl != null) {
                 try {

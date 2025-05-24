@@ -54,6 +54,11 @@ class MobileAccessoryFragment : Fragment() {
         binding.imvBack.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
+        pagingAdapter.addLoadStateListener { loadState ->
+            _binding?.let { binding ->
+                binding.progressBarLoading.isVisible = loadState.source.refresh is LoadState.Loading
+            }
+        }
 
         pagingAdapter.setOnClickListener {
             findNavController().navigate(
@@ -68,9 +73,6 @@ class MobileAccessoryFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.categoryPagingData.collectLatest {
-                    pagingAdapter.addLoadStateListener { loadState ->
-                        binding.progressBarLoading.isVisible = loadState.source.refresh is LoadState.Loading
-                    }
                     pagingAdapter.submitData(it)
                 }
             }
@@ -104,10 +106,6 @@ class MobileAccessoryFragment : Fragment() {
             findNavController().navigate(action, NavOption.navOptions)
         }
 
-        binding.tvSearch.setOnClickListener {
-            val action = MobileAccessoryFragmentDirections.actionMobileAccessoryFragmentToSearchFragment()
-            findNavController().navigate(action, NavOption.navOptions)
-        }
     }
 
     override fun onDestroyView() {
