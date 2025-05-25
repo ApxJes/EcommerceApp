@@ -11,6 +11,6 @@ class GetAllProductsUseCase @Inject constructor(
 ){
 
     operator fun invoke(): Flow<PagingData<ProductVo>>{
-        return repository.getAllProducts()
+        return repository.getAllProducts().flow
     }
 }

@@ -11,10 +11,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.ecommerceapp.R
 import com.example.ecommerceapp.databinding.FragmentRecommendProductsBinding
 import com.example.ecommerceapp.presentation.adapter.PagingAdapter
-import com.example.ecommerceapp.presentation.viewMdoel.RemoteProductsViewModel
+import com.example.ecommerceapp.presentation.viewMdoel.remote.RecommendedProductsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -25,7 +24,7 @@ class RecommendProductsFragment : Fragment() {
     private var _binding: FragmentRecommendProductsBinding? = null
     private val binding get() = _binding!!
     private lateinit var pagingAdapter: PagingAdapter
-    private val viewModel: RemoteProductsViewModel by viewModels()
+    private val viewModel: RecommendedProductsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,7 +62,7 @@ class RecommendProductsFragment : Fragment() {
     private fun fetchRecommendProducts() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.recommendProducts.collectLatest {
+                viewModel.recommendedProducts.collectLatest {
                     pagingAdapter.submitData(it)
                 }
             }

@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ecommerceapp.R
 import com.example.ecommerceapp.databinding.FragmentSaveBinding
 import com.example.ecommerceapp.presentation.adapter.ProductsAdapter
-import com.example.ecommerceapp.presentation.viewMdoel.LocalProductsViewModel
+import com.example.ecommerceapp.presentation.viewMdoel.local.LocalProductsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -14,7 +13,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.interfaces.ItemClickListener
@@ -23,7 +21,7 @@ import com.example.ecommerceapp.R
 import com.example.ecommerceapp.core.NavOption
 import com.example.ecommerceapp.databinding.FragmentHomeBinding
 import com.example.ecommerceapp.presentation.adapter.ProductsAdapter
-import com.example.ecommerceapp.presentation.viewMdoel.RemoteProductsViewModel
+import com.example.ecommerceapp.presentation.viewMdoel.remote.SomeProductsViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -34,7 +32,7 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: RemoteProductsViewModel by viewModels()
+    private val viewModel: SomeProductsViewModel by viewModels()
     private lateinit var auth: FirebaseAuth
 
     private lateinit var productsAdapter: ProductsAdapter
@@ -74,7 +72,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun getAvailableProducts() {
-        viewModel.getSomeProducts()
+        viewModel.fetchSomeProducts()
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.getSomeProducts.collectLatest { productsList ->
@@ -92,7 +90,7 @@ class HomeFragment : Fragment() {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.event.collect { event ->
                     when(event) {
-                        is RemoteProductsViewModel.UiEvent.ToastMessage -> {
+                        is SomeProductsViewModel.UiEvent.ToastMessage -> {
                             Toast.makeText(
                                 requireContext(),
                                 event.message,

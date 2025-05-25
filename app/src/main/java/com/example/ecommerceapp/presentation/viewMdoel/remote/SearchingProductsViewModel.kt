@@ -1,4 +1,4 @@
-package com.example.ecommerceapp.presentation.viewMdoel
+package com.example.ecommerceapp.presentation.viewMdoel.remote
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,7 +18,8 @@ class SearchingProductsViewModel @Inject constructor(
     private val searchingProductsUseCase: SearchingProductsUseCase
 ): ViewModel() {
 
-    private val _searchResult = MutableStateFlow<PagingData<ProductVo>>(PagingData.empty())
+    private val _searchResult =
+        MutableStateFlow<PagingData<ProductVo>>(PagingData.Companion.empty())
     val searchResult = _searchResult.asStateFlow()
 
     fun searchingProducts(query: String) {

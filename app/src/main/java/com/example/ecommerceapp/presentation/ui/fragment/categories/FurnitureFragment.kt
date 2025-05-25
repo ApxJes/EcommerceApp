@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -15,8 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ecommerceapp.core.NavOption
 import com.example.ecommerceapp.databinding.FragmentFurnitureBinding
 import com.example.ecommerceapp.presentation.adapter.PagingAdapter
-import com.example.ecommerceapp.presentation.ui.fragment.mainScreen.HomeFragmentDirections
-import com.example.ecommerceapp.presentation.viewMdoel.RemoteProductsViewModel
+import com.example.ecommerceapp.presentation.viewMdoel.remote.CategoryProductsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -26,7 +24,7 @@ class FurnitureFragment : Fragment() {
 
     private var _binding: FragmentFurnitureBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: RemoteProductsViewModel by viewModels()
+    private val viewModel: CategoryProductsViewModel by viewModels()
     private lateinit var furnitureAdapter: PagingAdapter
 
     override fun onCreateView(
@@ -77,20 +75,6 @@ class FurnitureFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.categoryPagingData.collectLatest {
                 furnitureAdapter.submitData(it)
-            }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.event.collect { event ->
-                when (event) {
-                    is RemoteProductsViewModel.UiEvent.ToastMessage -> {
-                        Toast.makeText(
-                            requireContext(),
-                            event.message,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
             }
         }
     }

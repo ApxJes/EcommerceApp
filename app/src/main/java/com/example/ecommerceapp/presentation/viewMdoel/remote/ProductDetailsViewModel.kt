@@ -1,4 +1,4 @@
-package com.example.ecommerceapp.presentation.viewMdoel
+package com.example.ecommerceapp.presentation.viewMdoel.remote
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

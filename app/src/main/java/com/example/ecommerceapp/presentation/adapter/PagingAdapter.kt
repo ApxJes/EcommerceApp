@@ -38,27 +38,32 @@ class PagingAdapter :
         position: Int
     ) {
         val product = getItem(position) ?: return
+        holder.bind(product)
+    }
 
-        holder.binding.apply {
-            Glide.with(root.context)
-                .load(product.thumbnail)
-                .placeholder(R.drawable.placeholder)
-                .error(R.drawable.placeholder)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(imvProductImage)
+    inner class ProductsViewHolder(private val binding: ItemLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-            txvProductName.text = product.title
-            txvProductPrize.text = "$${product.price}"
-            txvRating.text = String.format("%.1f", product.rating)
+        @SuppressLint("SetTextI18n", "DefaultLocale")
+        fun bind(product: ProductVo) {
+            with(binding) {
+                Glide.with(root.context)
+                    .load(product.thumbnail)
+                    .placeholder(R.drawable.placeholder)
+                    .error(R.drawable.placeholder)
+                    .centerCrop()
+                    .into(imvProductImage)
 
-            root.setOnClickListener {
-                onClick?.invoke(product)
+                txvProductName.text = product.title
+                txvProductPrize.text = "$${product.price}"
+                txvRating.text = String.format("%.1f", product.rating)
+
+                root.setOnClickListener {
+                    onClick?.invoke(product)
+                }
             }
         }
     }
-
-    inner class ProductsViewHolder(val binding: ItemLayoutBinding) :
-        RecyclerView.ViewHolder(binding.root)
 
     class ProductDiffCallback : DiffUtil.ItemCallback<ProductVo>() {
         override fun areItemsTheSame(oldItem: ProductVo, newItem: ProductVo): Boolean {

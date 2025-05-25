@@ -11,7 +11,7 @@ interface ProductsRepository {
 
     suspend fun getSomeProducts(): ItemsDto
 
-    fun getAllProducts(): Flow<PagingData<ProductVo>>
+    fun getAllProducts(): Pager<Int, ProductVo>
 
     suspend fun getProductDetailsById(id: Int): ProductVo
 

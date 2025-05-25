@@ -4,44 +4,41 @@
     android:layout_width="167dp"
     android:layout_height="wrap_content"
     android:elevation="2dp"
-    android:layout_marginEnd="4dp"
-    android:layout_marginBottom="4dp"
     app:cardCornerRadius="12dp"
+    android:layout_margin="4dp"
     app:cardBackgroundColor="@android:color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="8dp"
-        android:background="@color/white">
+        android:padding="8dp">
 
-        <androidx.cardview.widget.CardView
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="160dp"
-            app:cardCornerRadius="8dp"
-            app:cardBackgroundColor="@android:color/white">
+            android:layout_height="140dp"
+            android:background="@drawable/bg_image_placeholder"
+            android:clipToOutline="true">
 
             <ImageView
                 android:id="@+id/imvProductImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/fan"
                 android:contentDescription="Product Image" />
-        </androidx.cardview.widget.CardView>
+        </FrameLayout>
 
         <TextView
             android:id="@+id/txvProductName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:fontFamily="@font/supreme_regular"
-            android:ellipsize="end"
             android:maxLines="2"
-            android:textColor="@color/black"
+            android:ellipsize="end"
+            android:fontFamily="@font/supreme_regular"
             android:text="Portable Neck Fan Hands Free Fan"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/txvProductPrize"
@@ -50,8 +47,8 @@
             android:layout_marginTop="4dp"
             android:fontFamily="@font/space_grotesk_bold"
             android:text="$20.0"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textColor="@color/black" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -72,10 +69,9 @@
                 android:layout_marginStart="4dp"
                 android:fontFamily="@font/space_grotesk_bold"
                 android:text="4.0"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:textColor="@color/black" />
         </LinearLayout>
-
     </LinearLayout>
 </androidx.cardview.widget.CardView>
 

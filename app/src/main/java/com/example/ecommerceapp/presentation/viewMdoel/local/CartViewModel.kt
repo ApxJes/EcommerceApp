@@ -1,4 +1,4 @@
-package com.example.ecommerceapp.presentation.viewMdoel
+package com.example.ecommerceapp.presentation.viewMdoel.local
 
 import androidx.lifecycle.ViewModel
 import com.example.ecommerceapp.domain.model.ProductVo

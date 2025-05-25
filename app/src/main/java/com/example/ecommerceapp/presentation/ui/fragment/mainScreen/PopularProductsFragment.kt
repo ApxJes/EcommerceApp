@@ -11,12 +11,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.ecommerceapp.R
 import com.example.ecommerceapp.databinding.FragmentPopularProductsBinding
 import com.example.ecommerceapp.presentation.adapter.PagingAdapter
-import com.example.ecommerceapp.presentation.viewMdoel.RemoteProductsViewModel
+import com.example.ecommerceapp.presentation.viewMdoel.remote.PopularProductsViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.buffer
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -26,7 +24,7 @@ class PopularProductsFragment : Fragment() {
     private var _binding: FragmentPopularProductsBinding? = null
     private val binding get() = _binding!!
     private lateinit var pagaingAdapter: PagingAdapter
-    private val viewModel: RemoteProductsViewModel by viewModels()
+    private val viewModel: PopularProductsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,

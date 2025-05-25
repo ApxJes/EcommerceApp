@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ecommerceapp.R
 import com.example.ecommerceapp.databinding.FragmentCartBinding
 import com.example.ecommerceapp.presentation.adapter.CartAdapter
-import com.example.ecommerceapp.presentation.viewMdoel.CartViewModel
+import com.example.ecommerceapp.presentation.viewMdoel.local.CartViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

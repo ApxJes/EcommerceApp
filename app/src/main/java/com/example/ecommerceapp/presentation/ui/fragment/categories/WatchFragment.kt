@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -17,7 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ecommerceapp.core.NavOption
 import com.example.ecommerceapp.databinding.FragmentWatchBinding
 import com.example.ecommerceapp.presentation.adapter.PagingAdapter
-import com.example.ecommerceapp.presentation.viewMdoel.RemoteProductsViewModel
+import com.example.ecommerceapp.presentation.viewMdoel.remote.CategoryProductsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -26,7 +25,7 @@ import kotlinx.coroutines.launch
 class WatchFragment : Fragment() {
     private var _binding: FragmentWatchBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: RemoteProductsViewModel by viewModels()
+    private val viewModel: CategoryProductsViewModel by viewModels()
     private lateinit var pagingAdapter: PagingAdapter
 
     override fun onCreateView(
@@ -68,26 +67,12 @@ class WatchFragment : Fragment() {
     }
 
     private fun fetchWatches() {
-        viewModel.getProductsByCategory(category = listOf("womens-watches", "mens-watches"))
+        viewModel.getProductsByCategory(categories = listOf("womens-watches", "mens-watches"))
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.categoryPagingData.collectLatest {
                     pagingAdapter.submitData(it)
-                }
-            }
-
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewModel.event.collect { event ->
-                    when (event) {
-                        is RemoteProductsViewModel.UiEvent.ToastMessage -> {
-                            Toast.makeText(
-                                requireContext(),
-                                event.message,
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
                 }
             }
         }

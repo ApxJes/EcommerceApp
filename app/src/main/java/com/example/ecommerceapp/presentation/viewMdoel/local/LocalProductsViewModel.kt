@@ -1,4 +1,4 @@
-package com.example.ecommerceapp.presentation.viewMdoel
+package com.example.ecommerceapp.presentation.viewMdoel.local
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -20,7 +20,7 @@ class LocalProductsViewModel @Inject constructor(
 ): ViewModel(){
 
     private val _saveProducts = getProductsUseCase()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+        .stateIn(viewModelScope, SharingStarted.Companion.WhileSubscribed(5000), emptyList())
     val state get() = _saveProducts
 
     fun toggleProductSave(product: ProductVo) {

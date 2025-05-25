@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -15,8 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ecommerceapp.core.NavOption
 import com.example.ecommerceapp.databinding.FragmentBeautyBinding
 import com.example.ecommerceapp.presentation.adapter.PagingAdapter
-import com.example.ecommerceapp.presentation.ui.fragment.mainScreen.HomeFragmentDirections
-import com.example.ecommerceapp.presentation.viewMdoel.RemoteProductsViewModel
+import com.example.ecommerceapp.presentation.viewMdoel.remote.CategoryProductsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -26,7 +24,7 @@ import kotlin.getValue
 class BeautyFragment : Fragment() {
     private var _binding: FragmentBeautyBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: RemoteProductsViewModel by viewModels()
+    private val viewModel: CategoryProductsViewModel by viewModels()
     private lateinit var beautyAdapter: PagingAdapter
 
     override fun onCreateView(
@@ -53,7 +51,7 @@ class BeautyFragment : Fragment() {
             "beauty", "skin-care"
         )
 
-        viewModel.getProductsByCategory(category = beautyCategories)
+        viewModel.getProductsByCategory(categories = beautyCategories)
 
         binding.imvBack.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
@@ -77,20 +75,6 @@ class BeautyFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.categoryPagingData.collectLatest {
                 beautyAdapter.submitData(it)
-            }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.event.collect { event ->
-                when (event) {
-                    is RemoteProductsViewModel.UiEvent.ToastMessage -> {
-                        Toast.makeText(
-                            requireContext(),
-                            event.message,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
             }
         }
     }

@@ -12,22 +12,19 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.ecommerceapp.R
-import com.example.ecommerceapp.core.NavOption
 import com.example.ecommerceapp.core.Resource
 import com.example.ecommerceapp.databinding.FragmentProductDetailsBinding
 import com.example.ecommerceapp.domain.model.ReviewVo
 import com.example.ecommerceapp.presentation.adapter.PagingAdapter
-import com.example.ecommerceapp.presentation.adapter.ProductImagesAdapter
-import com.example.ecommerceapp.presentation.viewMdoel.CartViewModel
-import com.example.ecommerceapp.presentation.viewMdoel.LocalProductsViewModel
-import com.example.ecommerceapp.presentation.viewMdoel.ProductDetailsViewModel
-import com.example.ecommerceapp.presentation.viewMdoel.RemoteProductsViewModel
+import com.example.ecommerceapp.presentation.viewMdoel.local.CartViewModel
+import com.example.ecommerceapp.presentation.viewMdoel.local.LocalProductsViewModel
+import com.example.ecommerceapp.presentation.viewMdoel.remote.ProductDetailsViewModel
+import com.example.ecommerceapp.presentation.viewMdoel.remote.CategoryProductsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -41,7 +38,7 @@ class ProductDetailsFragment : Fragment() {
     private val args: ProductDetailsFragmentArgs by navArgs()
     private val viewModel: LocalProductsViewModel by viewModels()
     private val cartViewModel: CartViewModel by activityViewModels()
-    private val remoteViewModel: RemoteProductsViewModel by viewModels()
+    private val remoteViewModel: CategoryProductsViewModel by viewModels()
     private val productDetailsViewModel: ProductDetailsViewModel by viewModels()
     private lateinit var pagingAdapter: PagingAdapter
 
@@ -198,7 +195,14 @@ class ProductDetailsFragment : Fragment() {
             when(args.product.category?.lowercase()) {
                 "beauty" -> findNavController().navigate(ProductDetailsFragmentDirections.actionProductDetailsFragmentToBeautyFragment())
                 "fashion" -> findNavController().navigate(ProductDetailsFragmentDirections.actionProductDetailsFragmentToFashionFragment())
+                "mens-shirts" -> findNavController().navigate(ProductDetailsFragmentDirections.actionProductDetailsFragmentToFashionFragment())
+                "mens-shoes" -> findNavController().navigate(ProductDetailsFragmentDirections.actionProductDetailsFragmentToFashionFragment())
+                "tops" -> findNavController().navigate(ProductDetailsFragmentDirections.actionProductDetailsFragmentToFashionFragment())
+                "womens-dresses" -> findNavController().navigate(ProductDetailsFragmentDirections.actionProductDetailsFragmentToFashionFragment())
+                "womens-bags" -> findNavController().navigate(ProductDetailsFragmentDirections.actionProductDetailsFragmentToFashionFragment())
+                "womens-shoes" -> findNavController().navigate(ProductDetailsFragmentDirections.actionProductDetailsFragmentToFashionFragment())
                 "furniture" -> findNavController().navigate(ProductDetailsFragmentDirections.actionProductDetailsFragmentToFurnitureFragment())
+                "home-decoration" -> findNavController().navigate(ProductDetailsFragmentDirections.actionProductDetailsFragmentToFurnitureFragment())
                 "fragrances" -> findNavController().navigate(ProductDetailsFragmentDirections.actionProductDetailsFragmentToFragrancesFragment())
                 "groceries" -> findNavController().navigate(ProductDetailsFragmentDirections.actionProductDetailsFragmentToGroceriesFragment())
                 "laptops" -> findNavController().navigate(ProductDetailsFragmentDirections.actionProductDetailsFragmentToLaptopFragment())

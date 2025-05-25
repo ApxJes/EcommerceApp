@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ecommerceapp.R
 import com.example.ecommerceapp.databinding.FragmentAccountBinding
 import com.example.ecommerceapp.presentation.adapter.ProductsAdapter
-import com.example.ecommerceapp.presentation.viewMdoel.LocalProductsViewModel
+import com.example.ecommerceapp.presentation.viewMdoel.local.LocalProductsViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest

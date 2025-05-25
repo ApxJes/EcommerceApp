@@ -28,15 +28,16 @@ class ProductsRepositoryImpl @Inject constructor(
         return api.getSomeProducts()
     }
 
-    override fun getAllProducts(): Flow<PagingData<ProductVo>> {
+    override fun getAllProducts(): Pager<Int, ProductVo> {
         return Pager(
             PagingConfig(
-                pageSize = 1,
-                enablePlaceholders = false
+                pageSize = 20,
+                enablePlaceholders = false,
+                initialLoadSize = 20,
+                prefetchDistance = 1
             ),
-
             pagingSourceFactory = { ProductPagingSource(api) }
-        ).flow
+        )
     }
 
     override suspend fun getProductDetailsById(id: Int): ProductVo {
