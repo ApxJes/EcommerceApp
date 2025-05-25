@@ -61,7 +61,7 @@
     <LinearLayout
         android:id="@+id/imvEdit"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
         android:layout_marginTop="28dp"
         android:orientation="horizontal"
         android:padding="6dp"
@@ -106,15 +106,63 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/btnLogout"
+        android:id="@+id/btnAboutMe"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="10dp"
         android:orientation="horizontal"
         android:padding="6dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imvEdit"
+        android:layout_marginTop="10dp">
+
+        <FrameLayout
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:background="@drawable/category_bg">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:background="@drawable/fav_bg"
+                android:src="@drawable/developer"
+                app:tint="#323135" />
+
+        </FrameLayout>
+
+        <View
+            android:layout_width="25dp"
+            android:layout_height="0dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="@font/supreme_regular"
+            android:text="About Me"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btnLogout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        android:padding="6dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnAboutMe"
         android:layout_marginTop="10dp">
 
         <FrameLayout
@@ -152,6 +200,5 @@
             android:layout_weight="1"/>
 
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

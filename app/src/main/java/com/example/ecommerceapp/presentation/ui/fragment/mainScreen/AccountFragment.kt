@@ -84,6 +84,12 @@ class AccountFragment : Fragment() {
         }
     }
 
+    private fun setAboutMe() {
+        binding.btnAboutMe.setOnClickListener {
+            findNavController().navigate(AccountFragmentDirections.actionAccountFragmentToAboutMeFragment())
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

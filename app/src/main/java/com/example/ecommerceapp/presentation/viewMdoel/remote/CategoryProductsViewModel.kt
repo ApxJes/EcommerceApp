@@ -1,5 +1,6 @@
 package com.example.ecommerceapp.presentation.viewMdoel.remote
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -21,12 +22,20 @@ class CategoryProductsViewModel @Inject constructor(
     private val _categoryPagingData = MutableStateFlow<PagingData<ProductVo>>(PagingData.empty())
     val categoryPagingData = _categoryPagingData.asStateFlow()
 
+    private var isLoadedPage = false
+
     fun getProductsByCategory(categories: List<String>) {
+        if(isLoadedPage) {
+            Log.d("CategoryVM", "Already called skip api calling")
+            return
+        }
+
         viewModelScope.launch {
             getProductsByCategoryUseCase(categories)
                 .cachedIn(viewModelScope)
                 .collectLatest { pagingData ->
                     _categoryPagingData.value = pagingData
+                    isLoadedPage = true
                 }
         }
     }

@@ -27,15 +27,19 @@
     </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNav"
-        android:layout_width="match_parent"
-        android:layout_height="75dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@color/white"
-        app:itemIconTint="@color/nav_icon_color"
-        app:itemTextColor="@color/nav_icon_color"
-        app:menu="@menu/bottom_menu" />
+    android:id="@+id/bottomNav"
+    android:layout_width="0dp"
+    android:layout_height="70dp"
+    android:background="@color/white"
+    app:elevation="8dp"
+    app:itemIconTint="@color/nav_icon_color"
+    app:itemTextColor="@color/nav_icon_color"
+    app:itemIconSize="25dp"
+    app:menu="@menu/bottom_menu"
+    app:labelVisibilityMode="selected"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

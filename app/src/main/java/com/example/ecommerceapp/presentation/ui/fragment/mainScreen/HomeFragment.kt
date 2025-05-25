@@ -69,6 +69,18 @@ class HomeFragment : Fragment() {
             val action = HomeFragmentDirections.actionHomeFragmentToProductDetailsFragment(product)
             findNavController().navigate(action, NavOption.navOptions)
         }
+
+        binding.imvProfile.setOnClickListener {
+            findNavController().navigate(
+                HomeFragmentDirections.actionHomeFragmentToAccountFragment()
+            )
+        }
+
+        binding.txvUserName.setOnClickListener {
+            findNavController().navigate(
+                HomeFragmentDirections.actionHomeFragmentToAccountFragment()
+            )
+        }
     }
 
     private fun getAvailableProducts() {

@@ -27,4 +27,5 @@
     <string name="save_text1">To add an products to your favorite, simply click the favorite button.</string>
     <string name="cart_text">To add an products to your cart, simply click the cart button.</string>
 
+    <string name="aboutMe">I started learning native Android development in the first week of January 2024. First, I learned Python for six months to understand programming basics. Then, I studied Java for three months to gain a deeper understanding of OOP concepts. Later, I began learning Android development with Kotlin, and I\'m still enjoying it a lot.</string>
 </resources>
