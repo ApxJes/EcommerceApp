@@ -1,20 +1,23 @@
 package com.example.ecommerceapp.presentation.ui.fragment.categories
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ecommerceapp.core.NavOption
 import com.example.ecommerceapp.databinding.FragmentWatchBinding
+import com.example.ecommerceapp.domain.model.ProductVo
 import com.example.ecommerceapp.presentation.adapter.PagingAdapter
 import com.example.ecommerceapp.presentation.viewMdoel.remote.CategoryProductsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,7 +49,6 @@ class WatchFragment : Fragment() {
         pagingAdapter = PagingAdapter()
 
         setWatchRecyclerView()
-        fetchWatches()
         navigateToSearchFragment()
 
         binding.imvBack.setOnClickListener {
@@ -64,6 +66,8 @@ class WatchFragment : Fragment() {
                 WatchFragmentDirections.actionWatchFragmentToProductDetailsFragment(it)
             )
         }
+
+        fetchWatches()
     }
 
     private fun fetchWatches() {
@@ -71,8 +75,8 @@ class WatchFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.categoryPagingData.collectLatest {
-                    pagingAdapter.submitData(it)
+                viewModel.categoryPagingData.collectLatest { pagingData ->
+                    pagingAdapter.submitData(pagingData)
                 }
             }
         }

@@ -49,12 +49,15 @@ class AccountFragment : Fragment() {
 
         setUserProfilePictureAndName()
         setLogout()
+        setAboutMe()
 
         binding.imvEdit.setOnClickListener {
             val action = AccountFragmentDirections
                 .actionAccountFragmentToEditAccountFragment()
             findNavController().navigate(action)
         }
+
+        binding.appVersion.text = getAppVersion()
     }
 
     private fun setUserProfilePictureAndName() {
@@ -80,13 +83,29 @@ class AccountFragment : Fragment() {
         binding.btnLogout.setOnClickListener {
             auth.signOut()
 
-            findNavController().navigate(AccountFragmentDirections.actionAccountFragmentToLoginFragment())
+            findNavController().navigate(
+                AccountFragmentDirections.actionAccountFragmentToLoginFragment(),
+                NavOptions.Builder()
+                    .setPopUpTo(R.id.my_nav, true)
+                    .build()
+            )
+
         }
     }
+
 
     private fun setAboutMe() {
         binding.btnAboutMe.setOnClickListener {
             findNavController().navigate(AccountFragmentDirections.actionAccountFragmentToAboutMeFragment())
+        }
+    }
+
+    private fun getAppVersion(): String {
+        return try {
+            val packageInfo = requireContext().packageManager.getPackageInfo(requireContext().packageName, 0)
+            packageInfo.versionName ?: "N/A"
+        } catch (e: Exception) {
+            "N/A"
         }
     }
 

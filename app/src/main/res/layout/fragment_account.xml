@@ -65,6 +65,7 @@
         android:layout_marginTop="28dp"
         android:orientation="horizontal"
         android:padding="6dp"
+        android:background="@drawable/category_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -112,6 +113,7 @@
         android:layout_marginBottom="10dp"
         android:orientation="horizontal"
         android:padding="6dp"
+        android:background="@drawable/category_bg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imvEdit"
@@ -142,7 +144,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:fontFamily="@font/supreme_regular"
-            android:text="About Me"
+            android:text="About Developer"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -160,6 +162,7 @@
         android:layout_marginBottom="10dp"
         android:orientation="horizontal"
         android:padding="6dp"
+        android:background="@drawable/category_bg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnAboutMe"
@@ -198,6 +201,66 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btnVersion"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        android:padding="6dp"
+        android:background="@drawable/category_bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnLogout"
+        android:layout_marginTop="10dp">
+
+        <FrameLayout
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:background="@drawable/category_bg">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:background="@drawable/fav_bg"
+                android:src="@drawable/version"
+                app:tint="#323135" />
+
+        </FrameLayout>
+
+        <View
+            android:layout_width="25dp"
+            android:layout_height="0dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="@font/supreme_regular"
+            android:text="Version"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/appVersion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="@font/switzer_bold"
+            android:text="0.0"
+            android:layout_marginEnd="12dp"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
 
     </LinearLayout>
 

@@ -13,13 +13,4 @@ data class ItemsDto(
     val skip: Int?,
     @SerializedName("total")
     val total: Int?
-) {
-    fun toItem(): ItemVo {
-        return ItemVo(
-            limit = limit,
-            produce = products!!.map { it!!.toProduct() },
-            skip = skip,
-            total = total
-        )
-    }
-}
+)

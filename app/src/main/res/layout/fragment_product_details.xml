@@ -130,7 +130,7 @@
                         android:paddingTop="8dp"
                         android:paddingEnd="12dp"
                         android:paddingBottom="8dp"
-                        android:text="Brand: Remax"
+                        android:text="Brand"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
 
@@ -144,7 +144,7 @@
                         android:ellipsize="end"
                         android:fontFamily="@font/space_grotesk_bold"
                         android:maxLines="2"
-                        android:text="$20 USD"
+                        android:text="$0 USD"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
 
@@ -175,7 +175,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:fontFamily="@font/worksans_regular"
-                            android:text="In stock"
+                            android:text=""
                             android:textColor="@color/primaryColor"
                             android:textSize="14sp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -209,7 +209,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/worksans_regular"
-                            android:text="4.0"
+                            android:text="0.0"
                             android:textColor="@color/black"
                             android:textSize="14sp" />
 
@@ -246,7 +246,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Description goes here. This text is limited to 10 lines and will ellipsize if it exceeds."
+                android:text=""
                 android:textSize="15sp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/supreme_regular"

@@ -22,21 +22,21 @@ class CategoryProductsViewModel @Inject constructor(
     private val _categoryPagingData = MutableStateFlow<PagingData<ProductVo>>(PagingData.empty())
     val categoryPagingData = _categoryPagingData.asStateFlow()
 
-    private var isLoadedPage = false
+    private var isAlreadyLoaded = false
 
     fun getProductsByCategory(categories: List<String>) {
-        if(isLoadedPage) {
-            Log.d("CategoryVM", "Already called skip api calling")
+        if(isAlreadyLoaded) {
+            Log.d("CategoryVM", "Already called api")
             return
         }
-
         viewModelScope.launch {
             getProductsByCategoryUseCase(categories)
                 .cachedIn(viewModelScope)
                 .collectLatest { pagingData ->
                     _categoryPagingData.value = pagingData
-                    isLoadedPage = true
+                    isAlreadyLoaded = true
                 }
         }
     }
 }
+

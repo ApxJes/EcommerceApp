@@ -23,8 +23,8 @@ import com.example.ecommerceapp.domain.model.ReviewVo
 import com.example.ecommerceapp.presentation.adapter.PagingAdapter
 import com.example.ecommerceapp.presentation.viewMdoel.local.CartViewModel
 import com.example.ecommerceapp.presentation.viewMdoel.local.LocalProductsViewModel
-import com.example.ecommerceapp.presentation.viewMdoel.remote.ProductDetailsViewModel
 import com.example.ecommerceapp.presentation.viewMdoel.remote.CategoryProductsViewModel
+import com.example.ecommerceapp.presentation.viewMdoel.remote.ProductDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -73,7 +73,7 @@ class ProductDetailsFragment : Fragment() {
         binding.imvBack.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
-
+        
         binding.imvFavorite.setOnClickListener {
             val isSaved = viewModel.isProductSaved(args.product)
             viewModel.toggleProductSave(args.product)
@@ -106,7 +106,8 @@ class ProductDetailsFragment : Fragment() {
                                 .load(product?.thumbnail)
                                 .into(binding.imvProductImage)
                         }
-                        binding.txvProductBrand.text = "Brand: " + product?.brand
+                        binding.txvProductBrand.text =
+                            if (product?.brand != null) "Brand: " + product.brand else "Brand: Unknown"
                         binding.txvProductName.text = product?.title
                         binding.txvProductPrice.text = "$"+ product?.price.toString()+" USD"
                         binding.txvProduceDescription.text = product?.description

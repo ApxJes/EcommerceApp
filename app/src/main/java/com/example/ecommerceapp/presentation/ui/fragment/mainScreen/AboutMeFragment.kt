@@ -44,7 +44,7 @@ class AboutMeFragment : Fragment() {
 
         binding.imvPhone.setOnClickListener {
             Intent(Intent.ACTION_DIAL).also {intent ->
-                intent.data = Uri.parse("tel: 0979530762")
+                intent.data = Uri.parse("tel: 09759090762")
                 startActivity(intent)
             }
         }
@@ -54,6 +54,10 @@ class AboutMeFragment : Fragment() {
                 it.data = Uri.parse("https://github.com/ApxJes")
                 startActivity(it)
             }
+        }
+
+        binding.imvBack.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
         }
     }
 
